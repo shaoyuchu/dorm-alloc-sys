@@ -66,88 +66,192 @@ class Home extends StatelessWidget {
 
       // app bar
       appBar: AppBar(
-        title: Text('臺大宿舍抽籤系統'),
+        title: Text(
+          '臺大宿舍抽籤系統',
+          style: TextStyle(
+            fontSize: 28.0,
+            color: Colors.white,
+          ),
+        ),
         centerTitle: false,
         backgroundColor: Colors.indigo[700],
+        elevation: 0.0,
       ),
 
       // body
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body: 
+      Column(
         children: <Widget>[
-          // left panel
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // left-up
-              Container(
-                color: Colors.indigo[100],
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                child: FlatButton.icon(
-                  onPressed: () {
-                    print('left-up button clicked');
-                  },
-                  icon: Icon(
-                    Icons.cloud_upload,
-                    color: Colors.indigo[50],
-                  ),
-                  label: Text(
-                    'Import',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  color: Colors.indigo,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                ),
-              ),
-              // left-down
-              Container(
-                color: Colors.indigo[100],
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                child: FlatButton.icon(
-                  onPressed: () {
-                    print('left-down button clicked');
-                  },
-                  icon: Icon(
-                    Icons.cloud_upload,
-                    color: Colors.indigo[50],
-                  ),
-                  label: Text(
-                    'Import',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  color: Colors.indigo,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          
 
-          // right panel
-          Container(
-            color: Colors.indigo[100],
-            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-            child: FlatButton.icon(
-              onPressed: () {
-                print('right button clicked');
-              },
-              icon: Icon(
-                Icons.cloud_upload,
-                color: Colors.indigo[50],
+          // three main panels
+          Expanded(
+            flex: 15,
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
+                      color: Colors.indigo[50],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          
+                          // left-up panel
+                          Expanded(
+                            child: Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    '匯入學生資料',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24.0,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        '尚未選擇檔案',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 10.0,
+                                        ),
+                                      ),
+                                      FlatButton.icon(
+                                        onPressed: () {
+                                          print('left-up button clicked');
+                                        },
+                                        icon: Icon(
+                                          Icons.cloud_upload,
+                                          color: Colors.indigo[50],
+                                        ),
+                                        label: Text(
+                                          '選擇檔案',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        color: Colors.indigo,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          
+                          // left-down panel
+                          Expanded(
+                            child: Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    '匯入床位資料',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24.0,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        '尚未選擇檔案',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 10.0,
+                                        ),
+                                      ),
+                                      FlatButton.icon(
+                                        onPressed: () {
+                                          print('left-down button clicked');
+                                        },
+                                        icon: Icon(
+                                          Icons.cloud_upload,
+                                          color: Colors.indigo[50],
+                                        ),
+                                        label: Text(
+                                          '選擇檔案',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        color: Colors.indigo,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  // right panel
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
+                      color: Colors.indigo[50],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+
+                          Text(
+                            '選擇身份別優先序',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24.0,
+                            ),
+                          ),
+
+                          // TODO: add list
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              label: Text(
-                'Import',
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.indigo,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+            ),
+          ),
+
+          // done button
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: FlatButton(
+                onPressed: () {
+                  print('done button clicked');
+                },
+                child: Text(
+                  '完成',
+                  style: TextStyle(color: Colors.white),
+                ),
+                color: Colors.indigo,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
               ),
             ),
           ),
@@ -155,7 +259,6 @@ class Home extends StatelessWidget {
       ),
 
       backgroundColor: Colors.white,
-
     );
   }
 }
