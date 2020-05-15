@@ -64,36 +64,64 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
+      // app bar
       appBar: AppBar(
         title: Text('臺大宿舍抽籤系統'),
         centerTitle: false,
         backgroundColor: Colors.indigo[700],
       ),
+      
+      // body
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          // left panel
+          Container(
+            color: Colors.indigo[100],
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+            child: FlatButton.icon(
+              onPressed: () {
+                print('left button clicked');
+              },
+              icon: Icon(
+                Icons.cloud_upload,
+                color: Colors.indigo[50],
+              ),
+              label: Text(
+                'Import',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: Colors.indigo,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+            ),
+          ),
 
-      body: Center(
-        child: FlatButton.icon(
-          onPressed: () {
-            print('Import button clicked');
-          },
-          // child: Text(
-          //   'Import',
-          //   style: TextStyle(
-          //     color: Colors.white,
-          //   ),
-          // ),
-          icon: Icon(
-            Icons.cloud_upload,
-            color: Colors.indigo[50],
+          // right panel
+          Container(
+            color: Colors.indigo[100],
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+            child: FlatButton.icon(
+              onPressed: () {
+                print('right button clicked');
+              },
+              icon: Icon(
+                Icons.cloud_upload,
+                color: Colors.indigo[50],
+              ),
+              label: Text(
+                'Import',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: Colors.indigo,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+            ),
           ),
-          label: Text(
-            'Import',
-            style: TextStyle(color: Colors.white),
-          ),
-          color: Colors.indigo,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-          ),
-        ),
+        ],
       ),
 
       backgroundColor: Colors.white,
