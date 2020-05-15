@@ -70,34 +70,64 @@ class Home extends StatelessWidget {
         centerTitle: false,
         backgroundColor: Colors.indigo[700],
       ),
-      
+
       // body
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           // left panel
-          Container(
-            color: Colors.indigo[100],
-            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-            child: FlatButton.icon(
-              onPressed: () {
-                print('left button clicked');
-              },
-              icon: Icon(
-                Icons.cloud_upload,
-                color: Colors.indigo[50],
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              // left-up
+              Container(
+                color: Colors.indigo[100],
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                child: FlatButton.icon(
+                  onPressed: () {
+                    print('left-up button clicked');
+                  },
+                  icon: Icon(
+                    Icons.cloud_upload,
+                    color: Colors.indigo[50],
+                  ),
+                  label: Text(
+                    'Import',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: Colors.indigo,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                ),
               ),
-              label: Text(
-                'Import',
-                style: TextStyle(color: Colors.white),
+              // left-down
+              Container(
+                color: Colors.indigo[100],
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                child: FlatButton.icon(
+                  onPressed: () {
+                    print('left-down button clicked');
+                  },
+                  icon: Icon(
+                    Icons.cloud_upload,
+                    color: Colors.indigo[50],
+                  ),
+                  label: Text(
+                    'Import',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: Colors.indigo,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                ),
               ),
-              color: Colors.indigo,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-            ),
+            ],
           ),
+          
 
           // right panel
           Container(
