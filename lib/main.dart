@@ -54,27 +54,50 @@ void main() {
   });
 
   runApp(MaterialApp(
-    home: Scaffold(
+    home: Home(),
+  ));
+  
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
       appBar: AppBar(
         title: Text('臺大宿舍抽籤系統'),
         centerTitle: false,
         backgroundColor: Colors.indigo[700],
       ),
+
       body: Center(
-         child: Text('Add buttons'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Text(
-          'press',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
+        child: FlatButton.icon(
+          onPressed: () {
+            print('Import button clicked');
+          },
+          // child: Text(
+          //   'Import',
+          //   style: TextStyle(
+          //     color: Colors.white,
+          //   ),
+          // ),
+          icon: Icon(
+            Icons.cloud_upload,
+            color: Colors.indigo[50],
+          ),
+          label: Text(
+            'Import',
+            style: TextStyle(color: Colors.white),
+          ),
+          color: Colors.indigo,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
           ),
         ),
-        backgroundColor: Colors.indigo[400],
       ),
+
       backgroundColor: Colors.white,
-    ),
-  ));
+
+    );
+  }
 }
