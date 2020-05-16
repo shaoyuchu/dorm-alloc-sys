@@ -56,3 +56,17 @@ flutter:
           weight: 700
         - asset: fonts/Roboto/Roboto-Black.ttf
           weight: 900
+    - family: Noto_Sans_TC
+      fonts:
+        - asset: fonts/Noto_Sans_TC/NotoSansTC-Thin.otf
+          weight: 100
+        - asset: fonts/Noto_Sans_TC/NotoSansTC-Light.otf
+          weight: 300
+        - asset: fonts/Noto_Sans_TC/NotoSansTC-Regular.otf
+          weight: 400
+        - asset: fonts/Noto_Sans_TC/NotoSansTC-Medium.otf
+          weight: 500
+        - asset: fonts/Noto_Sans_TC/NotoSansTC-Bold.otf
+          weight: 700
+        - asset: fonts/Noto_Sans_TC/NotoSansTC-Black.otf
+          weight: 900

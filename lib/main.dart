@@ -71,6 +71,8 @@ class Home extends StatelessWidget {
           style: TextStyle(
             fontSize: 28.0,
             color: Colors.white,
+            fontFamily: 'Noto_Sans_TC',
+            fontWeight: FontWeight.w500,
           ),
         ),
         centerTitle: false,
@@ -85,7 +87,7 @@ class Home extends StatelessWidget {
 
           // three main panels
           Expanded(
-            flex: 15,
+            flex: 12,
             child: Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -93,8 +95,7 @@ class Home extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
-                      color: Colors.indigo[50],
+                      margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,6 +104,7 @@ class Home extends StatelessWidget {
                           // left-up panel
                           Expanded(
                             child: Container(
+                              color: Colors.indigo[50],
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,8 +113,8 @@ class Home extends StatelessWidget {
                                     '匯入學生資料',
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Noto_Sans_TC',
+                                      fontWeight: FontWeight.w300,
                                       fontSize: 24.0,
                                     ),
                                   ),
@@ -123,8 +125,10 @@ class Home extends StatelessWidget {
                                       Text(
                                         '尚未選擇檔案',
                                         style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 10.0,
+                                          color: Colors.grey[700],
+                                          fontFamily: 'Noto_Sans_TC',
+                                          fontWeight: FontWeight.w100,
+                                          fontSize: 12.0,
                                         ),
                                       ),
                                       FlatButton.icon(
@@ -133,11 +137,16 @@ class Home extends StatelessWidget {
                                         },
                                         icon: Icon(
                                           Icons.cloud_upload,
-                                          color: Colors.indigo[50],
+                                          color: Colors.white,
                                         ),
                                         label: Text(
                                           '選擇檔案',
-                                          style: TextStyle(color: Colors.white),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Noto_Sans_TC',
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 12.0,
+                                          ),
                                         ),
                                         color: Colors.indigo,
                                         shape: RoundedRectangleBorder(
@@ -154,6 +163,7 @@ class Home extends StatelessWidget {
                           // left-down panel
                           Expanded(
                             child: Container(
+                              color: Colors.indigo[100],
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,8 +172,8 @@ class Home extends StatelessWidget {
                                     '匯入床位資料',
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Noto_Sans_TC',
+                                      fontWeight: FontWeight.w300,
                                       fontSize: 24.0,
                                     ),
                                   ),
@@ -174,8 +184,10 @@ class Home extends StatelessWidget {
                                       Text(
                                         '尚未選擇檔案',
                                         style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 10.0,
+                                          color: Colors.grey[700],
+                                          fontFamily: 'Noto_Sans_TC',
+                                          fontWeight: FontWeight.w100,
+                                          fontSize: 12.0,
                                         ),
                                       ),
                                       FlatButton.icon(
@@ -184,11 +196,16 @@ class Home extends StatelessWidget {
                                         },
                                         icon: Icon(
                                           Icons.cloud_upload,
-                                          color: Colors.indigo[50],
+                                          color: Colors.white,
                                         ),
                                         label: Text(
                                           '選擇檔案',
-                                          style: TextStyle(color: Colors.white),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Noto_Sans_TC',
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 12.0,
+                                          ),
                                         ),
                                         color: Colors.indigo,
                                         shape: RoundedRectangleBorder(
@@ -210,8 +227,8 @@ class Home extends StatelessWidget {
                   // right panel
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
-                      color: Colors.indigo[50],
+                      margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
+                      color: Colors.indigo[200],
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +238,8 @@ class Home extends StatelessWidget {
                             '選擇身份別優先序',
                             style: TextStyle(
                               color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Noto_Sans_TC',
+                              fontWeight: FontWeight.w300,
                               fontSize: 24.0,
                             ),
                           ),
@@ -240,17 +258,23 @@ class Home extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Container(
+              margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
               child: FlatButton(
                 onPressed: () {
                   print('done button clicked');
                 },
                 child: Text(
                   '完成',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Noto_Sans_TC',
+                    fontWeight: FontWeight.w100,
+                    fontSize: 12.0,
+                  ),
                 ),
                 color: Colors.indigo,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
+                  borderRadius: BorderRadius.circular(50.0),
                 ),
               ),
             ),
