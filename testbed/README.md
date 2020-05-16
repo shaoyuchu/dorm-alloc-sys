@@ -30,3 +30,4 @@ You will also need the X11 headers. For debian-based systems:
 $ sudo apt-get install libx11-dev
 ``` -->
 
+For the main structure, please refer to [testbed/lib/main.dart](https://github.com/shaoyu0966/dorm-alloc-sys/blob/master/testbed/lib/main.dart)
