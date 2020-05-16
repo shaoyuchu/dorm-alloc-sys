@@ -80,207 +80,212 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.indigo[700],
         elevation: 0.0,
       ),
-
+      
       // body
       body: 
-      Column(
-        children: <Widget>[
+      Container(
+        margin: EdgeInsets.symmetric(vertical: 30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
 
-          // three main panels
-          Expanded(
-            flex: 12,
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          
-                          // left-up panel
-                          Expanded(
-                            child: Container(
-                              color: Colors.indigo[50],
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    '匯入學生資料',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Noto_Sans_TC',
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 24.0,
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        '尚未選擇檔案',
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontFamily: 'Noto_Sans_TC',
-                                          fontWeight: FontWeight.w100,
-                                          fontSize: 12.0,
-                                        ),
-                                      ),
-                                      FlatButton.icon(
-                                        onPressed: () {
-                                          print('left-up button clicked');
-                                        },
-                                        icon: Icon(
-                                          Icons.cloud_upload,
-                                          color: Colors.white,
-                                        ),
-                                        label: Text(
-                                          '選擇檔案',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Noto_Sans_TC',
-                                            fontWeight: FontWeight.w100,
-                                            fontSize: 12.0,
-                                          ),
-                                        ),
-                                        color: Colors.indigo,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18.0),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          
-                          // left-down panel
-                          Expanded(
-                            child: Container(
-                              color: Colors.indigo[100],
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    '匯入床位資料',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Noto_Sans_TC',
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 24.0,
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        '尚未選擇檔案',
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontFamily: 'Noto_Sans_TC',
-                                          fontWeight: FontWeight.w100,
-                                          fontSize: 12.0,
-                                        ),
-                                      ),
-                                      FlatButton.icon(
-                                        onPressed: () {
-                                          print('left-down button clicked');
-                                        },
-                                        icon: Icon(
-                                          Icons.cloud_upload,
-                                          color: Colors.white,
-                                        ),
-                                        label: Text(
-                                          '選擇檔案',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Noto_Sans_TC',
-                                            fontWeight: FontWeight.w100,
-                                            fontSize: 12.0,
-                                          ),
-                                        ),
-                                        color: Colors.indigo,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18.0),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-
-                        ],
-                      ),
+            // title
+            Expanded(
+              flex: 2,
+              child: Container(
+                child: Align(
+                  child: Text(
+                    '[ 步驟一 ] 匯入資料',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Noto_Sans_TC',
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24.0,
                     ),
                   ),
-
-                  // right panel
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
-                      color: Colors.indigo[200],
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-
-                          Text(
-                            '選擇身份別優先序',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Noto_Sans_TC',
-                              fontWeight: FontWeight.w300,
-                              fontSize: 24.0,
-                            ),
-                          ),
-
-                          // TODO: add list
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          // done button
-          Expanded(
-            flex: 1,
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
-              child: FlatButton(
-                onPressed: () {
-                  print('done button clicked');
-                },
-                child: Text(
-                  '完成',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Noto_Sans_TC',
-                    fontWeight: FontWeight.w100,
-                    fontSize: 12.0,
-                  ),
-                ),
-                color: Colors.indigo,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50.0),
                 ),
               ),
             ),
-          ),
-        ],
+
+            // two main panels
+            Expanded(
+              flex: 10,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 150.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    
+                    Divider(
+                      height: 5.0,
+                      thickness: 3.0,
+                      color: Colors.grey[300],
+                    ),
+                    
+                    // left-up panel
+                    Expanded(
+                      child: Container(
+                        color: Colors.white,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              '匯入學生資料',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Noto_Sans_TC',
+                                fontWeight: FontWeight.w300,
+                                fontSize: 24.0,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  '尚未選擇檔案',
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontFamily: 'Noto_Sans_TC',
+                                    fontWeight: FontWeight.w100,
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                                FlatButton.icon(
+                                  onPressed: () {
+                                    print('left-up button clicked');
+                                  },
+                                  icon: Icon(
+                                    Icons.cloud_upload,
+                                    color: Colors.white,
+                                  ),
+                                  label: Text(
+                                    '選擇檔案',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Noto_Sans_TC',
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                  color: Colors.indigo,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    Divider(
+                      height: 5.0,
+                      thickness: 1.0,
+                      color: Colors.grey[300],
+                    ),
+                    
+                    // left-down panel
+                    Expanded(
+                      child: Container(
+                        color: Colors.white,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              '匯入床位資料',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Noto_Sans_TC',
+                                fontWeight: FontWeight.w300,
+                                fontSize: 24.0,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  '尚未選擇檔案',
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontFamily: 'Noto_Sans_TC',
+                                    fontWeight: FontWeight.w100,
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                                FlatButton.icon(
+                                  onPressed: () {
+                                    print('left-down button clicked');
+                                  },
+                                  icon: Icon(
+                                    Icons.cloud_upload,
+                                    color: Colors.white,
+                                  ),
+                                  label: Text(
+                                    '選擇檔案',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Noto_Sans_TC',
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                  color: Colors.indigo,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    Divider(
+                      height: 5.0,
+                      thickness: 3.0,
+                      color: Colors.grey[300],
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+
+            // done button
+            Expanded(
+              flex: 2,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 15.0),
+                child: FlatButton(
+                  onPressed: () {
+                    print('done button clicked');
+                  },
+                  child: Text(
+                    '完成',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Noto_Sans_TC',
+                      fontWeight: FontWeight.w100,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                  color: Colors.indigo,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
 
       backgroundColor: Colors.white,
