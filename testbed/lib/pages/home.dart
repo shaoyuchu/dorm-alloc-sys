@@ -14,9 +14,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  String studentDataPath = '尚未選擇檔案';
+  String bedDataPath = '尚未選擇檔案';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
 
       // app bar
@@ -102,25 +107,28 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '尚未選擇檔案',
+                                  '$studentDataPath',
                                   style: TextStyle(
-                                    color: Colors.grey[700],
+                                    color: Colors.grey,
                                     fontFamily: 'Noto_Sans_TC',
-                                    fontWeight: FontWeight.w100,
+                                    fontWeight: FontWeight.w400,
                                     fontSize: 12.0,
                                   ),
                                 ),
                                 FlatButton.icon(
                                   onPressed: () async {
-                                    String initialDirectory;
-                                    if (Platform.isMacOS || Platform.isWindows) {
-                                      initialDirectory = (await getApplicationDocumentsDirectory()).path;
-                                    }
                                     final result = await showOpenPanel(
-                                        allowsMultipleSelection: false,
-                                        initialDirectory: initialDirectory);
-                                    print('result');
-                                    print(result.paths);
+                                      allowsMultipleSelection: false,
+                                      allowedFileTypes: <FileTypeFilterGroup>[
+                                        FileTypeFilterGroup(
+                                          fileExtensions: <String>[ 'xlsx', 'xls', 'csv']
+                                        )
+                                      ]
+                                    );
+                                    // TODO: exception handling
+                                    setState(() {
+                                      studentDataPath = result.paths[0];
+                                    });
                                   },
                                   icon: Icon(
                                     Icons.cloud_upload,
@@ -175,17 +183,28 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '尚未選擇檔案',
+                                  '$bedDataPath',
                                   style: TextStyle(
-                                    color: Colors.grey[700],
+                                    color: Colors.grey,
                                     fontFamily: 'Noto_Sans_TC',
-                                    fontWeight: FontWeight.w100,
+                                    fontWeight: FontWeight.w400,
                                     fontSize: 12.0,
                                   ),
                                 ),
                                 FlatButton.icon(
-                                  onPressed: () {
-                                    print('left-down button clicked');
+                                  onPressed: () async {
+                                    final result = await showOpenPanel(
+                                      allowsMultipleSelection: false,
+                                      allowedFileTypes: <FileTypeFilterGroup>[
+                                        FileTypeFilterGroup(
+                                          fileExtensions: <String>[ 'xlsx', 'xls', 'csv']
+                                        )
+                                      ]
+                                    );
+                                    // TODO: exception handling
+                                    setState(() {
+                                      bedDataPath = result.paths[0];
+                                    });
                                   },
                                   icon: Icon(
                                     Icons.cloud_upload,
@@ -230,9 +249,25 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.symmetric(vertical: 15.0),
                 child: FlatButton(
                 onPressed: () {
-                  // Navigator.pushReplacementNamed(context, '/priority');
-                  Navigator.pushNamed(context, '/priority');
-                  print('done button clicked');
+                  if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
+                    // Navigator.pushReplacementNamed(context, '/priority');
+                    Navigator.pushNamed(context, '/priority');
+                    print('done button clicked');
+                  }
+                  else {
+                    print('file not selected yet');
+                    _scaffoldKey.currentState.showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          '請選擇檔案',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        backgroundColor: Colors.amber[300],
+                      ),
+                    );
+                  }
                 },
                 child: Text(
                   '完成',
