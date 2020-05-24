@@ -1,16 +1,11 @@
 import 'dart:io' show Platform;
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 
-import 'package:color_panel/color_panel.dart';
 import 'package:file_chooser/file_chooser.dart';
-import 'package:menubar/menubar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart' as url_launcher;
-import 'package:window_size/window_size.dart' as window_size;
+import 'file_chooser.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -18,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,10 +110,17 @@ class _HomeState extends State<Home> {
                                     fontSize: 12.0,
                                   ),
                                 ),
-                                // FileChooserTestWidget(),
                                 FlatButton.icon(
-                                  onPressed: () {
-                                    print('left-up button clicked');
+                                  onPressed: () async {
+                                    String initialDirectory;
+                                    if (Platform.isMacOS || Platform.isWindows) {
+                                      initialDirectory = (await getApplicationDocumentsDirectory()).path;
+                                    }
+                                    final result = await showOpenPanel(
+                                        allowsMultipleSelection: false,
+                                        initialDirectory: initialDirectory);
+                                    print('result');
+                                    print(result.paths);
                                   },
                                   icon: Icon(
                                     Icons.cloud_upload,
@@ -226,23 +229,25 @@ class _HomeState extends State<Home> {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 15.0),
                 child: FlatButton(
-                  onPressed: () {
-                    print('done button clicked');
-                  },
-                  child: Text(
-                    '完成',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Noto_Sans_TC',
-                      fontWeight: FontWeight.w100,
-                      fontSize: 12.0,
-                    ),
-                  ),
-                  color: Colors.indigo,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50.0),
+                onPressed: () {
+                  // Navigator.pushReplacementNamed(context, '/priority');
+                  Navigator.pushNamed(context, '/priority');
+                  print('done button clicked');
+                },
+                child: Text(
+                  '完成',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Noto_Sans_TC',
+                    fontWeight: FontWeight.w100,
+                    fontSize: 12.0,
                   ),
                 ),
+                color: Colors.indigo,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                  ),
               ),
             ),
           ],
@@ -253,50 +258,3 @@ class _HomeState extends State<Home> {
   }
 }
 
-/// A widget containing controls to test the file chooser plugin.
-class FileChooserTestWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ButtonBar(
-      alignment: MainAxisAlignment.center,
-      children: <Widget>[
-        new FlatButton(
-          child: const Text('OPEN FILE'),
-          onPressed: () async {
-            final result =
-                await showOpenPanel(allowedFileTypes: <FileTypeFilterGroup>[
-              FileTypeFilterGroup(label: 'Images', fileExtensions: <String>[
-                'csv',
-                'xlsx',
-                'xls',
-              ]),
-              FileTypeFilterGroup(label: 'Video', fileExtensions: <String>[
-                'avi',
-                'mov',
-                'mpeg',
-                'mpg',
-                'webm',
-              ]),
-            ]);
-            Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text(_resultTextForFileChooserOperation(
-                    _FileChooserType.open, result))));
-          },
-        ),
-      ],
-    );
-  }
-}
-
-/// Possible file chooser operation types.
-enum _FileChooserType { save, open }
-
-/// Returns display text reflecting the result of a file chooser operation.
-String _resultTextForFileChooserOperation(
-    _FileChooserType type, FileChooserResult result) {
-  if (result.canceled) {
-    return '${type == _FileChooserType.open ? 'Open' : 'Save'} cancelled';
-  }
-  final typeString = type == _FileChooserType.open ? 'opening' : 'saving';
-  return 'Selected for $typeString: ${result.paths.join('\n')}';
-}

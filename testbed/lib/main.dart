@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:io' show Platform;
+// import 'dart:js';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -27,9 +28,11 @@ import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:window_size/window_size.dart' as window_size;
 
 import 'pages/home.dart';
+import 'pages/priority.dart';
+import 'pages/result.dart';
 
 // The shared_preferences key for the testbed's color.
-const _prefKeyColor = 'color';
+// const _prefKeyColor = 'color';
 
 void main() {
   // Try to resize and reposition the window to be half the width and height
@@ -55,6 +58,10 @@ void main() {
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Home(),
+    routes: {
+      '/': (context) => Home(),
+      '/priority': (context) => Priority(),
+      '/result': (context) => Result(),
+    },
   ));
 }

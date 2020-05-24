@@ -21,6 +21,7 @@ dependencies:
     path: ../plugins/color_panel
   file_chooser:
     path: ../plugins/file_chooser
+  file_picker: ^1.9.0+1
   menubar:
     path: ../plugins/menubar
   window_size:
