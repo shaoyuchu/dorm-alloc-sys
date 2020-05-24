@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import random
 import math
+import argparse
 
 #self-defined
 from Student import Student
@@ -14,8 +15,6 @@ all_room_types_symbol = sorted(list(PREFERENCE_DICT.values()))
 
 seed = 30
 random.seed(seed)
-ROOMNUM = 100
-STUDENTNUM = ROOMNUM * 4
 
 dataFrame_col = ['ID','pref_1', 'pref_2', 'pref_3','nationality']
 
@@ -97,148 +96,97 @@ def student_by_nation_by_preference_df(df, gender, sortedNations):
     return df_3d
     
 
-#gen data
-all_students_data = random_gen_studentData()
 
-#initiate objects
-room_quota = get_room_type_quota(all_students_data)
-print((room_quota))
-all_rooms_objs = df2object_rooms(ROOMNUM, room_quota)
-all_students_objs = df2object_student(all_students_data, 1)
+if __name__ == '__main__':
+    desc = 'matching international students'
+    parser = argparse.ArgumentParser(description=desc)
+    parser.add_argument('-n', help='number of rooms', default='100')
+    args = parser.parse_args()
+    ROOMNUM = int(args.n)
+    STUDENTNUM = ROOMNUM * 4
+    #gen data
+    all_students_data = random_gen_studentData()
+
+    #initiate objects
+    room_quota = get_room_type_quota(all_students_data)
+    print((room_quota))
+    all_rooms_objs = df2object_rooms(ROOMNUM, room_quota)
+    all_students_objs = df2object_student(all_students_data, 1)
 
 
-sortedNations = get_country_by_pop(all_students_data)
-print(sortedNations)
+    sortedNations = get_country_by_pop(all_students_data)
+    print(sortedNations)
 
 
-student_by_nation_df = student_by_nation_by_preference_df(all_students_data, 1, sortedNations)
-print(student_by_nation_df.head())
+    student_by_nation_df = student_by_nation_by_preference_df(all_students_data, 1, sortedNations)
+    print(student_by_nation_df.head())
 
-for room in all_rooms_objs:
-    print("matching Room:{}, Type:{}".format(room.getNum(), room.getType()))
-    room_type = room.getType()
-    priority = 0
-    nation_index = 0
-    picked_nation = set()
-
-    while (priority<3):
+    for room in all_rooms_objs:
+        print("matching Room:{}, Type:{}".format(room.getNum(), room.getType()))
+        room_type = room.getType()
+        priority = 0
         nation_index = 0
-        while (nation_index < len(sortedNations)):
-            nation = sortedNations[nation_index][0]
-            nationgroup = student_by_nation_df[nation]
-            for student in nationgroup:
-                # print(student)
-                # print(type(room_type),type(student.getPref(priority)))
-                # print(student.isArranged())
-                if(pd.notnull(student)):
-                    if ( student.getPref(priority) == room_type and not student.isArranged()):
-                        room.addDweller(student)
-                        student.setArranged(True)
-                        picked_nation.add(nation)
-                        print("success arrange one student!")
-                        break
-            
-            nation_index+=1
-            if (nation_index >= len(sortedNations)):
-                break
-            if (room.isFull()):
-                break
-            #say three nationalities have been added, we have to look for the one that hasn't been added
-            while(sortedNations[nation_index][0] in picked_nation):
-                nation_index+=1
-                if (nation_index >= len(sortedNations)):
-                    break  
+        picked_nation = set()
 
-        if (room.isFull()):
-                break
+        while (priority<3):
+            nation_index = 0
+            while (nation_index < len(sortedNations)):
+                nation = sortedNations[nation_index][0]
+                nationgroup = student_by_nation_df[nation]
+                for student in nationgroup:
+                    # print(student)
+                    # print(type(room_type),type(student.getPref(priority)))
+                    # print(student.isArranged())
+                    if(pd.notnull(student)):
+                        if ( student.getPref(priority) == room_type and not student.isArranged()):
+                            room.addDweller(student)
+                            student.setArranged(True)
+                            picked_nation.add(nation)
+                            print("success arrange one student!")
+                            break
                 
-        
-        #if no one has that type as first priority, look for students' second priorities
-        priority+=1
-
-    #say three nationalities have been added, we have to look for the one that hasn't been added
-    if (not room.isFull()):
-        nation_index = 0
-        while (nation_index < len(sortedNations)):
-            nation = sortedNations[nation_index][0]
-            nationgroup = student_by_nation_df[nation]
-            for student in nationgroup:
-                #doens't have to match room type
-                if(pd.notnull(student)):
-                    if (not student.isArranged()):
-                        room.addDweller(student)
-                        student.setArranged(True)
-                        picked_nation.add(nation)
-                        print("success arrange one student!")
-                        break
-
-            
-            nation_index+=1
-            if (nation_index >= len(sortedNations)):
-                break
-            if (room.isFull()):
-                break
-            while(sortedNations[nation_index][0] in picked_nation):
                 nation_index+=1
                 if (nation_index >= len(sortedNations)):
-                    break  
+                    break
+                if (room.isFull()):
+                    break
+                #say three nationalities have been added, we have to look for the one that hasn't been added
+                while(sortedNations[nation_index][0] in picked_nation):
+                    nation_index+=1
+                    if (nation_index >= len(sortedNations)):
+                        break  
 
-    for dweller in room.getDweller():
-        print(dweller)
+            if (room.isFull()):
+                    break
+                    
+            
+            #if no one has that type as first priority, look for students' second priorities
+            priority+=1
 
+        #say three nationalities have been added, we have to look for the one that hasn't been added
+        if (not room.isFull()):
+            nation_index = 0
+            while (nation_index < len(sortedNations)):
+                nation = sortedNations[nation_index][0]
+                nationgroup = student_by_nation_df[nation]
+                for student in nationgroup:
+                    #doens't have to match room type
+                    if(pd.notnull(student)):
+                        if (not student.isArranged()):
+                            room.addDweller(student)
+                            student.setArranged(True)
+                            picked_nation.add(nation)
+                            print("success arrange one student!")
+                            break
+                nation_index+=1
+                if (nation_index >= len(sortedNations)):
+                    break
+                if (room.isFull()):
+                    break
+                while(sortedNations[nation_index][0] in picked_nation):
+                    nation_index+=1
+                    if (nation_index >= len(sortedNations)):
+                        break  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#first choice, second choice, third choice, not my choice
-cost_table = [1, 5, 10, 100]
-# all_rooms = [ [room_type+"_"+str(i) for room_type in all_room_types] for i in range(4) ]
-
-# def compute_cost_matrix(students):
-#     cost_matrix = []
-#     for i in range(len(students)):
-#         prefs_lis = list(students.iloc[i][1:4])
-#         #init a student's cost_lis with no matching costs
-#         cost_lis = [cost_table[3] for i in range(len(all_room_types_symbol))]
-#         for j in range(len(prefs_lis)):
-#             if prefs_lis[j] == all_room_types_symbol[0]:
-#                 cost_lis[0] = cost_table[j]
-#             elif prefs_lis[j] == all_room_types_symbol[1]:
-#                 cost_lis[1] = cost_table[j]
-#             elif prefs_lis[j] == all_room_types_symbol[2]:
-#                 cost_lis[2] = cost_table[j]
-#             elif prefs_lis[j] == all_room_types_symbol[3]:
-#                 cost_lis[3] = cost_table[j]
-#             elif prefs_lis[j] == all_room_types_symbol[4]:
-#                 cost_lis[4] = cost_table[j]
-#             elif prefs_lis[j] == all_room_types_symbol[5]:
-#                 cost_lis[5] = cost_table[j]
-#         cost_matrix.append(cost_lis)
-#     return cost_matrix
-
-
-# m = Munkres()
-
-# cost_matrix = compute_cost_matrix(students)
-# indexes = m.compute(cost_matrix)
-# print_matrix(cost_matrix, msg='Lowest cost through this matrix:')
-# total = 0
-# for row, column in indexes:
-#     value = cost_matrix[row][column]
-#     total += value
-#     print ("(%d, %d) -> %d"%(row, column, value))
-# print ("total cost: %d"% (total))
+        for dweller in room.getDweller():
+            print(dweller)
