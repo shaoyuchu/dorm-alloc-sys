@@ -125,9 +125,10 @@ class _HomeState extends State<Home> {
                                         )
                                       ]
                                     );
-                                    // TODO: exception handling
                                     setState(() {
-                                      studentDataPath = result.paths[0];
+                                      if(result.paths.isNotEmpty) {
+                                        studentDataPath = result.paths[0];
+                                      }
                                     });
                                   },
                                   icon: Icon(
@@ -201,9 +202,10 @@ class _HomeState extends State<Home> {
                                         )
                                       ]
                                     );
-                                    // TODO: exception handling
                                     setState(() {
-                                      bedDataPath = result.paths[0];
+                                      if(result.paths.isNotEmpty) {
+                                        bedDataPath = result.paths[0];
+                                      }
                                     });
                                   },
                                   icon: Icon(
@@ -258,11 +260,23 @@ class _HomeState extends State<Home> {
                     print('file not selected yet');
                     _scaffoldKey.currentState.showSnackBar(
                       SnackBar(
-                        content: Text(
-                          '請選擇檔案',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                        content: Row(
+                          children: [
+                            Icon(
+                              Icons.error_outline,
+                              color: Colors.black,
+                            ),
+                            SizedBox(width: 10.0,),
+                            Text(
+                              '請選擇檔案',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Noto_Sans_TC',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13.0,
+                              ),
+                            ),
+                          ]
                         ),
                         backgroundColor: Colors.amber[300],
                       ),
