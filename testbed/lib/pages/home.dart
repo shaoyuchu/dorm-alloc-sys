@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
             Expanded(
               flex: 2,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 150.0),
+                padding: EdgeInsets.symmetric(horizontal: 120.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
             Expanded(
               flex: 10,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 150.0),
+                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 120.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,7 +248,7 @@ class _HomeState extends State<Home> {
             Expanded(
               flex: 2,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
+                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 120.0),
                 child: FlatButton(
                 onPressed: () {
                   if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
