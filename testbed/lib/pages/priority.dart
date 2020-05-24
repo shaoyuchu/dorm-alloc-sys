@@ -27,6 +27,7 @@ class _PriorityState extends State<Priority> {
     '低收入戶',
     '中低收入戶',
   ];
+  List<String> identitySelected = [];
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +97,31 @@ class _PriorityState extends State<Priority> {
                           itemBuilder: (context, index) {
                             return Card(
                               child: ListTile(
-                                onTap: () {},
-                                title: Text(identityPool[index]),
+                                // onTap: () {},
+                                title: Text(
+                                  identityPool[index],
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Noto_Sans_TC',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                                trailing: IconButton(
+                                  icon: Icon(Icons.add),
+                                  iconSize: 18.0,
+                                  color: identitySelected.contains(identityPool[index])? Colors.grey[300] : Colors.grey[600],
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  // hoverColor: Colors.transparent,
+                                  onPressed: () {
+                                    if(identitySelected.contains(identityPool[index]) == false) {
+                                      setState(() {
+                                        identitySelected.add(identityPool[index]);
+                                      });
+                                    }
+                                  },
+                                )
                               ),
                             );
                           },
@@ -111,11 +135,52 @@ class _PriorityState extends State<Priority> {
                     ),
 
                     // selected and ordered identities
-                    // TODO: JSON list of list
+                    // TODO: send JSON list of list to backend
                     Expanded(
                       flex: 5,
                       child: Container(
                         color: Colors.grey,
+                        child: ListView.builder(
+                          itemCount: identitySelected.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              child: ListTile(
+                                // onTap: () {},
+                                leading: Text(
+                                  '${index+1}',
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontFamily: 'Noto_Sans_TC',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                                title: Text(
+                                  identitySelected[index],
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Noto_Sans_TC',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                                trailing: IconButton(
+                                  icon: Icon(Icons.remove),
+                                  iconSize: 18.0,
+                                  color: Colors.grey[600],
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  // hoverColor: Colors.transparent,
+                                  onPressed: () {
+                                    setState(() {
+                                      identitySelected.removeAt(index);
+                                    });
+                                  },
+                                )
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -142,7 +207,7 @@ class _PriorityState extends State<Priority> {
                         color: Colors.white,
                         fontFamily: 'Noto_Sans_TC',
                         fontWeight: FontWeight.w100,
-                        fontSize: 12.0,
+                        fontSize: 14.0,
                       ),
                     ),
                     color: Colors.indigo,
