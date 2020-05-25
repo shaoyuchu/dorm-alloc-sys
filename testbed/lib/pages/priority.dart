@@ -54,6 +54,7 @@ class _PriorityState extends State<Priority> {
       body: 
       Container(
         margin: EdgeInsets.symmetric(vertical: 30.0),
+        padding: EdgeInsets.symmetric(horizontal: 120.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +64,7 @@ class _PriorityState extends State<Priority> {
             Expanded(
               flex: 2,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 120.0),
+                // padding: EdgeInsets.symmetric(horizontal: 120.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -83,7 +84,7 @@ class _PriorityState extends State<Priority> {
             Expanded(
               flex: 10,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 120.0),
+                // padding: EdgeInsets.symmetric(horizontal: 120.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -91,7 +92,7 @@ class _PriorityState extends State<Priority> {
                     Expanded(
                       flex: 5,
                       child: Container(
-                        color: Colors.grey,
+                        color: Colors.grey[300],
                         child: ListView.builder(
                           itemCount: identityPool.length,
                           itemBuilder: (context, index) {
@@ -113,7 +114,8 @@ class _PriorityState extends State<Priority> {
                                   color: identitySelected.contains(identityPool[index])? Colors.grey[300] : Colors.grey[600],
                                   splashColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
-                                  // hoverColor: Colors.transparent,
+                                  tooltip: identitySelected.contains(identityPool[index])? null : '新增',
+                                  hoverColor: Colors.transparent,
                                   onPressed: () {
                                     if(identitySelected.contains(identityPool[index]) == false) {
                                       setState(() {
@@ -139,7 +141,7 @@ class _PriorityState extends State<Priority> {
                     Expanded(
                       flex: 5,
                       child: Container(
-                        color: Colors.grey,
+                        color: Colors.grey[300],
                         child: ListView.builder(
                           itemCount: identitySelected.length,
                           itemBuilder: (context, index) {
@@ -164,18 +166,59 @@ class _PriorityState extends State<Priority> {
                                     fontSize: 15.0,
                                   ),
                                 ),
-                                trailing: IconButton(
-                                  icon: Icon(Icons.remove),
-                                  iconSize: 18.0,
-                                  color: Colors.grey[600],
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  // hoverColor: Colors.transparent,
-                                  onPressed: () {
-                                    setState(() {
-                                      identitySelected.removeAt(index);
-                                    });
-                                  },
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(Icons.arrow_upward),
+                                      iconSize: 18.0,
+                                      color: Colors.grey[600],
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      tooltip: '向上移一層',
+                                      onPressed: () {
+                                        setState(() {
+                                          if(index > 0) {
+                                            final toMove = identitySelected.removeAt(index);
+                                            identitySelected.insert(index-1, toMove);
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.arrow_downward),
+                                      iconSize: 18.0,
+                                      color: Colors.grey[600],
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      tooltip: '向下移一層',
+                                      onPressed: () {
+                                        setState(() {
+                                          if(index < identitySelected.length-1) {
+                                            final toMove = identitySelected.removeAt(index);
+                                            identitySelected.insert(index+1, toMove);
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.remove),
+                                      iconSize: 18.0,
+                                      color: Colors.grey[600],
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      tooltip: '移除',
+                                      onPressed: () {
+                                        setState(() {
+                                          identitySelected.removeAt(index);
+                                        });
+                                      },
+                                    ),
+                                  ],
                                 )
                               ),
                             );
@@ -192,7 +235,7 @@ class _PriorityState extends State<Priority> {
             Expanded(
               flex: 2,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 120.0),
+                padding: EdgeInsets.symmetric(vertical: 15.0),
                 child: ButtonTheme(
                     height: 5.0,
                     child: FlatButton(

@@ -111,7 +111,7 @@ class _HomeState extends State<Home> {
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontFamily: 'Noto_Sans_TC',
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w300,
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -120,9 +120,7 @@ class _HomeState extends State<Home> {
                                     final result = await showOpenPanel(
                                       allowsMultipleSelection: false,
                                       allowedFileTypes: <FileTypeFilterGroup>[
-                                        FileTypeFilterGroup(
-                                          fileExtensions: <String>[ 'xlsx', 'xls', 'csv']
-                                        )
+                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls', 'csv'])
                                       ]
                                     );
                                     setState(() {
@@ -188,7 +186,7 @@ class _HomeState extends State<Home> {
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontFamily: 'Noto_Sans_TC',
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w300,
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -197,9 +195,7 @@ class _HomeState extends State<Home> {
                                     final result = await showOpenPanel(
                                       allowsMultipleSelection: false,
                                       allowedFileTypes: <FileTypeFilterGroup>[
-                                        FileTypeFilterGroup(
-                                          fileExtensions: <String>[ 'xlsx', 'xls', 'csv']
-                                        )
+                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls', 'csv'])
                                       ]
                                     );
                                     setState(() {
@@ -254,10 +250,8 @@ class _HomeState extends State<Home> {
                   if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
                     // Navigator.pushReplacementNamed(context, '/priority');
                     Navigator.pushNamed(context, '/priority');
-                    print('done button clicked');
                   }
                   else {
-                    print('file not selected yet');
                     _scaffoldKey.currentState.showSnackBar(
                       SnackBar(
                         content: Row(
