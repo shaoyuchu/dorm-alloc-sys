@@ -44,6 +44,9 @@ class Room:
     def isFull(self):
         return len(self.dwellers)==4
 
+    def getMemberNum(self):
+        return len(self.dwellers)
+
     def __getitem__(self, key):
         if(len(self.dwellers)==0):
             return IndexError
