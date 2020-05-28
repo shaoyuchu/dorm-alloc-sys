@@ -10,9 +10,10 @@ class Student:
         self.gender = gender
         #room number
         self.room = -1
-        #bed
+        #bed ABCD
         self.bed = ''
         self.arranged = False
+        
     def getPref(self, priority):
         return self.preferences[priority]
 

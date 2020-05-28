@@ -104,20 +104,23 @@ if __name__ == '__main__':
     args = parser.parse_args()
     ROOMNUM = int(args.n)
     STUDENTNUM = ROOMNUM * 4
-    #gen data
+    
+    #gen data frame
     all_students_data = random_gen_studentData()
 
     #initiate objects
     room_quota = get_room_type_quota(all_students_data)
     print((room_quota))
+    #create objects
     all_rooms_objs = df2object_rooms(ROOMNUM, room_quota)
+     
     all_students_objs = df2object_student(all_students_data, 1)
 
 
     sortedNations = get_country_by_pop(all_students_data)
     print(sortedNations)
 
-
+    #TODo: read students objects 
     student_by_nation_df = student_by_nation_by_preference_df(all_students_data, 1, sortedNations)
     print(student_by_nation_df.head())
 
@@ -151,6 +154,7 @@ if __name__ == '__main__':
                 if (room.isFull()):
                     break
                 #say three nationalities have been added, we have to look for the one that hasn't been added
+                #放在上免檢查
                 while(sortedNations[nation_index][0] in picked_nation):
                     nation_index+=1
                     if (nation_index >= len(sortedNations)):
@@ -183,10 +187,12 @@ if __name__ == '__main__':
                     break
                 if (room.isFull()):
                     break
+                
+                #放在上免檢查
                 while(sortedNations[nation_index][0] in picked_nation):
                     nation_index+=1
                     if (nation_index >= len(sortedNations)):
                         break  
-
+        #不管國級直接放進房間
         for dweller in room.getDweller():
             print(dweller)

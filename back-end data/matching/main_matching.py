@@ -33,6 +33,15 @@ preferenceArray = ["I", "H", "E"," C", "S","G"]
 #   r = Room(gender, room_num)
 #   Rooms.append(r)
 
+#input
+#2 DataFrame
+#男生：
+# ID, gender, 校內外意願, 區域志願1, 區域志願2, 區域志願3, 永久地址（國籍）, id_index(身障身==1)
+#女生: 
+
+#output
+# ID, 宿舍, 床位
+
 #分性別
 females, males = separateGender(All_students)
 #分本地跟國際生
