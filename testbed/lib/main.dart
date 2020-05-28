@@ -31,12 +31,19 @@ import 'pages/home.dart';
 import 'pages/priority.dart';
 import 'pages/result.dart';
 
+import 'constant.dart';
+import 'pages/testData.dart';
 // The shared_preferences key for the testbed's color.
 // const _prefKeyColor = 'color';
 
 void main() {
   // Try to resize and reposition the window to be half the width and height
   // of its screen, centered horizontally and shifted up from center.
+  print('-----------------------------');
+  print(dataColumnNames.length);
+  print('-----------------------------');
+  print(testRow.length);
+
   WidgetsFlutterBinding.ensureInitialized();
   window_size.getWindowInfo().then((window) {
     if (window.screen != null) {
