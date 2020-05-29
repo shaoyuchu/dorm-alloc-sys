@@ -7,6 +7,20 @@ import 'package:file_chooser/file_chooser.dart';
 import 'package:path_provider/path_provider.dart';
 import 'file_chooser.dart';
 
+/// Given a relative path, extract its file name and truncate it into a displayable length (maxLen) if required.
+String truncateToDisplay(String path) {
+  if(path == '尚未選擇檔案')
+    return path;
+  
+  var result = path.split('/').last;
+  const maxLen = 25;
+  if(result.length > maxLen) {
+    result = result.substring(0, maxLen-4);
+    result += '...';
+  }
+  return result;
+}
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -107,7 +121,7 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '$studentDataPath',
+                                  '${truncateToDisplay(studentDataPath)}',
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontFamily: 'Noto_Sans_TC',
@@ -182,7 +196,7 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '$bedDataPath',
+                                  '${truncateToDisplay(bedDataPath)}',
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontFamily: 'Noto_Sans_TC',
