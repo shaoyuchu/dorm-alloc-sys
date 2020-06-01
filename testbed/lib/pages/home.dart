@@ -260,51 +260,51 @@ class _HomeState extends State<Home> {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 120.0),
                 child: FlatButton(
-                onPressed: () {
-                  if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
-                    // Navigator.pushReplacementNamed(context, '/priority');
-                    Navigator.pushNamed(context, '/priority');
-                  }
-                  else {
-                    _scaffoldKey.currentState.showSnackBar(
-                      SnackBar(
-                        content: Row(
-                          children: [
-                            Icon(
-                              Icons.error_outline,
-                              color: Colors.black,
-                            ),
-                            SizedBox(width: 10.0,),
-                            Text(
-                              '請選擇檔案',
-                              style: TextStyle(
+                  color: Colors.indigo,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  onPressed: () {
+                    if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
+                      // Navigator.pushReplacementNamed(context, '/priority');
+                      Navigator.pushNamed(context, '/priority');
+                    }
+                    else {
+                      _scaffoldKey.currentState.showSnackBar(
+                        SnackBar(
+                          content: Row(
+                            children: [
+                              Icon(
+                                Icons.error_outline,
                                 color: Colors.black,
-                                fontFamily: 'Noto_Sans_TC',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14.0,
                               ),
-                            ),
-                          ]
+                              SizedBox(width: 10.0,),
+                              Text(
+                                '請選擇檔案',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Noto_Sans_TC',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                            ]
+                          ),
+                          backgroundColor: Colors.amber[300],
                         ),
-                        backgroundColor: Colors.amber[300],
-                      ),
-                    );
-                  }
-                },
-                child: Text(
-                  '完成',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Noto_Sans_TC',
-                    fontWeight: FontWeight.w100,
-                    fontSize: 14.0,
+                      );
+                    }
+                  },
+                  child: Text(
+                    '完成',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Noto_Sans_TC',
+                      fontWeight: FontWeight.w100,
+                      fontSize: 14.0,
+                    ),
                   ),
                 ),
-                color: Colors.indigo,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-                  ),
               ),
             ),
           ],

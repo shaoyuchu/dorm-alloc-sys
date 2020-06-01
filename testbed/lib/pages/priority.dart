@@ -87,7 +87,7 @@ class _PriorityState extends State<Priority> {
 
             // identity selector
             Expanded(
-              flex: 8,
+              flex: 10,
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,7 +206,7 @@ class _PriorityState extends State<Priority> {
                                                         }
                                                         // multiple identities in this priority
                                                         else if(identitySelected[indexLevel1].length > 1) {
-                                                          String toMove = identitySelected[indexLevel1].removeAt(indexLevel2);
+                                                          final toMove = identitySelected[indexLevel1].removeAt(indexLevel2);
                                                           identitySelected.insert(indexLevel1, [toMove]);
                                                         }
                                                       });
@@ -229,7 +229,7 @@ class _PriorityState extends State<Priority> {
                                                         }
                                                         // multiple identities in this priority
                                                         else if(identitySelected[indexLevel1].length > 1) {
-                                                          String toMove = identitySelected[indexLevel1].removeAt(indexLevel2);
+                                                          final toMove = identitySelected[indexLevel1].removeAt(indexLevel2);
                                                           identitySelected.insert(indexLevel1+1, [toMove]);
                                                         }
                                                       });
@@ -280,8 +280,12 @@ class _PriorityState extends State<Priority> {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 15.0),
                 child: ButtonTheme(
-                    height: 5.0,
-                    child: FlatButton(
+                  height: 5.0,
+                  child: FlatButton(
+                    color: Colors.indigo,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
                     onPressed: () {
                       // Navigator.pushReplacementNamed(context, '/result');
                       Navigator.pushNamed(context, '/result');
@@ -295,10 +299,6 @@ class _PriorityState extends State<Priority> {
                         fontWeight: FontWeight.w100,
                         fontSize: 14.0,
                       ),
-                    ),
-                    color: Colors.indigo,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
                     ),
                   ),
                 ),
