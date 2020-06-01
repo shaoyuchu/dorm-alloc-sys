@@ -1,6 +1,7 @@
 // import 'dart:js';
 import 'package:flutter/material.dart';
 
+/// Flatten: convert type 'list of list of strings' into type 'list of strings'
 List<String> flatten(List<List<String>> li) {
   return li.expand((i) => i).toList();
 }
@@ -86,14 +87,14 @@ class _PriorityState extends State<Priority> {
 
             // identity selector
             Expanded(
-              flex: 10,
+              flex: 8,
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // identity pool
                     Expanded(
-                      flex: 5,
+                      flex: 7,
                       child: Container(
                         color: Colors.grey[300],
                         child: ListView.builder(
@@ -112,7 +113,7 @@ class _PriorityState extends State<Priority> {
                                 ),
                                 trailing: IconButton(
                                   icon: Icon(Icons.add),
-                                  iconSize: 18.0,
+                                  iconSize: 16.0,
                                   color: flatten(identitySelected).contains(identityPool[index])? Colors.grey[300] : Colors.grey[600],
                                   splashColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
@@ -142,7 +143,7 @@ class _PriorityState extends State<Priority> {
                     // selected and ordered identities
                     // TODO: send JSON list of list to backend
                     Expanded(
-                      flex: 5,
+                      flex: 8,
                       child: Container(
                         color: Colors.grey[300],
                         child: ListView.builder(
@@ -167,7 +168,7 @@ class _PriorityState extends State<Priority> {
                                         ),
                                       ),
                                     ),
-                                    // card sets
+                                    // card sets in one priority
                                     Flexible(
                                       flex: 5,
                                       child: ListView.builder(
@@ -185,7 +186,76 @@ class _PriorityState extends State<Priority> {
                                                   fontSize: 15.0,
                                                 ),
                                               ),
-                                              // TODO: add trailing buttons
+                                              trailing: Wrap(
+                                                spacing: -15,
+                                                children: [
+                                                  IconButton(
+                                                    icon: Icon(Icons.arrow_upward),
+                                                    iconSize: 14.0,
+                                                    color: (indexLevel1 == 0 && identitySelected[indexLevel1].length == 1)? Colors.grey[300] : Colors.grey[600],
+                                                    splashColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    tooltip: (indexLevel1 == 0 && identitySelected[indexLevel1].length == 1)? null : '上移一層',
+                                                    hoverColor: Colors.transparent,
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        // the only identity in this priority
+                                                        if(indexLevel1 != 0 && identitySelected[indexLevel1].length == 1) {
+                                                          identitySelected[indexLevel1-1] += identitySelected[indexLevel1];
+                                                          identitySelected.removeAt(indexLevel1);
+                                                        }
+                                                        // multiple identities in this priority
+                                                        else if(identitySelected[indexLevel1].length > 1) {
+                                                          String toMove = identitySelected[indexLevel1].removeAt(indexLevel2);
+                                                          identitySelected.insert(indexLevel1, [toMove]);
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                  IconButton(
+                                                    icon: Icon(Icons.arrow_downward),
+                                                    iconSize: 14.0,
+                                                    color: (indexLevel1 == identitySelected.length-1 && identitySelected[indexLevel1].length == 1)? Colors.grey[300] : Colors.grey[600],
+                                                    splashColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    tooltip: (indexLevel1 == identitySelected.length-1 && identitySelected[indexLevel1].length == 1)? null : '下移一層',
+                                                    hoverColor: Colors.transparent,
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        // the only identity in this priority
+                                                        if(indexLevel1 != identitySelected.length-1 && identitySelected[indexLevel1].length == 1) {
+                                                          identitySelected[indexLevel1+1] = identitySelected[indexLevel1] + identitySelected[indexLevel1+1];
+                                                          identitySelected.removeAt(indexLevel1);
+                                                        }
+                                                        // multiple identities in this priority
+                                                        else if(identitySelected[indexLevel1].length > 1) {
+                                                          String toMove = identitySelected[indexLevel1].removeAt(indexLevel2);
+                                                          identitySelected.insert(indexLevel1+1, [toMove]);
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                  IconButton(
+                                                    icon: Icon(Icons.clear),
+                                                    iconSize: 14.0,
+                                                    color: Colors.grey[600],
+                                                    splashColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    tooltip: '移除',
+                                                    hoverColor: Colors.transparent,
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        if(identitySelected[indexLevel1].length == 1) {
+                                                          identitySelected.removeAt(indexLevel1);
+                                                        }
+                                                        else {
+                                                          identitySelected[indexLevel1].removeAt(indexLevel2);
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           );
                                         }
