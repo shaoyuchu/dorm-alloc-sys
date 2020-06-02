@@ -267,7 +267,10 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
                       // Navigator.pushReplacementNamed(context, '/priority');
-                      Navigator.pushNamed(context, '/priority');
+                      Navigator.pushNamed(context, '/priority', arguments: {
+                        'studentDataPath': studentDataPath,
+                        'bedDataPath': bedDataPath,
+                      });
                     }
                     else {
                       _scaffoldKey.currentState.showSnackBar(
