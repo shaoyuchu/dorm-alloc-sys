@@ -55,4 +55,5 @@ for name in totalRow.keys():
                     elif z in Bed_index[2:]:
                       df.drop(index,inplace = True)
                     
+df.reset_index()
 df.to_excel('DormRoom.xlsx')
