@@ -39,7 +39,7 @@ preferenceArray = ["I", "H", "E"," C", "S","G"]
 # ID, gender, 校內外意願, 區域志願1, 區域志願2, 區域志願3, 永久地址（國籍）, id_index(身障身==1)
 #女生: 
 
-#output
+#outputh
 # ID, 宿舍, 床位
 
 #分性別
