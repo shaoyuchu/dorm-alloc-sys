@@ -39,3 +39,7 @@ the overhead of updating many applications each time there is a breaking change.
 ## Caveats
 
 * This is not an officially supported Google product.
+
+## API Document
+[API Doc](https://hackmd.io/8SvWi2HOTKiv0-GksCTZWw)
+
