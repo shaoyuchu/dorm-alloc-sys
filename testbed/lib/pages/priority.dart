@@ -34,7 +34,12 @@ class _PriorityState extends State<Priority> {
     '中低收入戶',
   ];
   List<List<String>> identitySelected = [];
-  List result = [];
+  Map result = {
+    'men_campus_dorm': [],
+    'women_campus_dorm': [],
+    'men_BOT': [],
+    'women_BOT': [],
+  };
 
   @override
   Widget build(BuildContext context) {
