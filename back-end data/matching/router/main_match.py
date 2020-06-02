@@ -1,4 +1,5 @@
-from matching_helper import separateGender, separateInternational, separare_local_IL, arrangeInternationalStudents, RoommatePair, LocalRoommatePair
+from matching_helper import separateGender, separateInternational, separare_local_IL, arrangeInternationalStudents, RoommatePair
+from local_matching import LocalRoommatePair
 # import Room
 # import Student
 
@@ -67,7 +68,7 @@ def Matching(international_S, local_students):
     #安排住在國際區的本地學生的房間
     Rooms = RoommatePair(local_I, Rooms, Room_pointer, preferenceArray)
     #安排住在非國際區的本地學生的房間
-    Rooms = LocalRoommatePair(local_L, Rooms)
+    Rooms = LocalRoommatePair(local_L, Rooms, preferenceArray)
 
 
 # num_internationl_students: len(Males_internationl), len(females_internationl)

@@ -7,6 +7,20 @@ import 'package:file_chooser/file_chooser.dart';
 import 'package:path_provider/path_provider.dart';
 import 'file_chooser.dart';
 
+/// Given a relative path, extract its file name and truncate it into a displayable length (maxLen) if required.
+String truncateToDisplay(String path) {
+  if(path == '尚未選擇檔案')
+    return path;
+  
+  var result = path.split('/').last;
+  const maxLen = 25;
+  if(result.length > maxLen) {
+    result = result.substring(0, maxLen-4);
+    result += '...';
+  }
+  return result;
+}
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -107,7 +121,7 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '$studentDataPath',
+                                  '${truncateToDisplay(studentDataPath)}',
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontFamily: 'Noto_Sans_TC',
@@ -182,7 +196,7 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '$bedDataPath',
+                                  '${truncateToDisplay(bedDataPath)}',
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontFamily: 'Noto_Sans_TC',
@@ -246,51 +260,51 @@ class _HomeState extends State<Home> {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 120.0),
                 child: FlatButton(
-                onPressed: () {
-                  if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
-                    // Navigator.pushReplacementNamed(context, '/priority');
-                    Navigator.pushNamed(context, '/priority');
-                  }
-                  else {
-                    _scaffoldKey.currentState.showSnackBar(
-                      SnackBar(
-                        content: Row(
-                          children: [
-                            Icon(
-                              Icons.error_outline,
-                              color: Colors.black,
-                            ),
-                            SizedBox(width: 10.0,),
-                            Text(
-                              '請選擇檔案',
-                              style: TextStyle(
+                  color: Colors.indigo,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  onPressed: () {
+                    if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
+                      // Navigator.pushReplacementNamed(context, '/priority');
+                      Navigator.pushNamed(context, '/priority');
+                    }
+                    else {
+                      _scaffoldKey.currentState.showSnackBar(
+                        SnackBar(
+                          content: Row(
+                            children: [
+                              Icon(
+                                Icons.error_outline,
                                 color: Colors.black,
-                                fontFamily: 'Noto_Sans_TC',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14.0,
                               ),
-                            ),
-                          ]
+                              SizedBox(width: 10.0,),
+                              Text(
+                                '請選擇檔案',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Noto_Sans_TC',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                            ]
+                          ),
+                          backgroundColor: Colors.amber[300],
                         ),
-                        backgroundColor: Colors.amber[300],
-                      ),
-                    );
-                  }
-                },
-                child: Text(
-                  '完成',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Noto_Sans_TC',
-                    fontWeight: FontWeight.w100,
-                    fontSize: 14.0,
+                      );
+                    }
+                  },
+                  child: Text(
+                    '完成',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Noto_Sans_TC',
+                      fontWeight: FontWeight.w100,
+                      fontSize: 14.0,
+                    ),
                   ),
                 ),
-                color: Colors.indigo,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-                  ),
               ),
             ),
           ],
