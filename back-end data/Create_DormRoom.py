@@ -48,7 +48,11 @@ for name in totalRow.keys():
     if len(totalRow[name])>1:
         for i in totalRow[name][1]:
             for j in range(i[0],i[1]):
-                for z in Bed_index[:2]:
+                for z in Bed_index:
                     index = df.loc[(df['dormName']==name) & (df['Room']==j) & (df['Bed']==z)].index
-                    df.loc[index,'is_disability'] = 1
-print(df)
+                    if z in Bed_index[:2]:
+                      df.loc[index,'is_disability'] = 1
+                    elif z in Bed_index[2:]:
+                      df.drop(index,inplace = True)
+                    
+df.to_excel('DormRoom.xlsx')
