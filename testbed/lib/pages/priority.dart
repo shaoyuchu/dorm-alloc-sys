@@ -12,7 +12,7 @@ class Priority extends StatefulWidget {
 }
 
 class _PriorityState extends State<Priority> {
-
+  // TODO: get identity list from backend
   List<String> identityPool = [
     '港澳生',
     '本國生',
@@ -34,9 +34,15 @@ class _PriorityState extends State<Priority> {
     '中低收入戶',
   ];
   List<List<String>> identitySelected = [];
+  List result = [];
 
   @override
   Widget build(BuildContext context) {
+    // extract data
+    Map arguments = ModalRoute.of(context).settings.arguments as Map;
+    String studentDataPath = arguments['studentDataPath'];
+    String bedDataPath = arguments['bedDataPath'];
+
     return Scaffold(
       backgroundColor: Colors.white,
 
@@ -123,7 +129,6 @@ class _PriorityState extends State<Priority> {
                                     if(flatten(identitySelected).contains(identityPool[index]) == false) {
                                       setState(() {
                                         identitySelected.add([identityPool[index]]);
-                                        print('identitySelected $identitySelected');
                                       });
                                     }
                                   },
@@ -141,7 +146,7 @@ class _PriorityState extends State<Priority> {
                     ),
 
                     // selected and ordered identities
-                    // TODO: send JSON list of list to backend
+                    // TODO: send priority list to backend
                     Expanded(
                       flex: 8,
                       child: Container(
@@ -288,8 +293,8 @@ class _PriorityState extends State<Priority> {
                     ),
                     onPressed: () {
                       // Navigator.pushReplacementNamed(context, '/result');
-                      Navigator.pushNamed(context, '/result');
-                      print('done button clicked');
+                      Navigator.pushNamed(context, '/result', arguments: {'result': result});
+                      // TODO: send student, bed, priority to backend, get result
                     },
                     child: Text(
                       '完成',
