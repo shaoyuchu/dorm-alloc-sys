@@ -27,3 +27,4 @@ NATIONALITIES = \
         "Afghanistan"
     ]
 
+MAX_INT_STUD_PER_ROOM = 3

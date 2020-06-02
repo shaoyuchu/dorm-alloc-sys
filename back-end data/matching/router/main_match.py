@@ -1,16 +1,24 @@
-from matching_helper import separateGender, separateInternational, separare_local_IL, arrangeInternationalStudents, RoommatePair
-from local_matching import LocalRoommatePair
-# import Room
-# import Student
+from utility.helper import separateInternational, separare_local_IL, arrangeInternationalStudents, RoommatePair
+from utility.loc_match import LocalRoommatePair
+from utility.static.config import PREFERENCE_DICT
 
-PREFERENCE_DICT = {
-    "國際區":"I",
-    "健康作息區":"H",
-    "節能減碳區":"E",
-    "乾淨整潔區":"C",
-    "運動休閒區":"S",
-    "一般區":"G",
-}
+from app import app
+from flask import request
+
+@app.route("/api/match", methods=["GET", "POST"])
+def match():
+    if request.method == "POST":
+        return macros_handler.create_macro(request.get_json())
+    else:
+        language = request.args.get("language")
+        local = request.args.get("local")
+        gender = request.args.get("gender")
+        macro_name = request.args.get("name")
+        if macro_name is not None:
+          return macros_handler.get_all_macros_by_name(name=macro_name)
+        else:
+          return macros_handler.get_macros(language, local, gender)
+
 
 #array all students
 All_students = []
@@ -24,7 +32,6 @@ Room_pointer = 0
 preferenceArray = ["I", "H", "E"," C", "S","G"]
 
 '''Main'''
-#shuffle student data [UPDATE]
 #read student data
 #   initialize student objects. local students' nationalities are 'local'
 #   s = Student(id, preferences, nationality, gender)
@@ -35,31 +42,41 @@ preferenceArray = ["I", "H", "E"," C", "S","G"]
 #   Rooms.append(r)
 
 #input
-#2 DataFrame
-#男生：
+#DataFrame1 (男生)
 # ID, gender, 校內外意願, 區域志願1, 區域志願2, 區域志願3, 永久地址（國籍）, id_index(身障身==1)
-#女生: 
-
-#outputh
+#DataFrame2 (女生)
+# ID, gender, 校內外意願, 區域志願1, 區域志願2, 區域志願3, 永久地址（國籍）, id_index(身障身==1)
+#output
 # ID, 宿舍, 床位
 
-#分性別
-females, males = separateGender(All_students)
-#分本地跟國際生
-males_internationl, males_local = separateInternational(males)
-females_internationl, females_local = separateInternational(males)
 
 
-Matching(males_internationl, males_local)
-Matching(females_internationl, females_local)
-# input males_local first
+'''Student'''
+#studData = preprocess_df(df)
+studObjs = df2object_student(studData, gender)
+intStuds, locStuds = separateInternational(studObjs)
+locIntRoomStudQuota, intRoomNum = getIntRoomNum(intStuds)
+locLocRoomStuds, locIntRoomStuds = selectLocIntRoomStuds(locIntRoomStudQuota, locStuds)
+
+allIntRoomStuds = concate(intStuds, locLocRoomStuds)
+allLocRoomStuds = locIntRoomStuds
+''' intRoom'''
+#select loc_studs 
+roomTypeQuota = get_room_type_quota(intRoomNum, allIntRoomStuds)
+intRoomsObjs = df2object_rooms(intRoomNum, roomTypeQuota)
+sortedNations = get_country_by_pop(allIntRoomStuds)
+
+studentByNationDF = student_by_nation_df(allIntRoomStuds, gender, sortedNations)
+
+int_match(sortedNations, intRoomsObjs, studentByNationDF)
+
+'''locRoom'''
+
+'''match'''
 
 def Matching(international_S, local_students):
     #決定國際房數量
-    num_rooms_I = international_S//3
-    if (international_S%3 != 0):
-        num_rooms_I+=1
-    local_student_quota = num_rooms_I * Room.MAXROOMCAPACITY - len(international_S)
+    
 
     #選住在國際區的本地學生. Array
     local_I, local_L = separare_local_IL(local_student_quota, local_students)

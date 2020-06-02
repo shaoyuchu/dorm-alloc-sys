@@ -1,14 +1,3 @@
-def separateGender(All_students):
-    female = []
-    male = []
-    for i in len(All_students):
-        stu = All_students[i]
-        if stu.Gender == 0:
-            female.append(stu)
-        else:
-            male.append(stu)
-    return female, male
-
 def separateInternational(Gendered_students):
     international = []
     local = []
@@ -20,7 +9,6 @@ def separateInternational(Gendered_students):
             local.append(stu)
     return international, local
 
-
 def takeoutStudent(priority, preference, local_students):
     left_local_students = []
     targeted_students = []
@@ -31,7 +19,7 @@ def takeoutStudent(priority, preference, local_students):
             left_local_students.append(student)
     return targeted_students, left_local_students
 
-def separare_local_IL(local_student_quota, local_students):
+def selectLocIntRoomStuds(local_student_quota, local_students):
 #功能：決定國際房數量
     local_I = []
     #選住國際區的本地生
@@ -125,8 +113,6 @@ def categorize(students, priority, preferenceArray):
         elif (student.preference[priority] == "G"):
             group["G"].append(student)
     return group
-
-
 
 # Rooms: Rooms
 # Students: local_I, local_L
