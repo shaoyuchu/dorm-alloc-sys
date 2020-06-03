@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:file_chooser/file_chooser.dart';
 import 'package:path_provider/path_provider.dart';
 import 'file_chooser.dart';
+
+import 'package:path/path.dart';
+import 'package:excel/excel.dart';
 
 /// Given a relative path, extract its file name and truncate it into a displayable length (maxLen) if required.
 String truncateToDisplay(String path) {
@@ -31,6 +35,8 @@ class _HomeState extends State<Home> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String studentDataPath = '尚未選擇檔案';
   String bedDataPath = '尚未選擇檔案';
+  List studentData = [];
+  List bedData = [];
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +146,20 @@ class _HomeState extends State<Home> {
                                     setState(() {
                                       if(result.paths.isNotEmpty) {
                                         studentDataPath = result.paths[0];
+
+                                        // extract student data
+                                        final bytes = File(studentDataPath).readAsBytesSync();
+                                        final excel = Excel.decodeBytes(bytes, update: true);
+                                        if(excel.tables.keys.length == 1) {
+                                          for (var table in excel.tables.keys) {
+                                            studentData = excel.tables[table].rows;
+                                            print(studentData);
+                                          }
+                                        }
+                                        else {
+                                          // TODO: Multiple tables, pop error message!
+
+                                        }
                                       }
                                     });
                                   },
@@ -215,6 +235,20 @@ class _HomeState extends State<Home> {
                                     setState(() {
                                       if(result.paths.isNotEmpty) {
                                         bedDataPath = result.paths[0];
+
+                                        // extract student data
+                                        final bytes = File(bedDataPath).readAsBytesSync();
+                                        final excel = Excel.decodeBytes(bytes, update: true);
+                                        if(excel.tables.keys.length == 1) {
+                                          for (var table in excel.tables.keys) {
+                                            bedData = excel.tables[table].rows;
+                                            print(bedData);
+                                          }
+                                        }
+                                        else {
+                                          // TODO: Multiple tables, pop error message!
+
+                                        }
                                       }
                                     });
                                   },
@@ -268,8 +302,8 @@ class _HomeState extends State<Home> {
                     if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
                       // Navigator.pushReplacementNamed(context, '/priority');
                       Navigator.pushNamed(context, '/priority', arguments: {
-                        'studentDataPath': studentDataPath,
-                        'bedDataPath': bedDataPath,
+                        'studentData': studentData,
+                        'bedData': bedData,
                       });
                     }
                     else {

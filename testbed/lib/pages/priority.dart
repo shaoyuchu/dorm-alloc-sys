@@ -44,9 +44,9 @@ class _PriorityState extends State<Priority> {
   @override
   Widget build(BuildContext context) {
     // extract data
-    Map arguments = ModalRoute.of(context).settings.arguments as Map;
-    String studentDataPath = arguments['studentDataPath'];
-    String bedDataPath = arguments['bedDataPath'];
+    final arguments = ModalRoute.of(context).settings.arguments as Map;
+    final studentData = arguments['studentData'];
+    final bedData = arguments['bedData'];
 
     return Scaffold(
       backgroundColor: Colors.white,
