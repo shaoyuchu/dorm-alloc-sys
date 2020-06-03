@@ -323,10 +323,29 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () {
                     if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
+                      // TODO: send student data to backend, get identity pool
+                      List<String> identityPool = [
+                        '港澳生',
+                        '本國生',
+                        '原住民族籍',
+                        '外籍生',
+                        '外交人員子女學生',
+                        '僑生',
+                        '陸生',
+                        '交換生',
+                        '公費生',
+                        '奧林匹亞',
+                        '身心障礙',
+                        '離島地區生',
+                        '低收入戶',
+                        '中低收入戶',
+                      ];
+                      
                       // Navigator.pushReplacementNamed(context, '/priority');
                       Navigator.pushNamed(context, '/priority', arguments: {
                         'studentData': studentData,
                         'bedData': bedData,
+                        'identityPool': identityPool,
                       });
                     }
                     else {

@@ -13,33 +13,9 @@ class Priority extends StatefulWidget {
 
 class _PriorityState extends State<Priority> {
   // TODO: get identity list from backend
-  List<String> identityPool = [
-    '港澳生',
-    '本國生',
-    '原住民族籍',
-    '邊疆生',
-    '大陸來歸生',
-    '外籍生',
-    '外交人員子女學生',
-    '蒙藏生',
-    '僑生',
-    '退伍軍人',
-    '陸生',
-    '交換生',
-    '公費生',
-    '奧林匹亞',
-    '身心障礙',
-    '離島地區生',
-    '低收入戶',
-    '中低收入戶',
-  ];
+  List<String> identityPool;
+
   List<List<String>> identitySelected = [];
-  Map result = {
-    'men_campus_dorm': [],
-    'women_campus_dorm': [],
-    'men_BOT': [],
-    'women_BOT': [],
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +23,7 @@ class _PriorityState extends State<Priority> {
     final arguments = ModalRoute.of(context).settings.arguments as Map;
     final studentData = arguments['studentData'];
     final bedData = arguments['bedData'];
+    identityPool = arguments['identityPool'];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -105,7 +82,7 @@ class _PriorityState extends State<Priority> {
                   children: [
                     // identity pool
                     Expanded(
-                      flex: 7,
+                      flex: 8,
                       child: Container(
                         color: Colors.grey[300],
                         child: ListView.builder(
@@ -151,7 +128,6 @@ class _PriorityState extends State<Priority> {
                     ),
 
                     // selected and ordered identities
-                    // TODO: send priority list to backend
                     Expanded(
                       flex: 8,
                       child: Container(
@@ -297,9 +273,16 @@ class _PriorityState extends State<Priority> {
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                     onPressed: () {
+                      // TODO: send student, bed, priority to backend, get result
+                      Map result = {
+                        'men_campus_dorm': [],
+                        'women_campus_dorm': [],
+                        'men_BOT': [],
+                        'women_BOT': [],
+                      };
+
                       // Navigator.pushReplacementNamed(context, '/result');
                       Navigator.pushNamed(context, '/result', arguments: {'result': result});
-                      // TODO: send student, bed, priority to backend, get result
                     },
                     child: Text(
                       '完成',
