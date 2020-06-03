@@ -38,6 +38,32 @@ class _HomeState extends State<Home> {
   List studentData = [];
   List bedData = [];
 
+  void alertSnackBar(GlobalKey<ScaffoldState> _scaffoldKey, String msg) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(
+              Icons.error_outline,
+              color: Colors.black,
+            ),
+            SizedBox(width: 10.0,),
+            Text(
+              msg,
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'Noto_Sans_TC',
+                fontWeight: FontWeight.w400,
+                fontSize: 14.0,
+              ),
+            ),
+          ]
+        ),
+        backgroundColor: Colors.amber[300],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,20 +171,18 @@ class _HomeState extends State<Home> {
                                     );
                                     setState(() {
                                       if(result.paths.isNotEmpty) {
-                                        studentDataPath = result.paths[0];
-
                                         // extract student data
-                                        final bytes = File(studentDataPath).readAsBytesSync();
+                                        final bytes = File(result.paths[0]).readAsBytesSync();
                                         final excel = Excel.decodeBytes(bytes, update: true);
                                         if(excel.tables.keys.length == 1) {
+                                          studentDataPath = result.paths[0];
                                           for (var table in excel.tables.keys) {
                                             studentData = excel.tables[table].rows;
                                             print(studentData);
                                           }
                                         }
                                         else {
-                                          // TODO: Multiple tables, pop error message!
-
+                                          alertSnackBar(_scaffoldKey, '所選檔案有多張工作表，請更正後重新匯入');
                                         }
                                       }
                                     });
@@ -234,20 +258,19 @@ class _HomeState extends State<Home> {
                                     );
                                     setState(() {
                                       if(result.paths.isNotEmpty) {
-                                        bedDataPath = result.paths[0];
 
                                         // extract student data
-                                        final bytes = File(bedDataPath).readAsBytesSync();
+                                        final bytes = File(result.paths[0]).readAsBytesSync();
                                         final excel = Excel.decodeBytes(bytes, update: true);
                                         if(excel.tables.keys.length == 1) {
+                                          bedDataPath = result.paths[0];
                                           for (var table in excel.tables.keys) {
                                             bedData = excel.tables[table].rows;
                                             print(bedData);
                                           }
                                         }
                                         else {
-                                          // TODO: Multiple tables, pop error message!
-
+                                          alertSnackBar(_scaffoldKey, '所選檔案有多張工作表，請更正後重新匯入');
                                         }
                                       }
                                     });
@@ -307,29 +330,7 @@ class _HomeState extends State<Home> {
                       });
                     }
                     else {
-                      _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(
-                          content: Row(
-                            children: [
-                              Icon(
-                                Icons.error_outline,
-                                color: Colors.black,
-                              ),
-                              SizedBox(width: 10.0,),
-                              Text(
-                                '請選擇檔案',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Noto_Sans_TC',
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ]
-                          ),
-                          backgroundColor: Colors.amber[300],
-                        ),
-                      );
+                      alertSnackBar(_scaffoldKey, '請選擇檔案');
                     }
                   },
                   child: Text(
