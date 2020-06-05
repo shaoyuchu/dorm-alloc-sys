@@ -5,8 +5,8 @@ from pandas.api.types import CategoricalDtype
 from random import *
 from qua_config import *
 
-# 如果沒志願，就加一般區
-# column 都變成 config
+# 前面來的 ID_order 資料會是 list(list())
+
 
 
 # distinguish type of identities
