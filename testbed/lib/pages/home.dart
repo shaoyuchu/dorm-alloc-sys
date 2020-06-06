@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,7 @@ import 'file_chooser.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 import 'package:http/http.dart' as http;
+// import 'package:dio/dio.dart';
 
 /// Given a relative path, extract its file name and truncate it into a displayable length (maxLen) if required.
 String truncateToDisplay(String path) {
@@ -66,8 +68,19 @@ class _HomeState extends State<Home> {
   }
 
   Future getIdentityPool() async {
-    const url = 'http://127.0.0.1:5000/api/get_all_identities';
-    final response = await http.post(url);
+    const url = 'http://127.0.0.1:5000/api/get_all_identities/';
+    final response = await http.post(
+      url,
+      headers: { HttpHeaders.contentTypeHeader: 'application/json' },
+      body: jsonEncode(studentData),
+    );
+
+    // dio
+    // final dio = new Dio();
+    // // final response = await dio.get(url);
+    // final response = await dio.post(url, data: {'a': 1, 'b': 2});
+    // print(response);
+
     return response;
   }
 
@@ -329,30 +342,19 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () async {
                     if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
-                      // TODO: send student data to backend, get identity pool
-                      List<String> identityPool = [
-                        '港澳生',
-                        '本國生',
-                        '原住民族籍',
-                        '外籍生',
-                        '外交人員子女學生',
-                        '僑生',
-                        '陸生',
-                        '交換生',
-                        '公費生',
-                        '奧林匹亞',
-                        '身心障礙',
-                        '離島地區生',
-                        '低收入戶',
-                        '中低收入戶',
-                      ];
-
+                      List<String> identityPool;
                       await getIdentityPool().then((response) {
-                        print(response.body);
+                        if(response.statusCode == 200) {
+                          identityPool = jsonDecode(response.body).cast<String>();
+                        }
+                        else {
+                          // TODO: deal with invalid response
+                          
+                        }
                       });
                       
                       // Navigator.pushReplacementNamed(context, '/priority');
-                      Navigator.pushNamed(context, '/priority', arguments: {
+                      await Navigator.pushNamed(context, '/priority', arguments: {
                         'studentData': studentData,
                         'bedData': bedData,
                         'identityPool': identityPool,
