@@ -25,6 +25,10 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    // extract result data
+    final arguments = ModalRoute.of(context).settings.arguments as Map;
+    final result = arguments['result'];
+
     return Scaffold(
       backgroundColor: Colors.white,
 

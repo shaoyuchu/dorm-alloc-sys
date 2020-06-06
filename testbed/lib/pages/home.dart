@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:file_chooser/file_chooser.dart';
 import 'package:path_provider/path_provider.dart';
 import 'file_chooser.dart';
+
+import 'package:path/path.dart';
+import 'package:excel/excel.dart';
 
 /// Given a relative path, extract its file name and truncate it into a displayable length (maxLen) if required.
 String truncateToDisplay(String path) {
@@ -31,6 +35,34 @@ class _HomeState extends State<Home> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String studentDataPath = '尚未選擇檔案';
   String bedDataPath = '尚未選擇檔案';
+  List studentData = [];
+  List bedData = [];
+
+  void alertSnackBar(GlobalKey<ScaffoldState> _scaffoldKey, String msg) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(
+              Icons.error_outline,
+              color: Colors.black,
+            ),
+            SizedBox(width: 10.0,),
+            Text(
+              msg,
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'Noto_Sans_TC',
+                fontWeight: FontWeight.w400,
+                fontSize: 14.0,
+              ),
+            ),
+          ]
+        ),
+        backgroundColor: Colors.amber[300],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +171,19 @@ class _HomeState extends State<Home> {
                                     );
                                     setState(() {
                                       if(result.paths.isNotEmpty) {
-                                        studentDataPath = result.paths[0];
+                                        // extract student data
+                                        final bytes = File(result.paths[0]).readAsBytesSync();
+                                        final excel = Excel.decodeBytes(bytes, update: true);
+                                        if(excel.tables.keys.length == 1) {
+                                          studentDataPath = result.paths[0];
+                                          for (var table in excel.tables.keys) {
+                                            studentData = excel.tables[table].rows;
+                                            print(studentData);
+                                          }
+                                        }
+                                        else {
+                                          alertSnackBar(_scaffoldKey, '所選檔案有多張工作表，請更正後重新匯入');
+                                        }
                                       }
                                     });
                                   },
@@ -214,7 +258,20 @@ class _HomeState extends State<Home> {
                                     );
                                     setState(() {
                                       if(result.paths.isNotEmpty) {
-                                        bedDataPath = result.paths[0];
+
+                                        // extract student data
+                                        final bytes = File(result.paths[0]).readAsBytesSync();
+                                        final excel = Excel.decodeBytes(bytes, update: true);
+                                        if(excel.tables.keys.length == 1) {
+                                          bedDataPath = result.paths[0];
+                                          for (var table in excel.tables.keys) {
+                                            bedData = excel.tables[table].rows;
+                                            print(bedData);
+                                          }
+                                        }
+                                        else {
+                                          alertSnackBar(_scaffoldKey, '所選檔案有多張工作表，請更正後重新匯入');
+                                        }
                                       }
                                     });
                                   },
@@ -266,33 +323,33 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () {
                     if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
+                      // TODO: send student data to backend, get identity pool
+                      List<String> identityPool = [
+                        '港澳生',
+                        '本國生',
+                        '原住民族籍',
+                        '外籍生',
+                        '外交人員子女學生',
+                        '僑生',
+                        '陸生',
+                        '交換生',
+                        '公費生',
+                        '奧林匹亞',
+                        '身心障礙',
+                        '離島地區生',
+                        '低收入戶',
+                        '中低收入戶',
+                      ];
+                      
                       // Navigator.pushReplacementNamed(context, '/priority');
-                      Navigator.pushNamed(context, '/priority');
+                      Navigator.pushNamed(context, '/priority', arguments: {
+                        'studentData': studentData,
+                        'bedData': bedData,
+                        'identityPool': identityPool,
+                      });
                     }
                     else {
-                      _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(
-                          content: Row(
-                            children: [
-                              Icon(
-                                Icons.error_outline,
-                                color: Colors.black,
-                              ),
-                              SizedBox(width: 10.0,),
-                              Text(
-                                '請選擇檔案',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Noto_Sans_TC',
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ]
-                          ),
-                          backgroundColor: Colors.amber[300],
-                        ),
-                      );
+                      alertSnackBar(_scaffoldKey, '請選擇檔案');
                     }
                   },
                   child: Text(
