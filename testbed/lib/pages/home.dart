@@ -10,6 +10,7 @@ import 'file_chooser.dart';
 
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
+import 'package:http/http.dart' as http;
 
 /// Given a relative path, extract its file name and truncate it into a displayable length (maxLen) if required.
 String truncateToDisplay(String path) {
@@ -62,6 +63,12 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.amber[300],
       ),
     );
+  }
+
+  Future getIdentityPool() async {
+    const url = 'http://127.0.0.1:5000/api/get_all_identities';
+    final response = await http.post(url);
+    return response;
   }
 
   @override
@@ -178,7 +185,7 @@ class _HomeState extends State<Home> {
                                           studentDataPath = result.paths[0];
                                           for (var table in excel.tables.keys) {
                                             studentData = excel.tables[table].rows;
-                                            print(studentData);
+                                            print(studentData[0]);
                                           }
                                         }
                                         else {
@@ -258,15 +265,14 @@ class _HomeState extends State<Home> {
                                     );
                                     setState(() {
                                       if(result.paths.isNotEmpty) {
-
-                                        // extract student data
+                                        // extract bed data
                                         final bytes = File(result.paths[0]).readAsBytesSync();
                                         final excel = Excel.decodeBytes(bytes, update: true);
                                         if(excel.tables.keys.length == 1) {
                                           bedDataPath = result.paths[0];
                                           for (var table in excel.tables.keys) {
                                             bedData = excel.tables[table].rows;
-                                            print(bedData);
+                                            print(bedData[0]);
                                           }
                                         }
                                         else {
@@ -321,7 +327,7 @@ class _HomeState extends State<Home> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50.0),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
                       // TODO: send student data to backend, get identity pool
                       List<String> identityPool = [
@@ -340,6 +346,10 @@ class _HomeState extends State<Home> {
                         '低收入戶',
                         '中低收入戶',
                       ];
+
+                      await getIdentityPool().then((response) {
+                        print(response.body);
+                      });
                       
                       // Navigator.pushReplacementNamed(context, '/priority');
                       Navigator.pushNamed(context, '/priority', arguments: {
@@ -347,6 +357,7 @@ class _HomeState extends State<Home> {
                         'bedData': bedData,
                         'identityPool': identityPool,
                       });
+                      print('pushed');
                     }
                     else {
                       alertSnackBar(_scaffoldKey, '請選擇檔案');
