@@ -1,9 +1,42 @@
+import sys
+sys.path.insert(0, '../handler/')
+from room_handler import Room
+from static.config import MAX_INT_STUD_PER_ROOM, LOCAL_NATIONALITY
+
+
+def get_freq(students_data, col):
+    all_data = students_data[col].values
+    unique_kind = np.unique(all_data)
+    count = {}
+    for kind in unique_kind:
+        count[kind] =  np.count_nonzero(all_data == kind, axis=None)
+    return count
+
+def get_room_type_quota(roomNum, students_data):
+    # all_prefs = np.concatenate( (students_data['pref_1'].values, np.concatenate( (students_data['pref_2'].values, students_data['pref_3'].values), axis=None)),axis=None)
+    # only consider the first priority when deciding # of rooms for each type
+    count = get_freq(students_data, col  = 'pref_1')
+    ratio ={key: round(count[key]/sum(count.values()),2) for key in count}
+    result = {key: int(ratio[key] * roomNum) for key in ratio}
+    #if there are one more or less room, modify the # of rooms of the first type
+    if (sum(result.values())> roomNum):
+        result[list(result.keys())[0]] -= 1
+    elif (sum(result.values()) < roomNum):
+        result[list(result.keys())[0]] += 1
+    return result
+
+def getIntRoomNum(int_stud):
+    intRoomNum = len(int_stud)//MAX_INT_STUD_PER_ROOM
+    if (intRoomNum%MAX_INT_STUD_PER_ROOM != 0):
+        intRoomNum+=1
+    locStudQuota = intRoomNum * Room.MAXROOMCAPACITY - len(int_stud)
+    return locStudQuota, intRoomNum
+
 def separateInternational(Gendered_students):
     international = []
     local = []
-    for i in len(Gendered_students):
-        stu = Gendered_students
-        if stu.nationality != "local":
+    for stu in (Gendered_students):
+        if stu.nationality != LOCAL_NATIONALITY:
             international.append(stu)
         else:
             local.append(stu)

@@ -1,10 +1,12 @@
+import math
 PREFERENCE_DICT = {
-    "國際區":"I",
+    "國際互動區":"I",
     "健康作息區":"H",
     "節能減碳區":"E",
-    "乾淨整潔區":"C",
+    "整潔模範區":"C",
     "運動休閒區":"S",
-    "一般區":"G",
+    "一般區域":"G",
+    math.nan: "G",
 }
 
 
@@ -26,5 +28,7 @@ NATIONALITIES = \
         "Iraq",
         "Afghanistan"
     ]
+
+LOCAL_NATIONALITY = "Taiwan"
 
 MAX_INT_STUD_PER_ROOM = 3

@@ -1,7 +1,7 @@
 class Room:
+    MAXROOMCAPACITY = 4
     def __init__(self, gender, room_num, _type, dorm="Man1"):
         super().__init__()
-        MAXROOMCAPACITY = 4
         #int (0:girl;1:boy)
         self.gender = gender
         #string

@@ -1,7 +1,7 @@
 class Student:
-    def __init__(self, id, preferences, nationality, gender):
+    def __init__(self, _id, preferences, nationality, gender):
         super().__init__()
-        self.id = id
+        self._id = _id
         #1x3 array of preferences (e.g. [“I”, “H”, “E”])
         self.preferences = preferences
         #string
@@ -27,4 +27,4 @@ class Student:
         gender = "Male"
         if (self.gender==0):
             gender = "Famale"
-        return "id: {}, nationality: {}, gender: {}, preferences: {}".format(self.id, self.nationality, self.gender, self.preferences)
+        return "id: {}, nationality: {}, gender: {}, preferences: {}".format(self._id, self.nationality, self.gender, self.preferences)
