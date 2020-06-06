@@ -6,7 +6,7 @@ import math
 import argparse
 
 #self-defined
-from ..handler.student_handler import Student
+from handler.student_handler import Student
 from ..handler.room_handler import Room
 from .static.config import PREFERENCE_DICT, NATIONALITIES
 
@@ -139,7 +139,7 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
             #if no one has that type as first priority, look for students' second priorities
             priority+=1
         
-        #不管偏好，儘量放不同國籍
+        #不管偏好，放不同國籍
         if (not room.isFull()):
             nation_index = 0
             while (nation_index < len(sortedNations)):
@@ -168,8 +168,8 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
                     break
                 if (room.isFull()):
                     break
-        
         #不管偏好、國籍，直接放進房間
+        #同偏好、同國籍
         if not room.isFull():
             nation_index=0
             while (nation_index < len(sortedNations) and not room.isFull()):
