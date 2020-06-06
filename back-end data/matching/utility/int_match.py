@@ -4,11 +4,14 @@ import numpy as np
 import random
 import math
 import argparse
+import time
 
 #self-defined
-from handler.student_handler import Student
-from ..handler.room_handler import Room
-from .static.config import PREFERENCE_DICT, NATIONALITIES
+import sys
+sys.path.insert(0, '../handler/')
+from student_handler import Student
+from room_handler import Room
+from static.config import PREFERENCE_DICT, NATIONALITIES
 
 all_room_types = list(PREFERENCE_DICT.keys())
 all_room_types_symbol = sorted(list(PREFERENCE_DICT.values()))
@@ -28,8 +31,7 @@ def random_gen_preferences(num):
         data.append(s_prefs)
     return data
 
-def random_gen_studentData():
-    global STUDENTNUM
+def random_gen_studentData(STUDENTNUM):
     data = random_gen_preferences(STUDENTNUM)
     students = pd.DataFrame(data=data,columns=dataFrame_col[1:4])
     students[dataFrame_col[4]] = [random.choice(NATIONALITIES) for i in range(STUDENTNUM)]
@@ -45,8 +47,7 @@ def get_freq(students_data, col):
         count[kind] =  np.count_nonzero(all_data == kind, axis=None)
     return count
 
-def get_room_type_quota(students_data):
-    global ROOMNUM
+def get_room_type_quota(students_data, ROOMNUM):
     # all_prefs = np.concatenate( (students_data['pref_1'].values, np.concatenate( (students_data['pref_2'].values, students_data['pref_3'].values), axis=None)),axis=None)
     # only consider the first priority when deciding # of rooms for each type
     count = get_freq(students_data, col  = 'pref_1')
@@ -69,9 +70,15 @@ def df2object_student(df, gender):
     students_lis = []
     for i in range(len(df)):
         attris = dict(df.iloc[i])
-        s = Student(id=attris['ID'],nationality = attris['nationality'], preferences = [attris['pref_1'], attris['pref_2'], attris['pref_3']], gender=gender)
+        s = Student(_id=attris['ID'],nationality = attris['nationality'], preferences = [attris['pref_1'], attris['pref_2'], attris['pref_3']], gender=gender)
         students_lis.append(s)
     return students_lis
+
+def object2df_student(studData, objs):
+    IDs = []
+    for obj in objs:
+        IDs.append(obj._id)
+    return studData[studData["ID"].isin(IDs)]
     
 def df2object_rooms(ROOMNUM, room_quota):
     all_rooms_lis = []
@@ -168,8 +175,29 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
                     break
                 if (room.isFull()):
                     break
-        #不管偏好、國籍，直接放進房間
+        
         #同偏好、同國籍
+        if (not room.isFull()):
+            while (priority<3 & nation_index < len(sortedNations)): 
+                nation = sortedNations[nation_index][0]
+                nationgroup = student_by_nation_df[nation]
+                for student in nationgroup:
+                    #select the same preference
+                    if(pd.notnull(student)):
+                        if (student.getPref(priority) == room_type and not student.isArranged()):
+                            room.addDweller(student)
+                            student.setArranged(True)
+                            picked_nation.add(nation)
+                            print("success arrange one student!")
+                            break
+                nation_index+=1
+                if (nation_index >= len(sortedNations)):
+                    break
+                if (room.isFull()):
+                    break
+                priority+=1
+        
+        #不管偏好、國籍，直接放進房間
         if not room.isFull():
             nation_index=0
             while (nation_index < len(sortedNations) and not room.isFull()):
@@ -190,24 +218,24 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
         for dweller in room.getDweller():
             print(dweller)
 
-
 if __name__ == '__main__':
+    s = time.time()
     desc = 'matching international students'
     parser = argparse.ArgumentParser(description=desc)
     parser.add_argument('-n', help='number of rooms', default='100')
     args = parser.parse_args()
     ROOMNUM = int(args.n)
     STUDENTNUM = ROOMNUM * 4
-    
-    #gen data frame
-    all_students_data = random_gen_studentData()
 
+    #gen data frame
+    all_students_data = random_gen_studentData(STUDENTNUM)
+    print(all_students_data.head())
     #initiate objects
-    room_quota = get_room_type_quota(all_students_data)
+    room_quota = get_room_type_quota(all_students_data, ROOMNUM)
     print((room_quota))
     #create objects
     all_rooms_objs = df2object_rooms(ROOMNUM, room_quota)
-     
+        
     all_students_objs = df2object_student(all_students_data, 1)
 
 
@@ -219,4 +247,5 @@ if __name__ == '__main__':
     print(student_by_nation_df.head())
 
     int_match(sortedNations, all_rooms_objs, student_by_nation_df)
-    
+    e = time.time()
+    print(e-s)
