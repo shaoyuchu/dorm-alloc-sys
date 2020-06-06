@@ -53,40 +53,23 @@ def takeoutStudent(priority, preference, local_students):
     return targeted_students, left_local_students
 
 def selectLocIntRoomStuds(local_student_quota, local_students):
-#功能：決定國際房數量
+    #功能：決定國際房數量
     local_I = []
     #選住國際區的本地生
-    local_students_1I, local_students = takeoutStudent(0,"I", local_students)
-    if local_student_quota - len(local_students_1I) > 0:
-        local_I.extend(local_students_1I)
-        #更新 quota
-        local_student_quota -= len(local_students_1I) 
-        #找出第二志願是國際的人
-        local_students_2I, local_students= takeoutStudent(1,"I", local_students) 
-        if local_student_quota - len(local_students_2I) > 0:
-            local_I.extend(local_students_2I)
-            local_student_quota -= len(local_students_2I)
-            #找出第三志願是國際的人
-            local_students_3I, local_students = takeoutStudent(2,"I", local_students) 
-            if local_student_quota - len(local_students_3I) > 0:
-                local_I.extend(local_students_3I)
-                local_student_quota -= len(local_students_3I)
-                while(local_student_quota > 0):
-                    local_I.append(local_students.pop())
-                    local_student_quota -=1
-            else:
-                while(local_student_quota > 0):
-                    local_I.append(local_students.pop())
-                    local_student_quota -=1
+    for priority in range(3):
+        local_students_1I, local_students = takeoutStudent(priority, "I", local_students)
+        if local_student_quota - len(local_students_1I) > 0:
+            local_I.extend(local_students_1I)
+            #更新 quota
+            local_student_quota -= len(local_students_1I) 
         else:
+            #demand > supply for int rooms
             while(local_student_quota > 0):
-                local_I.append(local_students.pop())
+                local_I.append(local_students_1I.pop())
                 local_student_quota -=1
-    else:
-        while(local_student_quota > 0):
-            local_I.append(local_students.pop())
-            local_student_quota -=1
-    return local_I, local_students
+            local_students = local_students_1I+local_students
+            break
+    return local_students, local_I
 
 
 def allNationalities(studentArray):

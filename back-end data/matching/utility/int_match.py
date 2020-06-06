@@ -64,33 +64,7 @@ def get_room_type_quota(students_data, ROOMNUM):
 def get_country_by_pop(students_data):
     count = get_freq(students_data, col  = 'nationality')
     return sorted([(key, count[key]) for key in count], key=lambda tupl: tupl[1], reverse=True) 
-
-
-def df2object_student(df, gender):
-    students_lis = []
-    for i in range(len(df)):
-        attris = dict(df.iloc[i])
-        s = Student(_id=attris['ID'],nationality = attris['nationality'], preferences = [attris['pref_1'], attris['pref_2'], attris['pref_3']], gender=gender)
-        students_lis.append(s)
-    return students_lis
-
-def object2df_student(studData, objs):
-    IDs = []
-    for obj in objs:
-        IDs.append(obj._id)
-    return studData[studData["ID"].isin(IDs)]
     
-def df2object_rooms(ROOMNUM, room_quota):
-    all_rooms_lis = []
-    room_nums = [i for i in range(1, 1+ROOMNUM)]
-    i = 0
-    for _type in room_quota.keys():
-        for num in range(room_quota[_type]):
-            r = Room(gender=1, room_num=room_nums[i], _type = _type)
-            all_rooms_lis.append(r)
-            i+=1
-    return all_rooms_lis
-
 def student_by_nation_df(df, gender, sortedNations):
     df_2d = pd.DataFrame()
     for nation, freq in sortedNations:
@@ -103,6 +77,7 @@ def student_by_nation_df(df, gender, sortedNations):
     return df_2d
     
 def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
+    res=""
     for room in all_rooms_objs:
         print("matching Room:{}, Type:{}".format(room.getNum(), room.getType()))
         room_type = room.getType()
@@ -214,9 +189,14 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
                             if (room.isFull()):
                                 break
                 nation_index+=1
- 
+
         for dweller in room.getDweller():
-            print(dweller)
+            res+=(str(dweller))
+            res+="\n"
+        res+="\n"
+    with open("int_match_result.txt", 'w') as f1:
+        f1.write(res)
+        f1.write("\n")
 
 if __name__ == '__main__':
     s = time.time()
