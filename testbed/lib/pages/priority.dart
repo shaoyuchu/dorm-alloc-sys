@@ -1,5 +1,8 @@
 // import 'dart:js';
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 /// Flatten: convert type 'list of list of strings' into type 'list of strings'
 List<String> flatten(List<List<String>> li) {
@@ -12,10 +15,24 @@ class Priority extends StatefulWidget {
 }
 
 class _PriorityState extends State<Priority> {
-  // TODO: get identity list from backend
   List<String> identityPool;
-
   List<List<String>> identitySelected = [];
+
+  Future getMatchResult(List studentData, List bedData) async {
+    const url = 'http://127.0.0.1:5000/api/match/';
+    final body = {
+      'priority': identitySelected,
+      'student': studentData,
+      'beds': bedData,
+    };
+    final response = await http.post(
+      url,
+      headers: { HttpHeaders.contentTypeHeader: 'application/json' },
+      body: jsonEncode(body),
+    );
+
+    return response;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -272,14 +289,17 @@ class _PriorityState extends State<Priority> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.0),
                     ),
-                    onPressed: () {
-                      // TODO: send student, bed, priority to backend, get result
-                      Map result = {
-                        'men_campus_dorm': [],
-                        'women_campus_dorm': [],
-                        'men_BOT': [],
-                        'women_BOT': [],
-                      };
+                    onPressed: () async {
+                      Map result;
+                      await getMatchResult(studentData, bedData).then((response) {
+                        if(response.statusCode == 200) {
+                          result = jsonDecode(response.body);
+                        }
+                        else {
+                          // TODO: deal with invalid response
+                          
+                        }
+                      });
 
                       // Navigator.pushReplacementNamed(context, '/result');
                       Navigator.pushNamed(context, '/result', arguments: {'result': result});
