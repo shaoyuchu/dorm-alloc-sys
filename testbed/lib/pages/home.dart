@@ -74,7 +74,6 @@ class _HomeState extends State<Home> {
       headers: { HttpHeaders.contentTypeHeader: 'application/json' },
       body: jsonEncode(studentData),
     );
-
     // dio
     // final dio = new Dio();
     // // final response = await dio.get(url);
