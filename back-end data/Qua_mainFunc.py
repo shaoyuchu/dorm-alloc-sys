@@ -137,12 +137,15 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     BotGirl['id_index'] = [id_IndexStr[i] for i in BotGirl['id_index']]
     CampusBoy = CampusBoy.fillna('None')
     CampusGirl = CampusGirl.fillna('None')
+
+    # remove nan
     BotBoy = BotBoy.fillna('None')
     BotGirl = BotGirl.fillna('None')
 
     Campus_col = CampusBoy.columns.tolist()
     Bot_col = BotBoy.columns.tolist()
 
+    # to list
     CampusBoy = CampusBoy.values.tolist()
     CampusBoy.insert(0, Campus_col)
     CampusGirl = CampusGirl.values.tolist()
@@ -151,7 +154,13 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     BotBoy.insert(0, Bot_col)
     BotGirl = BotGirl.values.tolist()
     BotGirl.insert(0, Bot_col)
-
+    
+    # print result len
+    print('CampusBoy', len(CampusBoy))
+    print('CampusGirl', len(CampusGirl))
+    print('BotBoy', len(BotBoy))
+    print('BotGirl', len(BotGirl))
+    
     return CampusBoy, CampusGirl, BotBoy, BotGirl
     
     # 永久地址=>國籍
