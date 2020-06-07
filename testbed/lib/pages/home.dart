@@ -12,7 +12,8 @@ import 'file_chooser.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 import 'package:http/http.dart' as http;
-// import 'package:dio/dio.dart';
+
+import 'components.dart';
 
 /// Given a relative path, extract its file name and truncate it into a displayable length (maxLen) if required.
 String truncateToDisplay(String path) {
@@ -41,32 +42,6 @@ class _HomeState extends State<Home> {
   List studentData = [];
   List bedData = [];
 
-  void alertSnackBar(GlobalKey<ScaffoldState> _scaffoldKey, String msg) {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Icon(
-              Icons.error_outline,
-              color: Colors.black,
-            ),
-            SizedBox(width: 10.0,),
-            Text(
-              msg,
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Noto_Sans_TC',
-                fontWeight: FontWeight.w400,
-                fontSize: 14.0,
-              ),
-            ),
-          ]
-        ),
-        backgroundColor: Colors.amber[300],
-      ),
-    );
-  }
-
   Future getIdentityPool() async {
     const url = 'http://127.0.0.1:5000/api/get_all_identities/';
     final response = await http.post(
@@ -90,20 +65,7 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.white,
 
       // app bar
-      appBar: AppBar(
-        title: Text(
-          '臺大宿舍抽籤系統',
-          style: TextStyle(
-            fontSize: 28.0,
-            color: Colors.white,
-            fontFamily: 'Noto_Sans_TC',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.indigo[700],
-        elevation: 0.0,
-      ),
+      appBar: appBar(),
       
       // body
       body: 
@@ -185,7 +147,7 @@ class _HomeState extends State<Home> {
                                     final result = await showOpenPanel(
                                       allowsMultipleSelection: false,
                                       allowedFileTypes: <FileTypeFilterGroup>[
-                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls', 'csv'])
+                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls'])
                                       ]
                                     );
                                     setState(() {
@@ -272,7 +234,7 @@ class _HomeState extends State<Home> {
                                     final result = await showOpenPanel(
                                       allowsMultipleSelection: false,
                                       allowedFileTypes: <FileTypeFilterGroup>[
-                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls', 'csv'])
+                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls'])
                                       ]
                                     );
                                     setState(() {
@@ -348,7 +310,7 @@ class _HomeState extends State<Home> {
                         }
                         else {
                           // TODO: deal with invalid response
-                          
+
                         }
                       });
                       

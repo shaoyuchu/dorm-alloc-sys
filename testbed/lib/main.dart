@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'dart:io' show Platform;
-// import 'dart:js';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';

@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'components.dart';
+
 /// Flatten: convert type 'list of list of strings' into type 'list of strings'
 List<String> flatten(List<List<String>> li) {
   return li.expand((i) => i).toList();
@@ -46,20 +48,7 @@ class _PriorityState extends State<Priority> {
       backgroundColor: Colors.white,
 
       // app bar
-      appBar: AppBar(
-        title: Text(
-          '臺大宿舍抽籤系統',
-          style: TextStyle(
-            fontSize: 28.0,
-            color: Colors.white,
-            fontFamily: 'Noto_Sans_TC',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.indigo[700],
-        elevation: 0.0,
-      ),
+      appBar: appBar(),
       
       // body
       body: 
