@@ -19,7 +19,7 @@ def home():
 @app.route('/api/get_all_identities/', methods = ['GET', 'POST'])
 def identityPool():
     if request.method == 'POST':
-        print('request', request)
+        # print('request', request)
         # print('request.json', request.json)
         student_data = request.json
         identity_pool = GetAllIdType(student_data)

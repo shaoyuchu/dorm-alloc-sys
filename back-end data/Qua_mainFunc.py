@@ -8,7 +8,7 @@ import pandas as pd
 def GetAllIdType(StudentList):
     StudentList = pd.DataFrame(StudentList[1:], columns=StudentList[0])
     id_col_name  = ['身分別1','身分別2','身分別3','特殊身份別']
-    column       = [str(x) for i in range(len(id_col_name)) for x in StudentList[id_col_name[i]].tolist() if str(x)!='nan']
+    column       = [str(x) for i in range(len(id_col_name)) for x in StudentList[id_col_name[i]].tolist() if str(x)!='None']
     return list(set(column))
 
 
