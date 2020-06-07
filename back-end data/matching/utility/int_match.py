@@ -1,4 +1,3 @@
-from munkres import Munkres, print_matrix
 import pandas as pd
 import numpy as np
 import random
@@ -13,17 +12,14 @@ from student_handler import Student
 from room_handler import Room
 from static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY
 from init_helper import df2object_student
-
-all_room_types = list(PREFERENCE_DICT.keys())
-all_room_types_symbol = sorted(list(PREFERENCE_DICT.values()))
+from match_helper import get_room_type_quota, get_freq
 
 seed = 30
 random.seed(seed)
 
-dataFrame_col = ['ID','pref_1', 'pref_2', 'pref_3','nationality']
-
 #testing
 def random_gen_preferences(num):
+    all_room_types_symbol = sorted(list(PREFERENCE_DICT.values()))
     data = []
     for s in range(num):
         s_prefs = []
@@ -33,34 +29,12 @@ def random_gen_preferences(num):
     return data
 
 def random_gen_studentData(STUDENTNUM):
+    dataFrame_col = ['ID','pref_1', 'pref_2', 'pref_3','nationality']
     data = random_gen_preferences(STUDENTNUM)
     students = pd.DataFrame(data=data,columns=dataFrame_col[1:4])
     students[dataFrame_col[4]] = [random.choice(NATIONALITIES) for i in range(STUDENTNUM)]
     students.insert(loc=0, column = dataFrame_col[0], value = [random.randrange(100, 200) for i in range(STUDENTNUM)])
     return students
-
-
-def get_freq(students_data, col):
-    all_data = students_data[col].values
-    unique_kind = np.unique(all_data)
-    count = {}
-    for kind in unique_kind:
-        count[kind] =  np.count_nonzero(all_data == kind, axis=None)
-    return count
-
-def get_room_type_quota(students_data, ROOMNUM):
-    # all_prefs = np.concatenate( (students_data['pref_1'].values, np.concatenate( (students_data['pref_2'].values, students_data['pref_3'].values), axis=None)),axis=None)
-    # only consider the first priority when deciding # of rooms for each type
-    count = get_freq(students_data, col  = 'pref_1')
-    ratio ={key: round(count[key]/sum(count.values()),2) for key in count}
-    result = {key: int(ratio[key] * ROOMNUM) for key in ratio}
-    #if there are one more or less room, modify the # of rooms of the first type
-    if (sum(result.values())> ROOMNUM):
-        result[list(result.keys())[0]] -= 1
-    elif (sum(result.values()) < ROOMNUM):
-        result[list(result.keys())[0]] += 1
-    return result
-
     
 def get_country_by_pop(students_data):
     count = get_freq(students_data, col  = 'nationality')
@@ -207,7 +181,6 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
         res+="\n"
     with open("int_match_result.txt", 'w') as f1:
         f1.write(res)
-        f1.write("\n")
 
 if __name__ == '__main__':
     s = time.time()

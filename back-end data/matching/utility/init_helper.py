@@ -19,8 +19,10 @@ def preprocess_df(df):
             new_nationalities.append(random.choice(NATIONALITIES))
         else:
             new_nationalities.append(df.iloc[stud_index]['nationality'])
+
     df["nationality"] = new_nationalities
     df["ID"] = [i for i in range(len(df))]
+    print(df.head())
     print("There are {} students ".format(len(df)))
     return df
 
