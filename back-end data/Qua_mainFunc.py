@@ -12,20 +12,20 @@ def GetAllIdType(StudentList):
     return list(set(column))
 
 
-
 # function 2
 
 def DivideDF(ordered_IdList, StudentList, DormList):
-    StudentList = pd.DataFrame(StudentList.pop(0), columns=StudentList[0])
-    DormList = pd.DataFrame(DormList.pop(0), columns=DormList[0])
+    StudentList = pd.DataFrame(StudentList[1:], columns=StudentList[0])
+    StudentList['學號'] = [str(i) for i in range(len(StudentList))] # TODO: remove!
+    DormList = pd.DataFrame(DormList[1:], columns=DormList[0])
 
     StudentList = StudentList.drop(columns = Ori_ColumnToBeDrop)
     BedNumDict = countBedNum(DormList)
     
     # get get_str2int
     id_dict = get_id_dict(ordered_IdList)
-    audit_dict = get_audit_dict(id_dict)
-    StudentList = get_str2int(id_dict, audit_dict, StudentList)
+    # audit_dict = get_audit_dict(id_dict)
+    StudentList = get_str2int(id_dict, StudentList)
     
     # divide in-out campus
     StudentList = StudentList.sort_values(by = '校內外意願').reset_index(drop = True)
@@ -75,10 +75,11 @@ def DivideDF(ordered_IdList, StudentList, DormList):
     
 # function3
 def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
-    BoyQua = pd.DataFrame(BoyQua.pop(0), columns=BoyQua[0])
-    GirlQua = pd.DataFrame(GirlQua.pop(0), columns=GirlQua[0])
-    StudentList = pd.DataFrame(StudentList.pop(0), columns=StudentList[0])
-    WaitDF = pd.DataFrame(WaitDF.pop(0), columns=WaitDF[0])
+    # BoyQua = pd.DataFrame(BoyQua[1:], columns=BoyQua[0])
+    # GirlQua = pd.DataFrame(GirlQua[1:], columns=GirlQua[0])
+    StudentList = pd.DataFrame(StudentList[1:], columns=StudentList[0])
+    StudentList['學號'] = [str(i) for i in range(len(StudentList))] # TODO: remove!
+    # WaitDF = pd.DataFrame(WaitDF[1:], columns=WaitDF[0])
 
     # Divide WaitDF => campus,BOT
     WaitDF = WaitDF.sort_values('校內外意願')
@@ -134,8 +135,23 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     CampusGirl['id_index'] = [id_IndexStr[i] for i in CampusGirl['id_index']]
     BotBoy['id_index'] = [id_IndexStr[i] for i in BotBoy['id_index']]
     BotGirl['id_index'] = [id_IndexStr[i] for i in BotGirl['id_index']]
-    
-    
+    CampusBoy = CampusBoy.fillna('None')
+    CampusGirl = CampusGirl.fillna('None')
+    BotBoy = BotBoy.fillna('None')
+    BotGirl = BotGirl.fillna('None')
+
+    Campus_col = CampusBoy.columns.tolist()
+    Bot_col = BotBoy.columns.tolist()
+
+    CampusBoy = CampusBoy.values.tolist()
+    CampusBoy.insert(0, Campus_col)
+    CampusGirl = CampusGirl.values.tolist()
+    CampusGirl.insert(0, Campus_col)
+    BotBoy = BotBoy.values.tolist()
+    BotBoy.insert(0, Bot_col)
+    BotGirl = BotGirl.values.tolist()
+    BotGirl.insert(0, Bot_col)
+
     return CampusBoy, CampusGirl, BotBoy, BotGirl
     
     # 永久地址=>國籍

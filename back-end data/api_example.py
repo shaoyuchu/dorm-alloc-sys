@@ -1,6 +1,7 @@
 import flask
 from flask import request
 from flask import jsonify
+import json
 
 import sys
 import pandas as pd
@@ -48,21 +49,34 @@ def identityPool():
 def result():
     if request.method == 'POST':
         print('request', request)
-        print('request.json', request.json)
-        return jsonify({
-            "men_campus_dorm": [
-                []
-            ],
-            "women_campus_dorm": [
-                []
-            ],
-            "men_BOT":[
-                []
-            ],
-            "women_BOT":[
-                []
-            ],
-        })
+        # print('request.json', request.json)
+        student = request.json['student']
+        beds = request.json['beds']
+        priority = request.json['priority']
+        BoyInCam, GirlInCam, WaitDF = DivideDF(priority, student, beds)
+        CampusBoy, CampusGirl, BotBoy, BotGirl = GetOutputDF(priority, BoyInCam, GirlInCam, student, WaitDF)
+        result = {
+            "men_campus_dorm": CampusBoy,
+            "women_campus_dorm": CampusGirl,
+            "men_BOT": BotBoy,
+            "women_BOT": BotGirl,
+        }
+        print(result)
+        return jsonify(result)
+        # return jsonify({
+        #     "men_campus_dorm": [
+        #         []
+        #     ],
+        #     "women_campus_dorm": [
+        #         []
+        #     ],
+        #     "men_BOT":[
+        #         []
+        #     ],
+        #     "women_BOT":[
+        #         []
+        #     ],
+        # })
     elif request.method == 'GET':
         print('request.args', request.args)
         return jsonify(['get method'])

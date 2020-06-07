@@ -1,4 +1,5 @@
 from Qua_config import *
+from random import *
 # assistant func 
 
 def countBedNum(DormList):
@@ -25,7 +26,7 @@ def get_audit_dict(id_dict):
         audit_dict[i] = id_dict[i]
     return audit_dict
 
-def get_str2int(id_dict, audit_dict, StudentList):
+def get_str2int(id_dict, StudentList):
     
     id_index                           = [0 for i in range(len(StudentList))]
     willing_index                      = [0 for i in range(len(StudentList))]
@@ -33,11 +34,12 @@ def get_str2int(id_dict, audit_dict, StudentList):
         # check if have special identity_type & audit status
         for i in id_col_name:
             if(str(row[i])!='nan' and row[i] in id_dict.keys() and id_dict[row[i]]>id_index[index]):
-                if(i == '特殊身份別' or id_dict[row[i]] in list(audit_dict.values())):
-                    if(row['審查狀態']=='通過'):
-                        id_index[index]    = id_dict[row[i]]
-                else:
-                    id_index[index]    = id_dict[row[i]]
+                # if(i == '特殊身份別' or id_dict[row[i]] in list(audit_dict.values())):
+                #     if(row['審查狀態']=='通過'):
+                #         id_index[index]    = id_dict[row[i]]
+                # else:
+                #     id_index[index]    = id_dict[row[i]]
+                id_index[index]    = id_dict[row[i]]
         # no special identity_type, check the habitation
         idDictNum = max(id_dict.values())
         if(id_index[index] == 0):

@@ -280,9 +280,11 @@ class _PriorityState extends State<Priority> {
                     ),
                     onPressed: () async {
                       Map result;
+                      print('on press');
                       await getMatchResult(studentData, bedData).then((response) {
                         if(response.statusCode == 200) {
                           result = jsonDecode(response.body);
+                          print(result);
                         }
                         else {
                           // TODO: deal with invalid response
