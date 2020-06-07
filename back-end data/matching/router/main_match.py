@@ -43,11 +43,8 @@ gender = 1
 studData = preprocess_df(df)
 studObjs = df2object_student(studData, gender)
 intStuds, locStuds = separateInternational(studObjs)
-logging.debug("{} {}".format(len(intStuds), len(locStuds)))
 locIntRoomStudQuota, INTROOMNUM = getIntRoomNum(intStuds)
-logging.debug("{}".format(locIntRoomStudQuota))
 locLocRoomStuds, locIntRoomStuds = selectLocIntRoomStuds(locIntRoomStudQuota, locStuds)
-logging.debug("{} {}".format(len(locLocRoomStuds), len(locIntRoomStuds)))
 
 allIntRoomStuds = intStuds+locIntRoomStuds
 LOCROOMNUM = TOTOALROOMNUM - INTROOMNUM
@@ -60,7 +57,6 @@ logging.debug("There are {} students in local rooms".format(len(locLocRoomStuds)
 ''' IntRoom matching'''
 #trasform stud objs back to df
 int_room_stud_df = object2df_student(studData, allIntRoomStuds)
-logging.debug(len(int_room_stud_df))
 #get type quota of the int rooms 
 roomTypeQuota = get_room_type_quota(int_room_stud_df, INTROOMNUM)
 #create room objects
@@ -68,7 +64,6 @@ intRoomsObjs = df2object_rooms(INTROOMNUM, roomTypeQuota)
 #get country list ordered by its popularity
 sortedNations = get_country_by_pop(int_room_stud_df)
 logging.debug((sortedNations))
-exit()
 #student by nationality df
 studentByNationDF = student_by_nation_df(int_room_stud_df, gender, sortedNations)
 

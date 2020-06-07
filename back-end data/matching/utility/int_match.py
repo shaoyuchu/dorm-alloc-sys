@@ -11,7 +11,8 @@ import sys
 sys.path.insert(0, '../handler/')
 from student_handler import Student
 from room_handler import Room
-from static.config import PREFERENCE_DICT, NATIONALITIES
+from static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY
+from init_helper import df2object_student
 
 all_room_types = list(PREFERENCE_DICT.keys())
 all_room_types_symbol = sorted(list(PREFERENCE_DICT.values()))
@@ -78,12 +79,22 @@ def student_by_nation_df(df, gender, sortedNations):
     
 def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
     res=""
+    local_stud_index = 0
+    local_group = student_by_nation_df[LOCAL_NATIONALITY]
     for room in all_rooms_objs:
         print("matching Room:{}, Type:{}".format(room.getNum(), room.getType()))
         room_type = room.getType()
         priority = 0
         nation_index = 0
         picked_nation = set()
+
+        #place a Taiwanese student first
+        student = local_group[local_stud_index]
+        room.addDweller(student)
+        student.setArranged(True)
+        local_stud_index+=1
+        picked_nation.add(LOCAL_NATIONALITY)
+        print("success arrange one student!")
 
         #放不同國籍相同偏好
         while (priority<3):
