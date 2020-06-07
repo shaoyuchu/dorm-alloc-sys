@@ -1,11 +1,12 @@
-
+from Qua_config import *
 from Qua_assisFunc import *
+import pandas as pd
 
 
 # function 1
 
 def GetAllIdType(StudentList):
-    StudentList = pd.DataFrame(StudentList, columns=headers)
+    StudentList = pd.DataFrame(StudentList[1:], columns=StudentList[0])
     id_col_name  = ['身分別1','身分別2','身分別3','特殊身份別']
     column       = [str(x) for i in range(len(id_col_name)) for x in StudentList[id_col_name[i]].tolist() if str(x)!='nan']
     return list(set(column))
@@ -15,8 +16,8 @@ def GetAllIdType(StudentList):
 # function 2
 
 def DivideDF(ordered_IdList, StudentList, DormList):
-    StudentList = pd.DataFrame(StudentList, columns=headers)
-    DormList = pd.DataFrame(DormList, columns=headers)
+    StudentList = pd.DataFrame(StudentList.pop(0), columns=StudentList[0])
+    DormList = pd.DataFrame(DormList.pop(0), columns=DormList[0])
 
     StudentList = StudentList.drop(columns = Ori_ColumnToBeDrop)
     BedNumDict = countBedNum(DormList)
@@ -74,10 +75,10 @@ def DivideDF(ordered_IdList, StudentList, DormList):
     
 # function3
 def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
-    BoyQua = pd.DataFrame(BoyQua, columns=headers)
-    GirlQua = pd.DataFrame(GirlQua, columns=headers)
-    StudentList = pd.DataFrame(StudentList, columns=headers)
-    WaitDF = pd.DataFrame(WaitDF, columns=headers)
+    BoyQua = pd.DataFrame(BoyQua.pop(0), columns=BoyQua[0])
+    GirlQua = pd.DataFrame(GirlQua.pop(0), columns=GirlQua[0])
+    StudentList = pd.DataFrame(StudentList.pop(0), columns=StudentList[0])
+    WaitDF = pd.DataFrame(WaitDF.pop(0), columns=WaitDF[0])
 
     # Divide WaitDF => campus,BOT
     WaitDF = WaitDF.sort_values('校內外意願')

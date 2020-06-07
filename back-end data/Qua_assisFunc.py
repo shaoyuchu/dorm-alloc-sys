@@ -1,3 +1,4 @@
+from Qua_config import *
 # assistant func 
 
 def countBedNum(DormList):
