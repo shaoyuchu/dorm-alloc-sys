@@ -1,9 +1,11 @@
+
 from Qua_assisFunc import *
 
 
 # function 1
 
 def GetAllIdType(StudentList):
+    StudentList = pd.DataFrame(StudentList, columns=headers)
     id_col_name  = ['身分別1','身分別2','身分別3','特殊身份別']
     column       = [str(x) for i in range(len(id_col_name)) for x in StudentList[id_col_name[i]].tolist() if str(x)!='nan']
     return list(set(column))
@@ -13,7 +15,9 @@ def GetAllIdType(StudentList):
 # function 2
 
 def DivideDF(ordered_IdList, StudentList, DormList):
-    
+    StudentList = pd.DataFrame(StudentList, columns=headers)
+    DormList = pd.DataFrame(DormList, columns=headers)
+
     StudentList = StudentList.drop(columns = Ori_ColumnToBeDrop)
     BedNumDict = countBedNum(DormList)
     
@@ -70,7 +74,11 @@ def DivideDF(ordered_IdList, StudentList, DormList):
     
 # function3
 def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
-    
+    BoyQua = pd.DataFrame(BoyQua, columns=headers)
+    GirlQua = pd.DataFrame(GirlQua, columns=headers)
+    StudentList = pd.DataFrame(StudentList, columns=headers)
+    WaitDF = pd.DataFrame(WaitDF, columns=headers)
+
     # Divide WaitDF => campus,BOT
     WaitDF = WaitDF.sort_values('校內外意願')
     WillGroupNum = WaitDF.groupby('校內外意願')
@@ -130,4 +138,3 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     return CampusBoy, CampusGirl, BotBoy, BotGirl
     
     # 永久地址=>國籍
-    # id_index 轉回 身份別

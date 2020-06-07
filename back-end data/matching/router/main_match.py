@@ -1,12 +1,11 @@
 import sys
 sys.path.insert(0, '../utility/')
 sys.path.insert(0, '../handler/')
-from match_helper import separateInternational, getIntRoomNum, selectLocIntRoomStuds
+from match_helper import separateInternational, getIntRoomNum, selectLocIntRoomStuds, get_room_type_quota
 from init_helper import df2object_student, df2object_rooms, preprocess_df,object2df_student
-# from loc_match import LocalRoommatePair
-from int_match import get_room_type_quota, get_country_by_pop, student_by_nation_df, random_gen_studentData, int_match
+from loc_match import loc_match_test, loc_match
+from int_match import get_country_by_pop, student_by_nation_df, int_match
 from static.config import PREFERENCE_DICT
-
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -70,25 +69,7 @@ studentByNationDF = student_by_nation_df(int_room_stud_df, gender, sortedNations
 int_match(sortedNations, intRoomsObjs, studentByNationDF)
 
 # '''locRoom'''
-# allLocRoomStuds = locIntRoomStuds
-
-# '''match'''
-
-# def Matching(international_S, local_students):
-#     #決定國際房數量
-    
-
-#     #選住在國際區的本地學生. Array
-#     local_I, local_L = separare_local_IL(local_student_quota, local_students)
-#     #安排住在國際區的國際學生的房間
-#     Rooms, Room_pointer = arrangeInternationalStudents(inter_I, Rooms, num_rooms_I)
-#     #安排住在國際區的本地學生的房間
-#     Rooms = RoommatePair(local_I, Rooms, Room_pointer, preferenceArray)
-#     #安排住在非國際區的本地學生的房間
-#     Rooms = LocalRoommatePair(local_L, Rooms, preferenceArray)
-
-
-# num_internationl_students: len(Males_internationl), len(females_internationl)
-# local_students: males_local/females_local
-
-
+loc_room_stud_df = object2df_student(studData, locLocRoomStuds)
+roomTypeQuota = get_room_type_quota(loc_room_stud_df, LOCROOMNUM)
+locRoomsObjs = df2object_rooms(LOCROOMNUM, roomTypeQuota)
+loc_match(locRoomsObjs, locLocRoomStuds)

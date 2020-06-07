@@ -1,7 +1,9 @@
+import numpy as np
+
 import sys
 sys.path.insert(0, '../handler/')
 from room_handler import Room
-from static.config import MAX_INT_STUD_PER_ROOM, LOCAL_NATIONALITY
+from static.config import MAX_INT_STUD_PER_ROOM, LOCAL_NATIONALITY, PREFERENCE_DICT
 
 
 def get_freq(students_data, col):
@@ -12,10 +14,10 @@ def get_freq(students_data, col):
         count[kind] =  np.count_nonzero(all_data == kind, axis=None)
     return count
 
-def get_room_type_quota(roomNum, students_data):
+def get_room_type_quota(students_data,roomNum):
     # all_prefs = np.concatenate( (students_data['pref_1'].values, np.concatenate( (students_data['pref_2'].values, students_data['pref_3'].values), axis=None)),axis=None)
     # only consider the first priority when deciding # of rooms for each type
-    count = get_freq(students_data, col  = 'pref_1')
+    count = get_freq(students_data, col='pref_1')
     ratio ={key: round(count[key]/sum(count.values()),2) for key in count}
     result = {key: int(ratio[key] * roomNum) for key in ratio}
     #if there are one more or less room, modify the # of rooms of the first type
@@ -71,114 +73,37 @@ def selectLocIntRoomStuds(local_student_quota, local_students):
             break
     return local_students, local_I
 
-
-def allNationalities(studentArray):
-    Nationalities = []
-    for student in studentArray:
-        Nationalities.append(student.nationality)
-    return len(set(Nationalities))
-
-def arrangeInternationalStudents(inter_I, Rooms, num_rooms_I):
-    #功能：國際區國際生室友配對
-    #至少還有2個不同國籍
-    nationalities = [student.nationality for student in inter_I]
-    countDict = {nation:nationalities.count(nation) for nation in nationalities}
-
-    #room: 0 ~ num_rooms_I-1 are international rooms
-    for nation in countDict.keys():
-        ppl_per_room  = countDict[nation]//num_rooms_I
-        if(ppl_per_room == 0):
-            taken_rooms = countDict[nation]%num_rooms_I
-            for room_index in range(taken_rooms):
-                #take one dweller with that nationality
-                Rooms[room_index].addDweller(None)
-        #one room with more than one dwellers that has the same nationality
-        else:
-            #先填補完一輪
-            for room_index in range(num_rooms_I):
-                #take one dweller with that nationality
-                student_A, student_B = takeInternationalMatch(inter_I, nationality, ppl_per_room)
-                Rooms[room_index].addDweller(student_A)
-                Rooms[room_index].addDweller(student_B)
-            #把剩下的人放進
-            taken_rooms = countDict[nation]%num_rooms_I
-            for room_index in range(taken_rooms):
-                #take one dweller with that nationality
-                Rooms[room_index] = None 
-                ppl_per_room-=1
-
 # Students: local_I, local_L
 # Priority: 0, 1, 2
 # preferenceArray = [I, H, E, C, S, G]
-def categorize(students, priority, preferenceArray):
+def categorize(students, priority):
     #功能：依志願分群
     group = {}
-    for pref in preferenceArray:
+    for pref in PREFERENCE_DICT.values():
         group[pref] = []
     for student in students:
-        if (student.preference[priority] == "I"):
+        p = student.getPref(priority)
+        if (p == "I"):
             group["I"].append(student)
-        elif (student.preference[priority] == "H"):
+        elif (p == "H"):
             group["H"].append(student)
-        elif (student.preference[priority] == "E"):
+        elif (p == "E"):
             group["E"].append(student)
-        elif (student.preference[priority] == "C"):
+        elif (p == "C"):
             group["C"].append(student)
-        elif (student.preference[priority] == "S"):
+        elif (p == "S"):
             group["S"].append(student)
-        elif (student.preference[priority] == "G"):
+        elif (p == "G"):
             group["G"].append(student)
     return group
 
-# Rooms: Rooms
-# Students: local_I, local_L
-def RoommatePair(students, Rooms, Room_pointer, preferenceArray):
-    #功能：國際區本地生/非國際區 室友配對
-    # 看第一志願
-    group1 = categorize(students, 0, preferenceArray)
-    #尚未被排入的學生
-    leftOver = [] 
-    for type in group1.keys():
-        while(len(group1[type]) >1):
-            first_S = group1[type].pop()
-            second_S = group1[type].pop()
-            Rooms[Room_pointer].addDweller(first_S)
-            Rooms[Room_pointer].addDweller(second_S)
-            Room_pointer +=1
-        if (len(group1[type])==1):
-            leftOver.append(group1[type].pop())
-    #看第二志願
-    group2 = categorize(leftOver, 1, preferenceArray)
-    #尚未被排入的學生
-    leftOver = []
-    for type in group2.keys():
-        while(len(group2[type]) >1):
-            first_S = group2[type].pop()
-            second_S = group2[type].pop()
-            Rooms[Room_pointer].addDweller(first_S)
-            Rooms[Room_pointer].addDweller(second_S)
-            Room_pointer +=1
-        if (len(group2[type])==1):
-            leftOver.append(group2[type].pop())
-    #第三志願
-    group3 = categorize(leftOver, 2, preferenceArray)
-    #尚未被排入的學生
-    leftOver = [] 
-    for type in group3.keys():
-        while(len(group3[type]) >1):
-            first_S = group3[type].pop()
-            second_S = group3[type].pop()
-            Rooms[Room_pointer].addDweller(first_S)
-            Rooms[Room_pointer].addDweller(second_S)
-            Room_pointer +=1
-        if (len(group3[type])==1):
-            leftOver.append(group3[type].pop())
-    while(len(leftOver) > 0):
-        if(len(leftOver) == 1):
-            Rooms[Room_pointer].add(leftOver.pop())
+def type_room_dict(rooms):
+    type2RoomDict = {}
+    for room in rooms:
+        if room.getType() not in type2RoomDict:
+            type2RoomDict[room.getType()] = [room]
         else:
-            Rooms[Room_pointer].add(leftOver.pop())
-            Rooms[Room_pointer].add(leftOver.pop())
-            Room_pointer += 1
-    return Rooms  
+            type2RoomDict[room.getType()].append(room)
+    type2RoomDict['finish'] = []
+    return type2RoomDict
 
