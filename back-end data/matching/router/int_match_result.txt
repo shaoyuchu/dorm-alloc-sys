@@ -1,0 +1,591 @@
+id: B08***040, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'S']
+id: B08***032, nationality: Turkey, gender: 1, preferences: ['C', 'I', 'G']
+id: B08***033, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'H']
+id: B08***040, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'H']
+
+id: B08***124, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'G']
+id: B08***017, nationality: Turkey, gender: 1, preferences: ['C', 'H', 'S']
+id: B08***126, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'G']
+id: B08***130, nationality: Taiwan, gender: 1, preferences: ['I', 'H', 'G']
+
+id: B08***101, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'G']
+id: B08***028, nationality: Turkey, gender: 1, preferences: ['C', 'H', 'I']
+id: B08***033, nationality: Taiwan, gender: 1, preferences: ['I', 'H', 'S']
+id: B08***026, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'H']
+
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'G']
+id: B08***048, nationality: Turkey, gender: 1, preferences: ['C', 'E', 'I']
+id: B08***035, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'C']
+id: B08***069, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'C']
+
+id: B08***112, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'S']
+id: B08***023, nationality: Turkey, gender: 1, preferences: ['C', 'S', 'H']
+id: B08***090, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***155, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+
+id: B08***044, nationality: Taiwan, gender: 1, preferences: ['C', 'E', 'G']
+id: B08***325, nationality: Turkey, gender: 1, preferences: ['C', 'H', 'I']
+id: B08***023, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'G']
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'C']
+
+id: B08***028, nationality: Taiwan, gender: 1, preferences: ['C', 'I', 'S']
+id: B08***019, nationality: Turkey, gender: 1, preferences: ['C', 'I', 'H']
+id: B08***046, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'H']
+id: B08***111, nationality: Taiwan, gender: 1, preferences: ['H', 'G', 'G']
+
+id: B08***048, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'H']
+id: B08***035, nationality: Turkey, gender: 1, preferences: ['C', 'I', 'S']
+id: B08***007, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'I']
+id: B08***019, nationality: Taiwan, gender: 1, preferences: ['I', 'G', 'S']
+
+id: B08***013, nationality: Taiwan, gender: 1, preferences: ['C', 'E', 'G']
+id: B08***025, nationality: Turkey, gender: 1, preferences: ['C', 'H', 'S']
+id: B08***043, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'E']
+id: B08***049, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'H']
+
+id: B08***058, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'H']
+id: B08***022, nationality: Turkey, gender: 1, preferences: ['C', 'S', 'G']
+id: B08***013, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'E']
+id: B08***045, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'I']
+
+id: B08***017, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'I']
+id: B08***087, nationality: Turkey, gender: 1, preferences: ['C', 'G', 'E']
+id: B08***010, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'C']
+id: B08***027, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'G']
+
+id: B08***047, nationality: Taiwan, gender: 1, preferences: ['C', 'S', 'H']
+id: B08***083, nationality: Turkey, gender: 1, preferences: ['C', 'H', 'G']
+id: B08***012, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'I']
+id: B08***086, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'H']
+
+id: B08***038, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'I']
+id: B08***121, nationality: Turkey, gender: 1, preferences: ['C', 'S', 'I']
+id: B08***021, nationality: Taiwan, gender: 1, preferences: ['H', 'E', 'S']
+id: B08***013, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'I']
+
+id: B08***028, nationality: Taiwan, gender: 1, preferences: ['C', 'I', 'G']
+id: B08***036, nationality: Turkey, gender: 1, preferences: ['C', 'E', 'I']
+id: B08***111, nationality: Taiwan, gender: 1, preferences: ['S', 'I', 'G']
+id: B08***026, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'S']
+
+id: B08***127, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'I']
+id: B08***039, nationality: Turkey, gender: 1, preferences: ['C', 'E', 'G']
+id: B08***026, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***073, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***023, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'I']
+id: B08***118, nationality: Turkey, gender: 1, preferences: ['C', 'H', 'S']
+id: B08***010, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'G']
+id: B08***011, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+
+id: B08***020, nationality: Taiwan, gender: 1, preferences: ['C', 'I', 'G']
+id: B08***026, nationality: Turkey, gender: 1, preferences: ['C', 'I', 'E']
+id: B08***126, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***011, nationality: Taiwan, gender: 1, preferences: ['I', 'E', 'C']
+
+id: B08***122, nationality: Taiwan, gender: 1, preferences: ['C', 'S', 'G']
+id: B08***092, nationality: Turkey, gender: 1, preferences: ['C', 'H', 'G']
+id: B08***034, nationality: Taiwan, gender: 1, preferences: ['E', 'G', 'C']
+id: B08***022, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+
+id: B08***052, nationality: Taiwan, gender: 1, preferences: ['C', 'S', 'H']
+id: B08***038, nationality: Turkey, gender: 1, preferences: ['C', 'H', 'E']
+id: B08***221, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***045, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'H']
+
+id: B08***018, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'I']
+id: B08***109, nationality: Turkey, gender: 1, preferences: ['C', 'S', 'H']
+id: B08***012, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'C']
+id: B08***140, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'C']
+
+id: B08***043, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'S']
+id: B08***081, nationality: Turkey, gender: 1, preferences: ['C', 'S', 'G']
+id: B08***013, nationality: Taiwan, gender: 1, preferences: ['H', 'E', 'G']
+id: B08***008, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'H']
+
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['E', 'H', 'I']
+id: B08***049, nationality: Turkey, gender: 1, preferences: ['E', 'I', 'G']
+id: B08***023, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'S']
+id: B08***044, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***037, nationality: Taiwan, gender: 1, preferences: ['E', 'I', 'G']
+id: B08***025, nationality: Turkey, gender: 1, preferences: ['E', 'C', 'I']
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'G']
+id: B08***003, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+
+id: B08***122, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***027, nationality: Turkey, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***039, nationality: Taiwan, gender: 1, preferences: ['H', 'E', 'C']
+
+id: B08***085, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'C']
+id: B08***084, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***101, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***053, nationality: Taiwan, gender: 1, preferences: ['H', 'G', 'I']
+
+id: B08***004, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***078, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***021, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***039, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***056, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'S']
+id: B08***028, nationality: Turkey, gender: 1, preferences: ['G', 'I', 'S']
+id: B08***012, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'S']
+id: B08***025, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'E']
+
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***139, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***010, nationality: Taiwan, gender: 1, preferences: ['H', 'E', 'C']
+id: B08***019, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+
+id: B08***010, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'E']
+id: B08***036, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***011, nationality: Taiwan, gender: 1, preferences: ['I', 'G', 'S']
+id: B08***088, nationality: Taiwan, gender: 1, preferences: ['H', 'I', 'E']
+
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'C']
+id: B08***029, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***055, nationality: Taiwan, gender: 1, preferences: ['H', 'I', 'G']
+id: B08***009, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+
+id: B08***020, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'C']
+id: B08***132, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***028, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'H']
+id: B08***033, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+
+id: B08***027, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***032, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***055, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'G']
+
+id: B08***034, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'I']
+id: B08***125, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***068, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***035, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***023, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***059, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'I']
+id: B08***032, nationality: Taiwan, gender: 1, preferences: ['H', 'I', 'S']
+
+id: B08***034, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***036, nationality: Turkey, gender: 1, preferences: ['G', 'I', 'S']
+id: B08***009, nationality: Taiwan, gender: 1, preferences: ['H', 'S', 'C']
+id: B08***012, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+
+id: B08***024, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'I']
+id: B08***025, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***018, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***076, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***066, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'C']
+id: B08***088, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***027, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'H']
+id: B08***040, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+
+id: B08***009, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***030, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***121, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'G']
+id: B08***022, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'G']
+
+id: B08***127, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'G']
+id: B08***028, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***032, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+id: B08***052, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'C']
+
+id: B08***032, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'C']
+id: B08***080, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***023, nationality: Taiwan, gender: 1, preferences: ['I', 'H', 'G']
+id: B08***026, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+
+id: B08***025, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***021, nationality: Turkey, gender: 1, preferences: ['G', 'I', 'S']
+id: B08***087, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'C']
+id: B08***080, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'I']
+
+id: B08***102, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***054, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***037, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+id: B08***083, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'H']
+
+id: B08***044, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***032, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***010, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'C']
+id: B08***011, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'I']
+
+id: B08***017, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***133, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***113, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'H']
+id: B08***111, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'S']
+
+id: B08***077, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'C']
+id: B08***071, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***058, nationality: Taiwan, gender: 1, preferences: ['C', 'S', 'G']
+id: B08***038, nationality: Taiwan, gender: 1, preferences: ['E', 'C', 'G']
+
+id: B08***039, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'C']
+id: B08***127, nationality: Turkey, gender: 1, preferences: ['G', 'I', 'C']
+id: B08***036, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'S']
+id: B08***025, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+
+id: B08***054, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'C']
+id: B08***120, nationality: Turkey, gender: 1, preferences: ['G', 'I', 'C']
+id: B08***015, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'S']
+id: B08***027, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+
+id: B08***024, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***323, nationality: Turkey, gender: 1, preferences: ['G', 'C', 'H']
+id: B08***041, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'S']
+id: B08***017, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'I']
+
+id: B08***045, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'C']
+id: B08***090, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***032, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'I']
+id: B08***119, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***039, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'H']
+id: B08***063, nationality: Turkey, gender: 1, preferences: ['G', 'I', 'S']
+id: B08***071, nationality: Taiwan, gender: 1, preferences: ['H', 'S', 'G']
+id: B08***036, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'H']
+
+id: B08***024, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'S']
+id: B08***128, nationality: Turkey, gender: 1, preferences: ['G', 'C', 'E']
+id: B08***096, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+id: B08***043, nationality: Taiwan, gender: 1, preferences: ['I', 'G', 'H']
+
+id: B08***108, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***105, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***081, nationality: Taiwan, gender: 1, preferences: ['H', 'G', 'I']
+id: B08***023, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'S']
+
+id: B08***072, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***032, nationality: Turkey, gender: 1, preferences: ['G', 'C', 'H']
+id: B08***020, nationality: Taiwan, gender: 1, preferences: ['S', 'I', 'G']
+id: B08***061, nationality: Taiwan, gender: 1, preferences: ['S', 'I', 'C']
+
+id: B08***018, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***033, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***005, nationality: Taiwan, gender: 1, preferences: ['C', 'S', 'E']
+id: B08***078, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'H']
+
+id: B08***120, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***143, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***020, nationality: Taiwan, gender: 1, preferences: ['S', 'I', 'H']
+id: B08***045, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'H']
+
+id: B08***072, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'C']
+id: B08***030, nationality: Turkey, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***043, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'G']
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'C']
+id: B08***038, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***053, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'E']
+id: B08***113, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'H']
+
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'G']
+id: B08***235, nationality: Turkey, gender: 1, preferences: ['G', 'C', 'H']
+id: B08***054, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***022, nationality: Taiwan, gender: 1, preferences: ['E', 'G', 'S']
+
+id: B08***012, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'C']
+id: B08***037, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***054, nationality: Taiwan, gender: 1, preferences: ['H', 'G', 'C']
+id: B08***042, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'G']
+
+id: B08***019, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***031, nationality: Turkey, gender: 1, preferences: ['G', 'S', 'H']
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['E', 'H', 'C']
+id: B08***059, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+
+id: B08***037, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***078, nationality: Turkey, gender: 1, preferences: ['G', 'S', 'C']
+id: B08***074, nationality: Taiwan, gender: 1, preferences: ['H', 'S', 'I']
+id: B08***031, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'H']
+
+id: B08***139, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'I']
+id: B08***124, nationality: Turkey, gender: 1, preferences: ['G', 'C', 'I']
+id: B08***114, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***056, nationality: Taiwan, gender: 1, preferences: ['H', 'I', 'C']
+
+id: B08***013, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***034, nationality: Turkey, gender: 1, preferences: ['G', 'I', 'C']
+id: B08***079, nationality: Taiwan, gender: 1, preferences: ['H', 'G', 'G']
+id: B08***159, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'H']
+
+id: B08***083, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***026, nationality: Turkey, gender: 1, preferences: ['G', 'H', 'C']
+id: B08***029, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'I']
+id: B08***019, nationality: Taiwan, gender: 1, preferences: ['C', 'I', 'H']
+
+id: B08***020, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***018, nationality: Turkey, gender: 1, preferences: ['G', 'H', 'I']
+id: B08***025, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+id: B08***060, nationality: Taiwan, gender: 1, preferences: ['H', 'I', 'S']
+
+id: B08***058, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***139, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['C', 'I', 'H']
+id: B08***124, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'I']
+
+id: B08***118, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'S']
+id: B08***144, nationality: Turkey, gender: 1, preferences: ['G', 'C', 'H']
+id: B08***062, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'G']
+id: B08***026, nationality: Taiwan, gender: 1, preferences: ['S', 'I', 'G']
+
+id: B08***124, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***087, nationality: Turkey, gender: 1, preferences: ['G', 'C', 'H']
+id: B08***023, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'I']
+id: B08***067, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+
+id: B08***036, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'H']
+id: B08***023, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***058, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'E']
+id: B08***021, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+
+id: B08***027, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'H']
+id: B08***036, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***047, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***050, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+
+id: B08***077, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'C']
+id: B08***019, nationality: Turkey, gender: 1, preferences: ['G', 'C', 'I']
+id: B08***145, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'E']
+id: B08***101, nationality: Taiwan, gender: 1, preferences: ['I', 'H', 'G']
+
+id: B08***019, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***122, nationality: Turkey, gender: 1, preferences: ['G', 'S', 'H']
+id: B08***018, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'C']
+id: B08***104, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'I']
+
+id: B08***026, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***063, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***038, nationality: Taiwan, gender: 1, preferences: ['H', 'G', 'G']
+id: B08***053, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+
+id: B08***109, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'H']
+id: B08***129, nationality: Turkey, gender: 1, preferences: ['G', 'I', 'G']
+id: B08***025, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'H']
+id: B08***058, nationality: Taiwan, gender: 1, preferences: ['C', 'I', 'G']
+
+id: B08***033, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***082, nationality: Turkey, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***016, nationality: Taiwan, gender: 1, preferences: ['C', 'I', 'G']
+id: B08***062, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'H']
+
+id: B08***019, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'H']
+id: B08***022, nationality: Turkey, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***094, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'S']
+id: B08***046, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'G']
+
+id: B08***137, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'I']
+id: B08***127, nationality: Turkey, gender: 1, preferences: ['H', 'E', 'G']
+id: B08***048, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'I']
+id: B08***060, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'G']
+
+id: B08***019, nationality: Taiwan, gender: 1, preferences: ['H', 'S', 'I']
+id: B08***030, nationality: Turkey, gender: 1, preferences: ['H', 'G', 'G']
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'C']
+id: B08***010, nationality: Taiwan, gender: 1, preferences: ['C', 'I', 'G']
+
+id: B08***029, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+id: B08***108, nationality: Turkey, gender: 1, preferences: ['H', 'C', 'S']
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'G']
+id: B08***045, nationality: Taiwan, gender: 1, preferences: ['I', 'H', 'C']
+
+id: B08***075, nationality: Taiwan, gender: 1, preferences: ['H', 'S', 'G']
+id: B08***088, nationality: Turkey, gender: 1, preferences: ['H', 'S', 'C']
+id: B08***052, nationality: Taiwan, gender: 1, preferences: ['H', 'G', 'S']
+id: B08***041, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'G']
+
+id: B08***047, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+id: B08***110, nationality: Turkey, gender: 1, preferences: ['H', 'C', 'G']
+id: B08***023, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***100, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'S']
+
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'G']
+id: B08***037, nationality: Turkey, gender: 1, preferences: ['H', 'C', 'I']
+id: B08***018, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'H']
+id: B08***016, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'H']
+
+id: B08***016, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'I']
+id: B08***038, nationality: Turkey, gender: 1, preferences: ['H', 'C', 'I']
+id: B08***117, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'G']
+id: B08***011, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+
+id: B08***143, nationality: Taiwan, gender: 1, preferences: ['H', 'E', 'G']
+id: B08***229, nationality: Turkey, gender: 1, preferences: ['H', 'C', 'S']
+id: B08***028, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'I']
+id: B08***043, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'H']
+
+id: B08***115, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'S']
+id: B08***026, nationality: Turkey, gender: 1, preferences: ['H', 'G', 'S']
+id: B08***078, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***028, nationality: Taiwan, gender: 1, preferences: ['I', 'H', 'E']
+
+id: B08***024, nationality: Taiwan, gender: 1, preferences: ['H', 'G', 'C']
+id: B08***072, nationality: Turkey, gender: 1, preferences: ['H', 'S', 'C']
+id: B08***038, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'E']
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['C', 'S', 'G']
+
+id: B08***038, nationality: Taiwan, gender: 1, preferences: ['H', 'G', 'G']
+id: B07***101, nationality: Turkey, gender: 1, preferences: ['H', 'C', 'E']
+id: B08***055, nationality: Taiwan, gender: 1, preferences: ['I', 'H', 'C']
+id: B08***020, nationality: Taiwan, gender: 1, preferences: ['S', 'I', 'G']
+
+id: B08***027, nationality: Taiwan, gender: 1, preferences: ['H', 'C', 'S']
+id: B08***032, nationality: Turkey, gender: 1, preferences: ['H', 'E', 'S']
+id: B08***022, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'G']
+id: B08***059, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+
+id: B08***032, nationality: Taiwan, gender: 1, preferences: ['H', 'E', 'C']
+id: B08***040, nationality: Turkey, gender: 1, preferences: ['H', 'S', 'E']
+id: B08***062, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'S']
+id: B08***117, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'E']
+
+id: B08***076, nationality: Taiwan, gender: 1, preferences: ['I', 'H', 'C']
+id: B08***029, nationality: Turkey, gender: 1, preferences: ['I', 'C', 'H']
+id: B08***029, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'H']
+id: B08***052, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'I']
+
+id: B08***023, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'G']
+id: B08***091, nationality: Turkey, gender: 1, preferences: ['I', 'E', 'C']
+id: B08***015, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'E']
+id: B08***046, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'G']
+
+id: B08***105, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'E']
+id: B08***035, nationality: Turkey, gender: 1, preferences: ['I', 'S', 'H']
+id: B08***049, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'G']
+id: B08***024, nationality: Taiwan, gender: 1, preferences: ['S', 'I', 'C']
+
+id: B08***088, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'E']
+id: B08***070, nationality: Turkey, gender: 1, preferences: ['I', 'C', 'H']
+id: B08***011, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'H']
+id: B08***140, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+
+id: B08***018, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***062, nationality: Turkey, gender: 1, preferences: ['I', 'H', 'C']
+id: B08***039, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'I']
+id: B08***083, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'S']
+
+id: B08***017, nationality: Taiwan, gender: 1, preferences: ['I', 'S', 'C']
+id: B08***041, nationality: Turkey, gender: 1, preferences: ['I', 'C', 'S']
+id: B08***040, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'S']
+id: B08***042, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+
+id: B08***008, nationality: Taiwan, gender: 1, preferences: ['I', 'H', 'G']
+id: B08***120, nationality: Turkey, gender: 1, preferences: ['I', 'H', 'C']
+id: B08***073, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'H']
+id: B08***054, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'C']
+
+id: B08***035, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'H']
+id: B08***130, nationality: Turkey, gender: 1, preferences: ['I', 'C', 'S']
+id: B08***034, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'E']
+id: B08***017, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+
+id: B08***011, nationality: Taiwan, gender: 1, preferences: ['I', 'G', 'C']
+id: B08***021, nationality: Turkey, gender: 1, preferences: ['I', 'C', 'S']
+id: B08***015, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'C']
+id: B08***016, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***028, nationality: Turkey, gender: 1, preferences: ['I', 'G', 'S']
+id: B08***025, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'S']
+id: B08***113, nationality: Taiwan, gender: 1, preferences: ['C', 'E', 'G']
+
+id: B08***081, nationality: Taiwan, gender: 1, preferences: ['I', 'E', 'G']
+id: B08***044, nationality: Turkey, gender: 1, preferences: ['I', 'S', 'H']
+id: B08***067, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'C']
+id: B08***046, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***127, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***027, nationality: Turkey, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***028, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'G']
+id: B08***042, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'I']
+
+id: B08***032, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***025, nationality: Turkey, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***028, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'S']
+id: B08***022, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***031, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***069, nationality: Turkey, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***145, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'S']
+id: B08***026, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'E']
+
+id: B08***051, nationality: Taiwan, gender: 1, preferences: ['I', 'C', 'G']
+id: B08***033, nationality: Turkey, gender: 1, preferences: ['I', 'C', 'H']
+id: B08***030, nationality: Taiwan, gender: 1, preferences: ['E', 'C', 'S']
+id: B08***016, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'E']
+
+id: B08***028, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+id: B08***031, nationality: Turkey, gender: 1, preferences: ['S', 'G', 'C']
+id: B08***040, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'I']
+id: B08***136, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+
+id: B08***054, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+id: B08***081, nationality: Turkey, gender: 1, preferences: ['S', 'I', 'H']
+id: B08***057, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***060, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+
+id: B08***118, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'G']
+id: B08***126, nationality: Turkey, gender: 1, preferences: ['S', 'I', 'H']
+id: B08***235, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***056, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'H']
+
+id: B08***039, nationality: Taiwan, gender: 1, preferences: ['S', 'I', 'C']
+id: B08***019, nationality: Turkey, gender: 1, preferences: ['S', 'H', 'I']
+id: B08***038, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***029, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+
+id: B08***076, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+id: B08***035, nationality: Turkey, gender: 1, preferences: ['S', 'I', 'C']
+id: B08***019, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'E']
+id: B08***043, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'H']
+
+id: B08***026, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'I']
+id: B08***052, nationality: Turkey, gender: 1, preferences: ['S', 'H', 'C']
+id: B08***236, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'I']
+id: B08***016, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'C']
+
+id: B08***017, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'C']
+id: B08***024, nationality: Turkey, gender: 1, preferences: ['S', 'G', 'C']
+id: B08***108, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'E']
+id: B08***021, nationality: Taiwan, gender: 1, preferences: ['G', 'I', 'E']
+
+id: B08***049, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'C']
+id: B08***116, nationality: Turkey, gender: 1, preferences: ['S', 'C', 'I']
+id: B08***105, nationality: Taiwan, gender: 1, preferences: ['C', 'H', 'G']
+id: B08***060, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'C']
+
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+id: B08***073, nationality: Turkey, gender: 1, preferences: ['S', 'G', 'I']
+id: B08***055, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'C']
+id: B08***117, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+
+id: B08***047, nationality: Taiwan, gender: 1, preferences: ['S', 'G', 'C']
+id: B08***020, nationality: Turkey, gender: 1, preferences: ['S', 'C', 'I']
+id: B08***136, nationality: Taiwan, gender: 1, preferences: ['G', 'E', 'H']
+id: B08***073, nationality: Taiwan, gender: 1, preferences: ['C', 'G', 'H']
+
+id: B08***013, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'H']
+id: B08***021, nationality: Turkey, gender: 1, preferences: ['S', 'C', 'I']
+id: B08***103, nationality: Taiwan, gender: 1, preferences: ['G', 'C', 'S']
+id: B08***025, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'H']
+
+id: B08***018, nationality: Taiwan, gender: 1, preferences: ['S', 'H', 'C']
+id: B08***143, nationality: Turkey, gender: 1, preferences: ['S', 'I', 'H']
+id: B08***014, nationality: Taiwan, gender: 1, preferences: ['G', 'G', 'G']
+id: B08***061, nationality: Taiwan, gender: 1, preferences: ['C', 'S', 'G']
+
+id: B08***041, nationality: Taiwan, gender: 1, preferences: ['S', 'I', 'G']
+id: B08***119, nationality: Turkey, gender: 1, preferences: ['S', 'I', 'C']
+id: B08***031, nationality: Taiwan, gender: 1, preferences: ['H', 'E', 'C']
+id: B08***057, nationality: Taiwan, gender: 1, preferences: ['H', 'E', 'C']
+
+id: B08***043, nationality: Taiwan, gender: 1, preferences: ['S', 'C', 'G']
+id: B08***151, nationality: Turkey, gender: 1, preferences: ['S', 'I', 'C']
+id: B08***018, nationality: Taiwan, gender: 1, preferences: ['G', 'S', 'I']
+id: B08***020, nationality: Taiwan, gender: 1, preferences: ['G', 'H', 'I']
+
+

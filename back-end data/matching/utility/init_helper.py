@@ -12,7 +12,8 @@ def preprocess_df(df):
     df.loc[df["nationality"] != "境外", 'nationality']= "Taiwan"
     df.replace({"nationality":{"境外":random.choice(NATIONALITIES)}}, inplace=True)
     df.replace({"男性":1, "女性":0}, inplace=True)
-    print(df.head())
+    # print(df.head())
+    print("There are {} students ".format(len(df)))
     return df
 
 def df2object_student(df, gender):
@@ -33,3 +34,12 @@ def df2object_rooms(ROOMNUM, room_quota):
             all_rooms_lis.append(r)
             i+=1
     return all_rooms_lis
+
+def object2df_student(studData, objs):
+    IDs = []
+    for obj in objs:
+        IDs.append(obj._id)
+    print(len(IDs))
+    res = studData[studData["ID"].isin(IDs)]
+    print(len(res))
+    return studData[studData["ID"].isin(IDs)]
