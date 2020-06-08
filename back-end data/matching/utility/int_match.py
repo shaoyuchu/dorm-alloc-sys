@@ -65,13 +65,14 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
         picked_nation = set()
 
         #place a Taiwanese student first
-        student = local_group[local_stud_index]
-        room.addDweller(student)
-        student.setArranged(True)
-        local_stud_index+=1
-        picked_nation.add(LOCAL_NATIONALITY)
-        arranged_studs_lis.append(student)
-        logging.debug("success arrange one student!")
+        if (len(local_group) > local_stud_index):
+            student = local_group[local_stud_index]
+            room.addDweller(student)
+            student.setArranged(True)
+            local_stud_index+=1
+            picked_nation.add(LOCAL_NATIONALITY)
+            arranged_studs_lis.append(student)
+            logging.debug("success arrange one student!")
 
         #放不同國籍相同偏好
         while (priority<3):

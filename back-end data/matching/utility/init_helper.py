@@ -37,23 +37,25 @@ def df2object_student(df, gender):
     return students_lis
 
 def df2object_rooms(room_df):
-    all_rooms_dict = {}
+    male_rooms_dict = {}
+    female_rooms_dict = {}
     for index in range(len(room_df)):
         gender = 1
+        container = male_rooms_dict
         if ("女" in room_df.loc[index]['dormName']):
+            container = female_rooms_dict
             gender = 0
         room_num = room_df.loc[index]['Room']
         if (room_df.loc[index]['is_disability']==0):
             # add bed into the existing room
-            if (all_rooms_dict.get(room_num)):
-                if (all_rooms_dict[room_num].getDorm() == room_df.loc[index]['dormName']):
-                    all_rooms_dict[room_num].setAvail(room_df.loc[index]['Bed'])
+            if (container.get(room_num)):
+                if (container[room_num].getDorm() == room_df.loc[index]['dormName']):
+                    container[room_num].setAvail(room_df.loc[index]['Bed'])
             # add s new room
             else:
                 r = Room(gender=gender, room_num=room_df.loc[index]['Room'], _type = '', available_beds=room_df.loc[index]['Bed'], dorm=room_df.loc[index]['dormName'])
-                all_rooms_dict[r.getNum()] = r
-                  
-    return all_rooms_dict.values()
+                container[r.getNum()] = r
+    return list(male_rooms_dict.values()), list(female_rooms_dict.values())
 
 
 def object2df_student(studData, objs):

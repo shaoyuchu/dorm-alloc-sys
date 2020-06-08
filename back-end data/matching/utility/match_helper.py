@@ -29,9 +29,14 @@ def get_room_type_quota(students_data,roomNum):
 
 def getIntRoomNum(int_stud):
     intRoomNum = len(int_stud)//MAX_INT_STUD_PER_ROOM
-    if (intRoomNum%MAX_INT_STUD_PER_ROOM >=2):
+    locStudQuota = intRoomNum
+    restIntStudNum = len(int_stud)%MAX_INT_STUD_PER_ROOM
+    if(restIntStudNum!=0):
         intRoomNum+=1
-    locStudQuota = intRoomNum * Room.MAXROOMCAPACITY - len(int_stud)
+    if (restIntStudNum == 1):
+        locStudQuota+=3
+    elif (restIntStudNum == 2):
+        locStudQuota+=2
     return locStudQuota, intRoomNum
 
 def separateInternational(Gendered_students):
@@ -59,18 +64,23 @@ def selectLocIntRoomStuds(local_student_quota, local_students):
     local_I = []
     #選住國際區的本地生
     for priority in range(3):
-        local_students_1I, local_students = takeoutStudent(priority, "I", local_students)
-        if local_student_quota - len(local_students_1I) > 0:
-            local_I.extend(local_students_1I)
+        local_students_I, local_students = takeoutStudent(priority, "I", local_students)
+        if local_student_quota - len(local_students_I) > 0:
+            local_I.extend(local_students_I)
             #更新 quota
-            local_student_quota -= len(local_students_1I) 
+            local_student_quota -= len(local_students_I) 
         else:
             #demand > supply for int rooms
             while(local_student_quota > 0):
-                local_I.append(local_students_1I.pop())
+                local_I.append(local_students_I.pop())
                 local_student_quota -=1
-            local_students = local_students_1I+local_students
+            local_students = local_students_I+local_students
             break
+    #still have quota
+    while(local_student_quota > 0):
+        local_I.append(local_students.pop())
+        local_student_quota-=1
+
     return local_students, local_I
 
 # Students: local_I, local_L
@@ -107,25 +117,15 @@ def type_room_dict(rooms):
     type2RoomDict['finish'] = []
     return type2RoomDict
 
-
-def split_rooms_gender(room_objs):
-    female_rooms = []
-    male_rooms = []
-    for room in room_objs:
-        if (room.getGender() == 1):
-            female_rooms.append(room)
-        else:
-            male_rooms.append(room)
-    return male_rooms, female_rooms
+def split_loc_int_rooms(roomObjs, IntRoomsNum):
+    return roomObjs[:IntRoomsNum], roomObjs[IntRoomsNum:]
 
 def assign_room_type(roomObjs, room_quota):
-    ROOMNUM = len(roomObjs)
-    all_rooms_lis = []
-    room_nums = [i for i in range(1, 1+ROOMNUM)]
-    i = 0
+    room_i = 0
     for _type in room_quota.keys():
-        for num in range(room_quota[_type]):
-            r = Room(gender=1, room_num=room_nums[i], _type = _type, available_beds=["A","B","C","D"])
-            all_rooms_lis.append(r)
-            i+=1
-    return all_rooms_lis
+        quota = room_quota[_type]
+        while(quota >0):
+            roomObjs[room_i].setType(_type)
+            quota-=1
+            room_i+=1
+    return roomObjs
