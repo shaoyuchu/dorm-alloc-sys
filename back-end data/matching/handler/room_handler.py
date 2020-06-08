@@ -1,6 +1,6 @@
 class Room:
     MAXROOMCAPACITY = 4
-    def __init__(self, gender, room_num, _type, dorm="Man1"):
+    def __init__(self, gender, room_num, _type, available_beds,  dorm):
         super().__init__()
         #int (0:girl;1:boy)
         self.gender = gender
@@ -10,27 +10,31 @@ class Room:
         self.room_num = room_num
         #type: string (e.g. “I”, “H”, “E”, “C”)
         self.room_type = _type
-        #array of student objects
-        self.dwellers = []
+        #dict: key is bed number and value is student objects
+        self.dwellers = {}
+        #list: available beds. e.g. ["A", "B", "C", "D"]
+        self.available_beds = [available_beds]
     
     def addDweller(self, student):
-        self.dwellers.append(student)
+        student.setRoom = self.room_num
+        student.setBed(self.available_beds.pop())
+        self.dwellers[student.getBed()] = student
 
     def getDweller(self):
-        return self.dwellers
+        return list(self.dwellers.values())
     
     #return an array of dwellers’ nationalities
     def getDwellerNationality(self):
         if (len(self.dwellers)==0):
             return None
         else:
-            return [dweller.nationality for dweller in self.dwellers]
+            return [dweller.nationality for dweller in list(self.dwellers.values())]
 
     def getDwellerPreference(self):
         if (len(self.dwellers)==0):
             return None
         else:
-            return [dweller.preference for dweller in self.dwellers]
+            return [dweller.preference for dweller in list(self.dwellers.values())]
     
     def setType(self, _type):
         self.room_type = _type
@@ -40,24 +44,42 @@ class Room:
 
     def getNum(self):
         return self.room_num
+        
+    def setAvail(self, bed):
+        self.available_beds.append(bed)
 
     def isFull(self):
-        return len(self.dwellers)==4
+        return len(self.available_beds)==0
 
     def getMemberNum(self):
         return len(self.dwellers)
 
-    def __getitem__(self, key):
+    def getDorm(self):
+        return self.dorm
+
+    def getGender(self):
+        return self.gender
+
+    def __getitem__(self, bed):
         if(len(self.dwellers)==0):
             return IndexError
         else:
-            return self.dwellers[key]
-
-    def __setitem__(self, student):
-        if(len(self.dwellers) > Room.MAXROOMCAPACITY):
-            raise IndexError
-        else:
-            self.dwellers[key] = student
+            return self.dwellers[bed]
     
+    def __gt__(self, other):
+        if (len(self.available_beds) > len(other.available_beds)):
+            return True
+        else:
+            return False
+
+    def __lt__(self, other):
+        if (len(self.available_beds) < len(other.available_beds)):
+            return True
+        else:
+            return False
+
+    def __eq__(self, other):
+        return len(self.available_beds) == len(other.available_beds)
+
     def __str__(self):
-        return "Dorm: {}\n\tRoom Number: {}\n\tRoom Type: {}".format(self.dorm, self.room_num, self.room_type)
+        return "Dorm: {}\n\tRoom Number: {}\n\tRoom Type: {}\n\tBeds: {}".format(self.dorm, self.room_num, self.room_type, self.available_beds)

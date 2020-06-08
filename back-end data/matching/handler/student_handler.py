@@ -17,6 +17,18 @@ class Student:
     def getPref(self, priority):
         return self.preferences[priority]
 
+    def getRoom(self):
+        return self.room
+
+    def setRoom(self, room):
+        self.room = room
+
+    def getBed(self):
+        return self.bed
+
+    def setBed(self, bed):
+        self.bed = bed
+    
     def setArranged(self, signal):
         self.arranged = signal
 

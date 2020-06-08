@@ -21,17 +21,22 @@ def get_room_type_quota(students_data,roomNum):
     ratio ={key: round(count[key]/sum(count.values()),2) for key in count}
     result = {key: int(ratio[key] * roomNum) for key in ratio}
     #if there are one more or less room, modify the # of rooms of the first type
-    if (sum(result.values())> roomNum):
-        result[list(result.keys())[0]] -= 1
+    if (sum(result.values()) > roomNum):
+        result[list(result.keys())[0]] -= (sum(result.values()) - roomNum)
     elif (sum(result.values()) < roomNum):
-        result[list(result.keys())[0]] += 1
+        result[list(result.keys())[0]] += (roomNum - sum(result.values()))
     return result
 
 def getIntRoomNum(int_stud):
     intRoomNum = len(int_stud)//MAX_INT_STUD_PER_ROOM
-    if (intRoomNum%MAX_INT_STUD_PER_ROOM != 0):
+    locStudQuota = intRoomNum
+    restIntStudNum = len(int_stud)%MAX_INT_STUD_PER_ROOM
+    if(restIntStudNum!=0):
         intRoomNum+=1
-    locStudQuota = intRoomNum * Room.MAXROOMCAPACITY - len(int_stud)
+    if (restIntStudNum == 1):
+        locStudQuota+=3
+    elif (restIntStudNum == 2):
+        locStudQuota+=2
     return locStudQuota, intRoomNum
 
 def separateInternational(Gendered_students):
@@ -59,18 +64,23 @@ def selectLocIntRoomStuds(local_student_quota, local_students):
     local_I = []
     #選住國際區的本地生
     for priority in range(3):
-        local_students_1I, local_students = takeoutStudent(priority, "I", local_students)
-        if local_student_quota - len(local_students_1I) > 0:
-            local_I.extend(local_students_1I)
+        local_students_I, local_students = takeoutStudent(priority, "I", local_students)
+        if local_student_quota - len(local_students_I) > 0:
+            local_I.extend(local_students_I)
             #更新 quota
-            local_student_quota -= len(local_students_1I) 
+            local_student_quota -= len(local_students_I) 
         else:
             #demand > supply for int rooms
             while(local_student_quota > 0):
-                local_I.append(local_students_1I.pop())
+                local_I.append(local_students_I.pop())
                 local_student_quota -=1
-            local_students = local_students_1I+local_students
+            local_students = local_students_I+local_students
             break
+    #still have quota
+    while(local_student_quota > 0):
+        local_I.append(local_students.pop())
+        local_student_quota-=1
+
     return local_students, local_I
 
 # Students: local_I, local_L
@@ -107,3 +117,15 @@ def type_room_dict(rooms):
     type2RoomDict['finish'] = []
     return type2RoomDict
 
+def split_loc_int_rooms(roomObjs, IntRoomsNum):
+    return roomObjs[:IntRoomsNum], roomObjs[IntRoomsNum:]
+
+def assign_room_type(roomObjs, room_quota):
+    room_i = 0
+    for _type in room_quota.keys():
+        quota = room_quota[_type]
+        while(quota >0):
+            roomObjs[room_i].setType(_type)
+            quota-=1
+            room_i+=1
+    return roomObjs

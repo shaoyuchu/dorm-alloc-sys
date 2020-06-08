@@ -1,4 +1,10 @@
 import math
+
+import logging
+logging.basicConfig(level=logging.INFO)
+# pacakge for debug mode
+# tutorial: https://titangene.github.io/article/python-logging.html
+
 PREFERENCE_DICT = {
     "國際互動區":"I",
     "健康作息區":"H",

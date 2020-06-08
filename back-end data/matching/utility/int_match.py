@@ -10,7 +10,7 @@ import sys
 sys.path.insert(0, '../handler/')
 from student_handler import Student
 from room_handler import Room
-from static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY
+from static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY, logging
 from init_helper import df2object_student
 from match_helper import get_room_type_quota, get_freq
 
@@ -55,20 +55,24 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
     res=""
     local_stud_index = 0
     local_group = student_by_nation_df[LOCAL_NATIONALITY]
+    arranged_studs_lis = []
     for room in all_rooms_objs:
-        print("matching Room:{}, Type:{}".format(room.getNum(), room.getType()))
+        logging.debug("matching Room:{}, Type:{}".format(room.getNum(), room.getType()))
+        logging.debug("available beds: {}".format(room.available_beds))
         room_type = room.getType()
         priority = 0
         nation_index = 0
         picked_nation = set()
 
         #place a Taiwanese student first
-        student = local_group[local_stud_index]
-        room.addDweller(student)
-        student.setArranged(True)
-        local_stud_index+=1
-        picked_nation.add(LOCAL_NATIONALITY)
-        print("success arrange one student!")
+        if (len(local_group) > local_stud_index):
+            student = local_group[local_stud_index]
+            room.addDweller(student)
+            student.setArranged(True)
+            local_stud_index+=1
+            picked_nation.add(LOCAL_NATIONALITY)
+            arranged_studs_lis.append(student)
+            logging.debug("success arrange one student!")
 
         #放不同國籍相同偏好
         while (priority<3):
@@ -92,7 +96,8 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
                             room.addDweller(student)
                             student.setArranged(True)
                             picked_nation.add(nation)
-                            print("success arrange one student!")
+                            arranged_studs_lis.append(student)
+                            logging.debug("success arrange one student!")
                             break
                 
                 nation_index+=1
@@ -128,7 +133,8 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
                             room.addDweller(student)
                             student.setArranged(True)
                             picked_nation.add(nation)
-                            print("success arrange one student!")
+                            arranged_studs_lis.append(student)
+                            logging.debug("success arrange one student!")
                             break
                 nation_index+=1
                 if (nation_index >= len(sortedNations)):
@@ -148,7 +154,8 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
                             room.addDweller(student)
                             student.setArranged(True)
                             picked_nation.add(nation)
-                            print("success arrange one student!")
+                            arranged_studs_lis.append(student)
+                            logging.debug("success arrange one student!")
                             break
                 nation_index+=1
                 if (nation_index >= len(sortedNations)):
@@ -170,17 +177,21 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
                             room.addDweller(student)
                             student.setArranged(True)
                             picked_nation.add(nation)
-                            print("success arrange one student!")
+                            arranged_studs_lis.append(student)
+                            logging.debug("success arrange one student!")
                             if (room.isFull()):
                                 break
                 nation_index+=1
 
+        logging.debug("finish matching")
         for dweller in room.getDweller():
             res+=(str(dweller))
             res+="\n"
         res+="\n"
     with open("int_match_result.txt", 'w') as f1:
         f1.write(res)
+    
+    return arranged_studs_lis, all_rooms_objs
 
 if __name__ == '__main__':
     s = time.time()
@@ -193,10 +204,10 @@ if __name__ == '__main__':
 
     #gen data frame
     all_students_data = random_gen_studentData(STUDENTNUM)
-    print(all_students_data.head())
+    logging.debug(all_students_data.head())
     #initiate objects
     room_quota = get_room_type_quota(all_students_data, ROOMNUM)
-    print((room_quota))
+    logging.debug((room_quota))
     #create objects
     all_rooms_objs = df2object_rooms(ROOMNUM, room_quota)
         
@@ -204,12 +215,12 @@ if __name__ == '__main__':
 
 
     sortedNations = get_country_by_pop(all_students_data)
-    print(sortedNations)
+    logging.debug(sortedNations)
 
     #TODo: read students objects 
     student_by_nation_df = student_by_nation_df(all_students_data, 1, sortedNations)
-    print(student_by_nation_df.head())
+    logging.debug(student_by_nation_df.head())
 
     int_match(sortedNations, all_rooms_objs, student_by_nation_df)
     e = time.time()
-    print(e-s)
+    logging.debug(e-s)

@@ -1,16 +1,12 @@
 import sys
 sys.path.insert(0, '../utility/')
 sys.path.insert(0, '../handler/')
-from match_helper import separateInternational, getIntRoomNum, selectLocIntRoomStuds, get_room_type_quota
+from match_helper import separateInternational, getIntRoomNum, selectLocIntRoomStuds, get_room_type_quota, assign_room_type, split_loc_int_rooms
 from init_helper import df2object_student, df2object_rooms, preprocess_df,object2df_student
-from loc_match import loc_match_test, loc_match
+from loc_match import loc_match
 from int_match import get_country_by_pop, student_by_nation_df, int_match
-from static.config import PREFERENCE_DICT
+from static.config import PREFERENCE_DICT, logging
 
-import logging
-logging.basicConfig(level=logging.DEBUG)
-# pacakge for debug mode
-# tutorial: https://titangene.github.io/article/python-logging.html
 import pandas as pd
 
 
@@ -33,43 +29,93 @@ preferenceArray = ["I", "H", "E"," C", "S","G"]
 #DataFrame2 (女生)
 # ID, gender, 校內外意願, 區域志願1, 區域志願2, 區域志願3, 永久地址（國籍）, id_index(身障身==1)
 #output
-# ID, 宿舍, 床位
+# ID, 宿舍, 房號, 床位
 
-df = pd.read_excel("../../../../match_use.xls")
-TOTOALROOMNUM = len(df)//4+1
-gender = 1
-'''Student'''
-studData = preprocess_df(df)
-studObjs = df2object_student(studData, gender)
-intStuds, locStuds = separateInternational(studObjs)
-locIntRoomStudQuota, INTROOMNUM = getIntRoomNum(intStuds)
-locLocRoomStuds, locIntRoomStuds = selectLocIntRoomStuds(locIntRoomStudQuota, locStuds)
 
-allIntRoomStuds = intStuds+locIntRoomStuds
-LOCROOMNUM = TOTOALROOMNUM - INTROOMNUM
+stud_df_male = pd.read_excel("../../BoyQua.xlsx")
+stud_df_female = pd.read_excel("../../GirlQua.xlsx")
+room_df = pd.read_excel("../../DormRoom.xlsx")
 
-logging.debug("{} local rooms and {} internaitonal rooms".format(LOCROOMNUM, INTROOMNUM))
-logging.debug("There are {} students in international rooms of which {} are inter studs and {} are local studs" \
-        .format(len(allIntRoomStuds), len(intStuds), len(locIntRoomStuds)))
-logging.debug("There are {} students in local rooms".format(len(locLocRoomStuds)))
+def main_match(stud_df_male, stud_df_female, room_df):
+        '''Split by gender'''
+        studDataMale = preprocess_df(stud_df_male)
+        studDataFemale = preprocess_df(stud_df_female)
+        logging.info("Students: {}/{} (male/female)".format(len(studDataMale), len(studDataFemale)))
+        
+        '''Rooms'''
+        maleRooms, femaleRooms = df2object_rooms(room_df)
+        maleRooms = sorted(maleRooms, reverse=True)
+        femaleRooms = sorted(femaleRooms, reverse=True)
+        logging.info("Rooms: {}/{} (male/female)".format(len(maleRooms), len(femaleRooms)))
 
-''' IntRoom matching'''
-#trasform stud objs back to df
-int_room_stud_df = object2df_student(studData, allIntRoomStuds)
-#get type quota of the int rooms 
-roomTypeQuota = get_room_type_quota(int_room_stud_df, INTROOMNUM)
-#create room objects
-intRoomsObjs = df2object_rooms(INTROOMNUM, roomTypeQuota)
-#get country list ordered by its popularity
-sortedNations = get_country_by_pop(int_room_stud_df)
-logging.debug((sortedNations))
-#student by nationality df
-studentByNationDF = student_by_nation_df(int_room_stud_df, gender, sortedNations)
+        '''Student'''
+        match(studDataMale, maleRooms, gender=1)
+        match(studDataFemale,femaleRooms, gender=0)
 
-int_match(sortedNations, intRoomsObjs, studentByNationDF)
+def match(studData, roomObjs, gender):
+        #init stud and room objs
+        studObjs = df2object_student(studData, gender)
+        intStuds, locStuds = separateInternational(studObjs)
+        #calculate num of int rooms  and num of loc studs in int rooms
+        locIntRoomStudQuota, INTROOMNUM = getIntRoomNum(intStuds)
+        #select loc studs in int rooms
+        locLocRoomStuds, locIntRoomStuds = selectLocIntRoomStuds(locIntRoomStudQuota, locStuds)
+        #split int and loc rooms
+        intRoomsObjs, locRoomsObjs = split_loc_int_rooms(roomObjs,INTROOMNUM)
 
-# '''locRoom'''
-loc_room_stud_df = object2df_student(studData, locLocRoomStuds)
-roomTypeQuota = get_room_type_quota(loc_room_stud_df, LOCROOMNUM)
-locRoomsObjs = df2object_rooms(LOCROOMNUM, roomTypeQuota)
-loc_match(locRoomsObjs, locLocRoomStuds)
+        allIntRoomStuds = intStuds+locIntRoomStuds
+        TOTOALROOMNUM = len(roomObjs)
+        LOCROOMNUM = TOTOALROOMNUM - INTROOMNUM
+
+        g = "Male"
+        if(gender==0):
+                g = "Female"
+        logging.info("——————Matching {}——————".format(g))
+        logging.info("  Rooms")
+        logging.info("          Int {}".format(INTROOMNUM))
+        logging.info("          Loc {}".format(LOCROOMNUM))
+        logging.info("  Students")
+        logging.info("          Int {}".format(len(allIntRoomStuds)))
+        logging.info("                  int studs {}".format(len(intStuds)))
+        logging.info("                  loc studs {}".format(len(locIntRoomStuds)))
+        logging.info("          Loc {}".format(len(locLocRoomStuds)))
+
+        ''' IntRoom matching'''
+        #trasform stud objs back to df
+        int_room_stud_df = object2df_student(studData, allIntRoomStuds)
+        #get type quota of the int rooms 
+        roomTypeQuota = get_room_type_quota(int_room_stud_df, INTROOMNUM)
+        # logging.info("Type: {}".format(roomTypeQuota))
+        #assign types to int rooms
+        intRoomsObjs = assign_room_type(intRoomsObjs, roomTypeQuota)
+        #get country list ordered by its popularity
+        sortedNations = get_country_by_pop(int_room_stud_df)
+        # logging.info(sortedNations)
+        #student by nationality df
+        studentByNationDF = student_by_nation_df(int_room_stud_df, gender, sortedNations)
+
+        arranged_int_studs_lis, all_int_rooms_objs = int_match(sortedNations, intRoomsObjs, studentByNationDF)
+
+        # '''locRoom'''
+        loc_room_stud_df = object2df_student(studData, locLocRoomStuds)
+        roomTypeQuota = get_room_type_quota(loc_room_stud_df, LOCROOMNUM)
+        # logging.info("Loc Rooms: {}".format(roomTypeQuota))
+        locRoomsObjs = assign_room_type(locRoomsObjs, roomTypeQuota)
+        arranged_loc_studs_lis, all_loc_rooms_objs = loc_match(locRoomsObjs, locLocRoomStuds)
+
+        logging.info("——————Results——————")
+        logging.info("  Rooms")
+        logging.info("          Int {}/{} (arranged/all)" \
+                .format(len(all_int_rooms_objs), INTROOMNUM))
+        
+        logging.info("          Loc: {}/{} (arranged/all)" \
+                .format(len(all_loc_rooms_objs), LOCROOMNUM))
+        
+        logging.info("  Students")
+        logging.info("          Int: {}/{} (arranged/all)" \
+                .format(len(arranged_int_studs_lis), len(int_room_stud_df)))        
+        logging.info("          Loc: {}/{} (arranged/all)" \
+                .format(len(arranged_loc_studs_lis), len(loc_room_stud_df)))
+
+
+main_match(stud_df_male, stud_df_female, room_df)
