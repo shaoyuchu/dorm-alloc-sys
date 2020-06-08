@@ -111,18 +111,16 @@ def Address2Nationality(AllAddress,countryDict):
             tokenList = bigrams(word_tokenize(AllAddress[addressI]))
             tokenList = [' '.join(i) for i in tokenList]
             ifFound = findCountryInDict(tokenList,countryDict)
-        # trigram
-        if(not ifFound):
+        # trigram & 4-gram
+        count = 3
+        while(not ifFound):
             tokenList = bigrams(tokenList)
             tokenList = [(i[0],i[1].split()[-1])  for i in tokenList] 
             tokenList = [' '.join(i) for i in tokenList]
             ifFound = findCountryInDict(tokenList,countryDict)
-        # 4-gram
-        if(not ifFound):
-            tokenList = bigrams(tokenList)
-            tokenList = [(i[0],i[1].split()[-1])  for i in tokenList] 
-            tokenList = [' '.join(i) for i in tokenList]
-            ifFound = findCountryInDict(tokenList,countryDict)
+            count += 1
+            if(count>4):
+                break
         # special for list of 'special'
         if(not ifFound):
             SpecialCountry = ['馬來西亞','澳門']
