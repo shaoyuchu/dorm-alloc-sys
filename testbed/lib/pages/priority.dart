@@ -19,6 +19,7 @@ class Priority extends StatefulWidget {
 class _PriorityState extends State<Priority> {
   List<String> identityPool;
   List<List<String>> identitySelected = [];
+  bool isProcessing = false;
 
   Future getMatchResult(List studentData, List bedData) async {
     const url = 'http://127.0.0.1:5000/api/match/';
@@ -274,16 +275,20 @@ class _PriorityState extends State<Priority> {
                 child: ButtonTheme(
                   height: 5.0,
                   child: FlatButton(
-                    color: Colors.indigo,
+                    color: isProcessing? Colors.indigo[900] : Colors.indigo,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                     onPressed: () async {
+                      setState(() {
+                        isProcessing = true;
+                      });
+                      
+                      // get matching result
                       Map result;
                       await getMatchResult(studentData, bedData).then((response) {
                         if(response.statusCode == 200) {
                           result = jsonDecode(response.body);
-                          print(result.keys);
                           for(var k in result.keys) {
                             print(k);
                             print(result[k].length);
@@ -295,11 +300,15 @@ class _PriorityState extends State<Priority> {
                         }
                       });
 
+                      setState(() {
+                        isProcessing = false;
+                      });
+
                       // Navigator.pushReplacementNamed(context, '/result');
-                      Navigator.pushNamed(context, '/result', arguments: {'result': result});
+                      await Navigator.pushNamed(context, '/result', arguments: {'result': result});
                     },
                     child: Text(
-                      '完成',
+                      isProcessing? '資料處理中' : '完成',
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Noto_Sans_TC',
