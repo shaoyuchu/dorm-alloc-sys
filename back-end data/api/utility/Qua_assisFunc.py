@@ -1,5 +1,7 @@
 from .static.Qua_config import *
-from random import *
+from random import sample
+from jieba import cut_for_search, cut
+from nltk import bigrams,word_tokenize
 # assistant func 
 
 def countBedNum(DormList):
@@ -98,3 +100,58 @@ def OrderAssign(df):
             OnListNum           += 1
         curI            = curI + idC
     return df
+
+def Address2Nationality(AllAddress,countryDict):
+    for addressI in range(len(AllAddress)):
+        # Jieba
+        tokenList = cut_for_search(AllAddress[addressI]) 
+        ifFound = findCountryInDict(tokenList,countryDict)
+        # bigram
+        if(not ifFound):
+            tokenList = bigrams(word_tokenize(AllAddress[addressI]))
+            tokenList = [' '.join(i) for i in tokenList]
+            ifFound = findCountryInDict(tokenList,countryDict)
+        # trigram
+        if(not ifFound):
+            tokenList = bigrams(tokenList)
+            tokenList = [(i[0],i[1].split()[-1])  for i in tokenList] 
+            tokenList = [' '.join(i) for i in tokenList]
+            ifFound = findCountryInDict(tokenList,countryDict)
+        # 4-gram
+        if(not ifFound):
+            tokenList = bigrams(tokenList)
+            tokenList = [(i[0],i[1].split()[-1])  for i in tokenList] 
+            tokenList = [' '.join(i) for i in tokenList]
+            ifFound = findCountryInDict(tokenList,countryDict)
+        # special for list of 'special'
+        if(not ifFound):
+            SpecialCountry = ['馬來西亞','澳門']
+            for i in SpecialCountry:
+                if (i in AllAddress[addressI] ):
+                    ifFound = i
+        if(ifFound):
+            AllAddress[addressI] = countryDict[ifFound]
+    return AllAddress
+                
+def findCountryInDict(tokenList, countryDict):
+    for CN in tokenList:
+        if CN != '' and ((ord(str(CN[0]))>=65 and ord(str(CN[0]))<=90) or \
+          (ord(str(CN[0]))>=97 and ord(str(CN[0]))<=122))and not CN[0].islower():
+            CN = CN.lower()
+        if CN in countryDict.keys():
+            return CN
+    return False
+    
+    
+def CreateNationDF(countryDf):
+    countryDict = {}
+    for i,r in countryDf.iterrows():
+        rList = r.tolist()
+        for CNI in range(len(rList)):
+            if(CNI==0 and not rList[CNI].islower()):
+                rList[CNI] = rList[CNI].lower()
+            countryDict[rList[CNI]] = r['國家中文名']
+    return countryDict
+    
+
+    

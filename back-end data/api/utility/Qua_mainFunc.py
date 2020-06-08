@@ -64,7 +64,8 @@ def DivideDF(ordered_IdList, StudentList, DormList):
     # Output Girl&Boy df
     GirlInCam = GirlInCam.iloc[NoQuaGirlNum:,:].drop(columns = AlgorithmNeedDrop).sort_values(by='id_index').reset_index(drop=True)
     BoyInCam = BoyInCam.iloc[NoQuaBoyNum:,:].drop(columns = AlgorithmNeedDrop).sort_values(by='id_index').reset_index(drop=True)
-    
+    GirlInCam['永久地址'] = Address2Nationality(GirlInCam['永久地址'],countryDict)
+    BoyInCam['永久地址'] = Address2Nationality(BoyInCam['永久地址'],countryDict)
 
     
     # organize Wait df
