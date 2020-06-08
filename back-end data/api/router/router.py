@@ -29,8 +29,11 @@ def result():
         student = request.json['student']
         beds = request.json['beds']
         priority = request.json['priority']
-        BoyInCam, GirlInCam, WaitDF = DivideDF(priority, student, beds)
-        CampusBoy, CampusGirl, BotBoy, BotGirl = GetOutputDF(priority, BoyInCam, GirlInCam, student, WaitDF)
+        BoyInQua, GirlInQua, WaitDF = DivideDF(priority, student, beds)
+        #still Work-in-progress
+        # BoyInQua, GirlInQua = Match(BoyInQua, GirlInQua, beds)
+        CampusBoy, CampusGirl, BotBoy, BotGirl = GetOutputDF(priority, BoyInQua, GirlInQua, student, WaitDF)
+        
         result = {
             "men_campus_dorm": CampusBoy,
             "women_campus_dorm": CampusGirl,

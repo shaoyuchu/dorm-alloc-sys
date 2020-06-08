@@ -1,7 +1,7 @@
 from .static.Qua_config import *
 from .Qua_assisFunc import *
 import pandas as pd
-
+from .main_match import main_match
 
 # function 1
 
@@ -71,9 +71,11 @@ def DivideDF(ordered_IdList, StudentList, DormList):
     WaitDF = WaitDF.drop(columns=Wait_Drop)
     return BoyInCam, GirlInCam, WaitDF
     
-
+def Match(BoyInQua, GirlInQua, beds):
+    BoyInQua, GirlInQua = main_match(BoyInQua, GirlInQua, beds)
+    return BoyInQua, GirlInQua
     
-# function3
+# function4
 def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     # BoyQua = pd.DataFrame(BoyQua[1:], columns=BoyQua[0])
     # GirlQua = pd.DataFrame(GirlQua[1:], columns=GirlQua[0])

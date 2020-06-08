@@ -14,7 +14,7 @@ import pandas as pd
 #DataFrame2 (女生)
 # ID, gender, 校內外意願, 區域志願1, 區域志願2, 區域志願3, 永久地址（國籍）, id_index(身障身==1)
 #output
-# ID, 宿舍, 房號, 床位
+# ID, gender, 校內外意願, 區域志願1, 區域志願2, 區域志願3, 永久地址（國籍）, id_index(身障身==1), 宿舍, 房號, 床位
 
 def main_match(stud_df_male, stud_df_female, room_df):
         '''Split by gender'''
@@ -50,7 +50,7 @@ def match(studData, roomObjs, gender):
         g = "Male"
         if(gender==0):
                 g = "Female"
-        logging.info("——————Matching {}——————".format(g))
+        logging.info("——————{}——————".format(g))
         logging.info("  Rooms")
         logging.info("          Int {}".format(INTROOMNUM))
         logging.info("          Loc {}".format(LOCROOMNUM))
@@ -98,7 +98,7 @@ def match(studData, roomObjs, gender):
                 .format(len(arranged_loc_studs_lis), len(loc_room_stud_df)))
 
 
-# stud_df_male = pd.read_excel("../../BoyQua.xlsx")
-# stud_df_female = pd.read_excel("../../GirlQua.xlsx")
-# room_df = pd.read_excel("../../DormRoom.xlsx")
-# main_match(stud_df_male, stud_df_female, room_df)
+stud_df_male = pd.read_excel("../../BoyQua.xlsx")
+stud_df_female = pd.read_excel("../../GirlQua.xlsx")
+room_df = pd.read_excel("../../DormRoom.xlsx")
+main_match(stud_df_male, stud_df_female, room_df)
