@@ -21,15 +21,15 @@ def get_room_type_quota(students_data,roomNum):
     ratio ={key: round(count[key]/sum(count.values()),2) for key in count}
     result = {key: int(ratio[key] * roomNum) for key in ratio}
     #if there are one more or less room, modify the # of rooms of the first type
-    if (sum(result.values())> roomNum):
-        result[list(result.keys())[0]] -= 1
+    if (sum(result.values()) > roomNum):
+        result[list(result.keys())[0]] -= (sum(result.values()) - roomNum)
     elif (sum(result.values()) < roomNum):
-        result[list(result.keys())[0]] += 1
+        result[list(result.keys())[0]] += (roomNum - sum(result.values()))
     return result
 
 def getIntRoomNum(int_stud):
     intRoomNum = len(int_stud)//MAX_INT_STUD_PER_ROOM
-    if (intRoomNum%MAX_INT_STUD_PER_ROOM != 0):
+    if (intRoomNum%MAX_INT_STUD_PER_ROOM >=2):
         intRoomNum+=1
     locStudQuota = intRoomNum * Room.MAXROOMCAPACITY - len(int_stud)
     return locStudQuota, intRoomNum
@@ -107,3 +107,25 @@ def type_room_dict(rooms):
     type2RoomDict['finish'] = []
     return type2RoomDict
 
+
+def split_rooms_gender(room_objs):
+    female_rooms = []
+    male_rooms = []
+    for room in room_objs:
+        if (room.getGender() == 1):
+            female_rooms.append(room)
+        else:
+            male_rooms.append(room)
+    return male_rooms, female_rooms
+
+def assign_room_type(roomObjs, room_quota):
+    ROOMNUM = len(roomObjs)
+    all_rooms_lis = []
+    room_nums = [i for i in range(1, 1+ROOMNUM)]
+    i = 0
+    for _type in room_quota.keys():
+        for num in range(room_quota[_type]):
+            r = Room(gender=1, room_num=room_nums[i], _type = _type, available_beds=["A","B","C","D"])
+            all_rooms_lis.append(r)
+            i+=1
+    return all_rooms_lis
