@@ -3,17 +3,16 @@ import random
 from handler.student_handler import Student
 from handler.room_handler import Room
 from .static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY, logging
+import pandas as pd
 
 def preprocess_df(df):
-    df = df.rename({'學號':"ID",'性別':'gender','區域志願1': 'pref_1','區域志願2':'pref_2','區域志願3':'pref_3','戶籍地':'nationality','資格':'disability'}, axis="columns")
+    df = df.rename({'學號':"ID",'性別':'gender', '校內外意願': 'OnCampus', '區域志願1': 'pref_1','區域志願2':'pref_2','區域志願3':'pref_3','永久地址':'nationality','id_index':'disability'}, axis="columns")
     logging.debug(df.columns)
     #replace preference columns with symbols
     df.replace(PREFERENCE_DICT, inplace=True)
     df.loc[df["nationality"] != "境外", 'nationality']= LOCAL_NATIONALITY
     df.replace({"男性":1, "女性":0}, inplace=True)
     
-    #TODO: remove 身障生, 資格==2
-    df = df[df['disability']==1]
     #only for debug
     new_nationalities = []
     for stud_index in range(len(df)):
@@ -23,17 +22,30 @@ def preprocess_df(df):
             new_nationalities.append(df.iloc[stud_index]['nationality'])
 
     df["nationality"] = new_nationalities
-    df["ID"] = [i for i in range(len(df))]
-    print(df.head())
     return df
 
 def df2object_student(df, gender):
-    students_lis = []
+    studs_lis = []
     for i in range(len(df)):
         attris = dict(df.iloc[i])
-        s = Student(_id=attris['ID'],nationality = attris['nationality'], preferences = [attris['pref_1'], attris['pref_2'], attris['pref_3']], gender=gender)
-        students_lis.append(s)
-    return students_lis
+        #disable
+        if int(attris['disability']) == 1:
+            s = Student(_id=int(attris['ID']),nationality = attris['nationality'], preferences = [attris['pref_1'], attris['pref_2'], attris['pref_3']], gender=gender, disability = True)
+        else:
+            s = Student(_id=int(attris['ID']),nationality = attris['nationality'], preferences = [attris['pref_1'], attris['pref_2'], attris['pref_3']], gender=gender)
+        studs_lis.append(s)
+    return studs_lis
+
+def splitDisability(studs):
+    studs_lis = []
+    disable_studs_lis = []
+    for stud in studs:
+        if (stud.isDisable()):
+            disable_studs_lis.append(stud)
+        else:
+            studs_lis.append(stud)
+    return studs_lis, disable_studs_lis
+
 
 def df2object_rooms(room_df):
     male_rooms_dict = {}
@@ -57,8 +69,31 @@ def df2object_rooms(room_df):
     return list(male_rooms_dict.values()), list(female_rooms_dict.values())
 
 
-def object2df_student(studData, objs):
+def find_studs(studData, objs):
     IDs = []
     for obj in objs:
         IDs.append(obj._id)
     return studData[studData["ID"].isin(IDs)]
+
+def objs2df_studs(studs):
+    df = pd.DataFrame()
+    ids = []
+    beds = []
+    dorms = []
+    rooms = []
+    for stud in studs:
+        _id = stud.getID()
+        bed = stud.getBed()
+        dorm = stud.getDorm()
+        room = stud.getRoom()
+        ids.append(_id)
+        beds.append(bed)
+        dorms.append(dorm)
+        rooms.append(int(room))
+        #TODO add data into lis and insert as new columns
+    df['學號'] = ids
+    df['宿舍'] = dorms
+    df['房號'] = rooms
+    df["床位"] = beds
+    return df
+    

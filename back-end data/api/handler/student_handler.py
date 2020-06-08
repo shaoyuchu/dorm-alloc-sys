@@ -1,5 +1,5 @@
 class Student:
-    def __init__(self, _id, preferences, nationality, gender):
+    def __init__(self, _id, preferences, nationality, gender, disability=False):
         super().__init__()
         self._id = _id
         #1x3 array of preferences (e.g. [“I”, “H”, “E”])
@@ -8,14 +8,34 @@ class Student:
         self.nationality = nationality
         #int (0:girl; 1:boy)
         self.gender = gender
+        #dorm 
+        self.dorm = ''
         #room number
-        self.room = -1
+        if(disability):
+            self.room = 0
+        else:
+            self.room = -1
         #bed ABCD
         self.bed = ''
+
         self.arranged = False
         
+        self.disability = disability
+        
+    def isDisable(self):
+        return self.disability
+
+    def getID(self):
+        return self._id
+
     def getPref(self, priority):
         return self.preferences[priority]
+
+    def setDorm(self, dorm):
+        self.dorm = dorm
+    
+    def getDorm(self):
+        return self.dorm
 
     def getRoom(self):
         return self.room
@@ -34,6 +54,24 @@ class Student:
 
     def isArranged(self):
         return self.arranged
+
+    def __gt__(self, other):
+        if (self._id > other._id):
+            return True
+        else:
+            return False
+        
+    def __lt__(self, other):
+        if (self._id < other._id):
+            return True
+        else:
+            return False
+
+    def __eq__(self, other):
+        if (self._id == other._id):
+            return True
+        else:
+            return False
 
     def __str__(self):
         gender = "Male"

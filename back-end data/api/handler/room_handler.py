@@ -16,8 +16,9 @@ class Room:
         self.available_beds = [available_beds]
     
     def addDweller(self, student):
-        student.setRoom = self.room_num
+        student.setRoom(self.room_num)
         student.setBed(self.available_beds.pop())
+        student.setDorm(self.dorm)
         self.dwellers[student.getBed()] = student
 
     def getDweller(self):
