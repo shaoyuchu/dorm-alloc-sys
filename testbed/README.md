@@ -28,6 +28,22 @@ have all the dependencies for
 You will also need the X11 headers. For debian-based systems:
 ```
 $ sudo apt-get install libx11-dev
-``` -->
+​``` -->
 
-For the main structure, please refer to [testbed/lib/main.dart](https://github.com/shaoyu0966/dorm-alloc-sys/blob/master/testbed/lib/main.dart)
+
+```
+
+### Host the Server
+
+```
+python3 ../back-end\ data/api_router.py
+```
+
+
+### Run Flutter
+
+1. [Install flutter](https://flutter.dev/docs/get-started/install)
+2. `flutter run`
+
+
+
