@@ -1,17 +1,15 @@
 import flask
 from flask import request
 from flask import jsonify
-import json
-import argparse
+from app import app
 
 import sys
 import pandas as pd
 import numpy as np
 from pandas.api.types import CategoricalDtype
-from Qua_config import *
-from Qua_mainFunc import *
+from utility.static.Qua_config import *
+from utility.Qua_mainFunc import *
 
-app = flask.Flask(__name__)
 
 @app.route('/api/get_all_identities/', methods = ['POST'])
 def identityPool():
@@ -40,13 +38,3 @@ def result():
             "women_BOT": BotGirl,
         }
         return jsonify(result)
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--debug", default="-d", action="store_true")
-    args = parser.parse_args() 
-
-    if args.debug:
-        app.debug = True
-
-    app.run(debug=app.debug)
