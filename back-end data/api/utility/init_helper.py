@@ -1,9 +1,8 @@
 import sys
 import random
-sys.path.insert(0, '../handler/')
-from student_handler import Student
-from room_handler import Room
-from static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY, logging
+from handler.student_handler import Student
+from handler.room_handler import Room
+from .static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY, logging
 
 def preprocess_df(df):
     df = df.rename({'學號':"ID",'性別':'gender','區域志願1': 'pref_1','區域志願2':'pref_2','區域志願3':'pref_3','戶籍地':'nationality','資格':'disability'}, axis="columns")

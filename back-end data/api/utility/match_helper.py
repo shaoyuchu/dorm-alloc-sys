@@ -1,9 +1,8 @@
 import numpy as np
 
 import sys
-sys.path.insert(0, '../handler/')
-from room_handler import Room
-from static.config import MAX_INT_STUD_PER_ROOM, LOCAL_NATIONALITY, PREFERENCE_DICT
+from handler.room_handler import Room
+from .static.config import MAX_INT_STUD_PER_ROOM, LOCAL_NATIONALITY, PREFERENCE_DICT
 
 
 def get_freq(students_data, col):

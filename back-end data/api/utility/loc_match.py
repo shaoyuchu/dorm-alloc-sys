@@ -1,4 +1,4 @@
-from match_helper import categorize, type_room_dict
+from .match_helper import categorize, type_room_dict
 import logging
 arranged_studs_lis = []
 
@@ -57,7 +57,7 @@ def loc_match(rooms, students):
             res+=(str(dweller))
             res+="\n"
         res+="\n"
-    with open("loc_match_result.txt", 'w') as f1:
-        f1.write(res)
+    # with open("loc_match_result.txt", 'w') as f1:
+    #     f1.write(res)
     
     return arranged_studs_lis, type2RoomDict['finish']

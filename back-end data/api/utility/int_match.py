@@ -6,13 +6,11 @@ import argparse
 import time
 
 #self-defined
-import sys
-sys.path.insert(0, '../handler/')
-from student_handler import Student
-from room_handler import Room
-from static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY, logging
-from init_helper import df2object_student
-from match_helper import get_room_type_quota, get_freq
+from handler.student_handler import Student
+from handler.room_handler import Room
+from .static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY, logging
+from .init_helper import df2object_student
+from .match_helper import get_room_type_quota, get_freq
 
 seed = 30
 random.seed(seed)
@@ -188,8 +186,9 @@ def int_match(sortedNations, all_rooms_objs, student_by_nation_df):
             res+=(str(dweller))
             res+="\n"
         res+="\n"
-    with open("int_match_result.txt", 'w') as f1:
-        f1.write(res)
+        
+    # with open("int_match_result.txt", 'w') as f1:
+    #     f1.write(res)
     
     return arranged_studs_lis, all_rooms_objs
 

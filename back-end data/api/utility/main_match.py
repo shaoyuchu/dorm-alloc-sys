@@ -1,9 +1,9 @@
 import sys
-from match_helper import separateInternational, getIntRoomNum, selectLocIntRoomStuds, get_room_type_quota, assign_room_type, split_loc_int_rooms
-from init_helper import df2object_student, df2object_rooms, preprocess_df,object2df_student
-from loc_match import loc_match
-from int_match import get_country_by_pop, student_by_nation_df, int_match
-from static.config import PREFERENCE_DICT, logging
+from .match_helper import separateInternational, getIntRoomNum, selectLocIntRoomStuds, get_room_type_quota, assign_room_type, split_loc_int_rooms
+from .init_helper import df2object_student, df2object_rooms, preprocess_df,object2df_student
+from .loc_match import loc_match
+from .int_match import get_country_by_pop, student_by_nation_df, int_match
+from .static.config import PREFERENCE_DICT, logging
 
 import pandas as pd
 
@@ -98,7 +98,7 @@ def match(studData, roomObjs, gender):
                 .format(len(arranged_loc_studs_lis), len(loc_room_stud_df)))
 
 
-stud_df_male = pd.read_excel("../../BoyQua.xlsx")
-stud_df_female = pd.read_excel("../../GirlQua.xlsx")
-room_df = pd.read_excel("../../DormRoom.xlsx")
-main_match(stud_df_male, stud_df_female, room_df)
+# stud_df_male = pd.read_excel("../../BoyQua.xlsx")
+# stud_df_female = pd.read_excel("../../GirlQua.xlsx")
+# room_df = pd.read_excel("../../DormRoom.xlsx")
+# main_match(stud_df_male, stud_df_female, room_df)
