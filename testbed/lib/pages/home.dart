@@ -142,7 +142,7 @@ class _HomeState extends State<Home> {
                                     fontSize: 14.0,
                                   ),
                                 ),
-                                FlatButton.icon(
+                                FlatButton(
                                   onPressed: () async {
                                     final result = await showOpenPanel(
                                       allowsMultipleSelection: false,
@@ -152,27 +152,11 @@ class _HomeState extends State<Home> {
                                     );
                                     setState(() {
                                       if(result.paths.isNotEmpty) {
-                                        // extract student data
-                                        final bytes = File(result.paths[0]).readAsBytesSync();
-                                        final excel = Excel.decodeBytes(bytes, update: true);
-                                        if(excel.tables.keys.length == 1) {
-                                          studentDataPath = result.paths[0];
-                                          for (var table in excel.tables.keys) {
-                                            studentData = excel.tables[table].rows;
-                                            print(studentData[0]);
-                                          }
-                                        }
-                                        else {
-                                          alertSnackBar(_scaffoldKey, '所選檔案有多張工作表，請更正後重新匯入');
-                                        }
+                                        studentDataPath = result.paths[0];
                                       }
                                     });
                                   },
-                                  icon: Icon(
-                                    Icons.cloud_upload,
-                                    color: Colors.white,
-                                  ),
-                                  label: Text(
+                                  child: Text(
                                     '選擇檔案',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -229,7 +213,7 @@ class _HomeState extends State<Home> {
                                     fontSize: 14.0,
                                   ),
                                 ),
-                                FlatButton.icon(
+                                FlatButton(
                                   onPressed: () async {
                                     final result = await showOpenPanel(
                                       allowsMultipleSelection: false,
@@ -239,27 +223,11 @@ class _HomeState extends State<Home> {
                                     );
                                     setState(() {
                                       if(result.paths.isNotEmpty) {
-                                        // extract bed data
-                                        final bytes = File(result.paths[0]).readAsBytesSync();
-                                        final excel = Excel.decodeBytes(bytes, update: true);
-                                        if(excel.tables.keys.length == 1) {
-                                          bedDataPath = result.paths[0];
-                                          for (var table in excel.tables.keys) {
-                                            bedData = excel.tables[table].rows;
-                                            print(bedData[0]);
-                                          }
-                                        }
-                                        else {
-                                          alertSnackBar(_scaffoldKey, '所選檔案有多張工作表，請更正後重新匯入');
-                                        }
+                                        bedDataPath = result.paths[0];
                                       }
                                     });
                                   },
-                                  icon: Icon(
-                                    Icons.cloud_upload,
-                                    color: Colors.white,
-                                  ),
-                                  label: Text(
+                                  child: Text(
                                     '選擇檔案',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -303,6 +271,33 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () async {
                     if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
+                      // extract student data
+                      var bytes = File(studentDataPath).readAsBytesSync();
+                      var excel = Excel.decodeBytes(bytes, update: true);
+                      if(excel.tables.keys.length == 1) {
+                        for (var table in excel.tables.keys) {
+                          studentData = excel.tables[table].rows;
+                          print(studentData[0]);
+                        }
+                      }
+                      else {
+                        alertSnackBar(_scaffoldKey, '學生資料表有多張工作表，請更正後重新匯入');
+                      }
+
+                      // extract bed data
+                      bytes = File(bedDataPath).readAsBytesSync();
+                      excel = Excel.decodeBytes(bytes, update: true);
+                      if(excel.tables.keys.length == 1) {
+                        for (var table in excel.tables.keys) {
+                          bedData = excel.tables[table].rows;
+                          print(bedData[0]);
+                        }
+                      }
+                      else {
+                        alertSnackBar(_scaffoldKey, '床位資料表有多張工作表，請更正後重新匯入');
+                      }
+
+                      // get identity pool
                       List<String> identityPool;
                       await getIdentityPool().then((response) {
                         if(response.statusCode == 200) {
