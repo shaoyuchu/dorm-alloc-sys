@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 import 'dart:io';
 import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
@@ -41,6 +42,7 @@ class _HomeState extends State<Home> {
   String bedDataPath = '尚未選擇檔案';
   List studentData = [];
   List bedData = [];
+  bool isProcessing = false;
 
   Future getIdentityPool() async {
     const url = 'http://127.0.0.1:5000/api/get_all_identities/';
@@ -49,12 +51,6 @@ class _HomeState extends State<Home> {
       headers: { HttpHeaders.contentTypeHeader: 'application/json' },
       body: jsonEncode(studentData),
     );
-    // dio
-    // final dio = new Dio();
-    // // final response = await dio.get(url);
-    // final response = await dio.post(url, data: {'a': 1, 'b': 2});
-    // print(response);
-
     return response;
   }
 
@@ -68,8 +64,7 @@ class _HomeState extends State<Home> {
       appBar: appBar(),
       
       // body
-      body: 
-      Container(
+      body: Container(
         margin: EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -221,11 +216,11 @@ class _HomeState extends State<Home> {
                                         FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls'])
                                       ]
                                     );
-                                    setState(() {
-                                      if(result.paths.isNotEmpty) {
+                                    if(result.paths.isNotEmpty) {
+                                      setState(() {
                                         bedDataPath = result.paths[0];
-                                      }
-                                    });
+                                      });
+                                    }
                                   },
                                   child: Text(
                                     '選擇檔案',
@@ -265,12 +260,22 @@ class _HomeState extends State<Home> {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 120.0),
                 child: FlatButton(
-                  color: Colors.indigo,
+                  color: isProcessing? Colors.indigo[900] : Colors.indigo,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50.0),
                   ),
                   onPressed: () async {
-                    if(studentDataPath != '尚未選擇檔案' && bedDataPath != '尚未選擇檔案'){
+                    // file not selected
+                    if(studentDataPath == '尚未選擇檔案' || bedDataPath == '尚未選擇檔案') {
+                      alertSnackBar(_scaffoldKey, '請選擇檔案');
+                    }
+                    // read data, get identity pool, navigate
+                    else {
+                      setState(() {
+                        isProcessing = true;
+                      });
+                      await Future.delayed(const Duration(milliseconds: 10));
+
                       // extract student data
                       var bytes = File(studentDataPath).readAsBytesSync();
                       var excel = Excel.decodeBytes(bytes, update: true);
@@ -302,6 +307,7 @@ class _HomeState extends State<Home> {
                       await getIdentityPool().then((response) {
                         if(response.statusCode == 200) {
                           identityPool = jsonDecode(response.body).cast<String>();
+                          print(identityPool);
                         }
                         else {
                           // TODO: deal with invalid response
@@ -309,20 +315,22 @@ class _HomeState extends State<Home> {
                         }
                       });
                       
-                      // Navigator.pushReplacementNamed(context, '/priority');
-                      await Navigator.pushNamed(context, '/priority', arguments: {
-                        'studentData': studentData,
-                        'bedData': bedData,
-                        'identityPool': identityPool,
+                      setState(() {
+                        isProcessing = false;
                       });
-                      print('pushed');
-                    }
-                    else {
-                      alertSnackBar(_scaffoldKey, '請選擇檔案');
+
+                      // Navigator.pushReplacementNamed(context, '/priority');
+                      if(studentData.isNotEmpty && bedData.isNotEmpty) {
+                        await Navigator.pushNamed(context, '/priority', arguments: {
+                          'studentData': studentData,
+                          'bedData': bedData,
+                          'identityPool': identityPool,
+                        });
+                      }
                     }
                   },
-                  child: Text(
-                    '完成',
+                  child:Text(
+                    isProcessing? '資料處理中' : '完成',
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Noto_Sans_TC',
