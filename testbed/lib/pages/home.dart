@@ -274,7 +274,7 @@ class _HomeState extends State<Home> {
                       setState(() {
                         isProcessing = true;
                       });
-                      await Future.delayed(const Duration(milliseconds: 10));
+                      await Future.delayed(const Duration(milliseconds: 100));
 
                       // extract student data
                       var bytes = File(studentDataPath).readAsBytesSync();

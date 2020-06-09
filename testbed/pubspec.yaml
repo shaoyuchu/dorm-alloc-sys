@@ -14,9 +14,8 @@ dependencies:
 
   cupertino_icons: ^0.1.0
 
-  excel: ^1.0.8
+  excel: 1.0.8
   http: ^0.12.1
-  # dio: ^3.0.9
 
   # FDE plugins.
   # Note: In an actual project, these would be included via 'git:' reference,
