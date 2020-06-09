@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
+import 'package:bidirectional_scroll_view/bidirectional_scroll_view.dart';
 import 'package:testbed/pages/resultData/dormData.dart';
 import 'package:excel/excel.dart' hide DataTable;
 import '../../constant.dart';
@@ -178,19 +179,15 @@ class _TableState extends State<DormTable> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal, 
-          child: DataTable(
-            onSelectAll: (b) {},
-            sortColumnIndex: 1,
-            sortAscending: true,
-            columns: this.columnName,
-            rows: this.displayRows
-            )
-          ),
+      child: BidirectionalScrollViewPlugin( 
+        child: DataTable(
+          onSelectAll: (b) {},
+          sortColumnIndex: 1,
+          sortAscending: true,
+          columns: this.columnName,
+          rows: this.displayRows
+          )
       )
-      );
+    );
   }
 }

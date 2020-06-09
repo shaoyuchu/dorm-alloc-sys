@@ -50,7 +50,8 @@ dependencies:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/file_chooser
       ref: bae67ae551328695f76cd9923a7c9ea27075eba1
-
+  bidirectional_scroll_view: ^0.1.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

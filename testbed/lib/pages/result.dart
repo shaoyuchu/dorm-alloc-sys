@@ -12,6 +12,10 @@ import '../constant.dart';
 import '../constant.dart';
 import '../constant.dart';
 import '../constant.dart';
+import '../constant.dart';
+import '../constant.dart';
+import '../constant.dart';
+import '../constant.dart';
 import 'dormForm.dart';
 import './resultData/dormData.dart';
 
@@ -23,15 +27,14 @@ class Result extends StatefulWidget {
   _ResultState createState() => _ResultState();
 }
 
-class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
+class _ResultState extends State<Result> {
   
   // deal with tab
   // TabController controller;
 
+  String selectedDorm = chi_boyDorm; 
   DormData dormData;
   InputWidget inputFileName;
-
-  String selectedDorm = boyDorm;
 
   _ResultState()
   {
@@ -78,10 +81,10 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     // extract result data
-    // final arguments = ModalRoute.of(context).settings.arguments as Map;
-    // final result = arguments['result'];
+    final arguments = ModalRoute.of(context).settings.arguments as Map;
+    final result = arguments['result'];
 
-    this.dormData = DormData(jsonDecode(testData));
+    this.dormData = DormData(result);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -111,12 +114,15 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
                 title: "選擇宿舍",
                 items: chi_dataName,
                 selectedItem: this.selectedDorm, 
-                onChanged: (value) => setState(() => this.selectedDorm = value),
-              );
-            }, 
+                onChanged: (value){
+                    setState((){this.selectedDorm = value;});
+                  }
+                );
+              },  
             child: Text('其他宿舍結果', style: TextStyle(fontSize: 14)),
             color: Colors.amber[300]
-          )),
+            ),
+          ),
           // botton
           Container(
             padding: EdgeInsets.all(10),
@@ -142,45 +148,10 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
       ),
       
       // body
-      body:dormData.dormData[dorm_chi2eng[this.selectedDorm]]
-      // bottomNavigationBar: Text(jsonDecode(testing)),
+      body:Container(
+        child: Text(dorm_chi2eng[this.selectedDorm])
+        // child: this.dormData.dormData[dorm_chi2eng[this.selectedDorm]]
+      )
     );
   }
-
-// Future<void> _saveFile() async {
-//     String result;
-//     try {
-//       setState(() {
-//         _isBusy = true;
-//       });
-//       final params = SaveFileDialogParams(
-//           sourceFilePath: FileUtils.getcwd(), 
-//           localOnly: _localOnly
-//         );
-
-//       result = await FlutterFileDialog.saveFile(params: params);
-//       print(result);
-//     } on PlatformException catch (e) {
-//       print(e);
-//     } finally {
-//       setState(() {
-//         _savedFilePath = result ?? _savedFilePath;
-//         _isBusy = false;
-//       });
-//     }
-//   }
-
-
-  // !!!!!!!!!!!!
-  // void _selectFile() {
-  //   filePicker.pick().then((value) => setState(() {
-  //         _fileLength = filePicker.toUint8List().lengthInBytes;
-  //         try {
-  //           _fileString = filePicker.toString();
-  //         } catch (e) {
-  //           _fileString =
-  //               'Not a text file. Showing base64.\n\n' + filePicker.toBase64();
-  //         }
-  //       }));
-  // }
 }
