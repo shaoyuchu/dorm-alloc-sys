@@ -13,6 +13,7 @@ import 'file_chooser.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 import 'components.dart';
 
@@ -46,11 +47,21 @@ class _HomeState extends State<Home> {
 
   Future getIdentityPool() async {
     const url = 'http://127.0.0.1:5000/api/get_all_identities/';
-    final response = await http.post(
+    final body = jsonEncode(studentData);
+    // final response = await http.post(
+    //   url,
+    //   headers: { HttpHeaders.contentTypeHeader: 'application/json' },
+    //   body: body,
+    // );
+
+    // dio
+    Dio dio = new Dio();
+    final response = await dio.post(
       url,
-      headers: { HttpHeaders.contentTypeHeader: 'application/json' },
-      body: jsonEncode(studentData),
+      options: Options(sendTimeout: 5000, receiveTimeout: 30000),
+      data: body,
     );
+
     return response;
   }
 
@@ -306,7 +317,8 @@ class _HomeState extends State<Home> {
                       List<String> identityPool;
                       await getIdentityPool().then((response) {
                         if(response.statusCode == 200) {
-                          identityPool = jsonDecode(response.body).cast<String>();
+                          identityPool = response.data.cast<String>();
+                          // identityPool = jsonDecode(response.data);
                           print(identityPool);
                         }
                         else {
