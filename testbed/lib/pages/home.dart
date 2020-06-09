@@ -153,7 +153,7 @@ class _HomeState extends State<Home> {
                                     final result = await showOpenPanel(
                                       allowsMultipleSelection: false,
                                       allowedFileTypes: <FileTypeFilterGroup>[
-                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls'])
+                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls' ])
                                       ]
                                     );
                                     setState(() {

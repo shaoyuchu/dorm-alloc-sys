@@ -51,15 +51,16 @@ class DormTable extends StatefulWidget{
   void saveTable(excel)
   {
     String sheetName = chi_dataName[this.tableName];
-    int lineIndex = 'A'.codeUnitAt(0);
     
     // store columns
     for(int i = 0; i < this.dataRows[0].length; i++)
     {
       int columnIndex = 'A'.codeUnitAt(0) + i;
       
-      excel.updateCell(sheetName, CellIndex.indexByString(String.fromCharCode(columnIndex)+'1'), 
-                      this.dormData[0][i]);
+      excel.updateCell(
+        sheetName,
+        CellIndex.indexByString(String.fromCharCode(columnIndex)+'1'), 
+        this.dormData[0][i]);
     }
     
     // store rows

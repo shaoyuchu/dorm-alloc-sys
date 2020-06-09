@@ -1,15 +1,17 @@
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:file_utils/file_utils.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
-import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:testbed/pages/inputWidget.dart';
-import 'dart:convert';
+import 'package:file_chooser/file_chooser.dart';
 import '../constant.dart';
 import 'dormForm.dart';
+import 'file_chooser.dart';
 import './resultData/dormData.dart';
 
 import 'testData.dart';
@@ -38,7 +40,7 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    controller = new TabController(vsync: this, length: 4);
+    controller = new TabController(vsync: this, length: 1);
   }
 
   @override
@@ -54,12 +56,12 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("儲存檔案名稱"),
+          title: new Text('儲存檔案名稱'),
           content: this.inputFileName,
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Close"),
+              child: new Text('Close'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -95,32 +97,43 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
         centerTitle: false,
         backgroundColor: Colors.indigo[700],
         elevation: 0.0,
-        actions: <Widget>[Container(
-            padding: EdgeInsets.all(10),
-            child: RaisedButton(
-            padding: EdgeInsets.all(0),
-            onPressed: (){
-                this._showDialog();
-              }, 
-            child: Text('變更儲存檔名', style: TextStyle(fontSize: 14)),
-            color: Colors.amber[300]
-          )), 
+        actions: <Widget>[
           Container(
             padding: EdgeInsets.all(10),
             child: RaisedButton(
-            padding: EdgeInsets.all(0),
-            onPressed: (){
-                this.dormData.saveData('D:\\testDormExport', this.inputFileName.fileName+'.xlsx');
+              padding: EdgeInsets.all(0),
+              onPressed: () {
+                // this.dormData.saveData('/Users/shaoyu/Desktop/', 'result.xlsx');
+                showSavePanel(suggestedFileName: '宿舍分配結果.xlsx').then((result) {
+                  print(result.paths[0]);
+                  this.dormData.saveData(result.paths[0]);
+                });
               }, 
-            child: Text('匯出全部資料', style: TextStyle(fontSize: 14)),
-            color: Colors.amber[300]
-          ))], 
+              child: Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Text(
+                  '匯出全部資料',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Noto_Sans_TC',
+                    fontWeight: FontWeight.w300,
+                    fontSize: 14.0,
+                  ),
+                ),
+              ),
+              color: Colors.amber[300],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+            )
+          )
+        ], 
         bottom: new TabBar(
           controller: controller,
           tabs: <Tab>[
-            new Tab(text: chi_boyDorm),
-            new Tab(text: chi_girlDorm),
-            new Tab(text: chi_bot_boy),
+            // new Tab(text: chi_boyDorm),
+            // new Tab(text: chi_girlDorm),
+            // new Tab(text: chi_bot_boy),
             new Tab(text: chi_bot_girl),
           ]
         )
@@ -132,9 +145,9 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: controller,
         children: <Widget>[
-          dormData.dormData[boyDorm],
-          dormData.dormData[girlDorm],
-          dormData.dormData[bot_boy], 
+          // dormData.dormData[boyDorm],
+          // dormData.dormData[girlDorm],
+          // dormData.dormData[bot_boy], 
           dormData.dormData[bot_girl]
         ]
       ),
