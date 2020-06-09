@@ -3,6 +3,7 @@ import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:testbed/pages/resultData/dormData.dart';
 import 'package:excel/excel.dart' hide DataTable;
 import '../../constant.dart';
+import '../../constant.dart';
 
 class DormTable extends StatefulWidget{
   String tableName;
@@ -50,7 +51,7 @@ class DormTable extends StatefulWidget{
 
   void saveTable(excel)
   {
-    String sheetName = chi_dataName[this.tableName];
+    String sheetName = dorm_eng2chi[this.tableName];
     int lineIndex = 'A'.codeUnitAt(0);
     
     // store columns
