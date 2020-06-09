@@ -23,9 +23,9 @@ dependencies:
   # rather than 'path:', as described in the plugins README.
   color_panel:
     path: ../plugins/color_panel
-  file_chooser:
-    path: ../plugins/file_chooser
-  file_picker: ^1.9.0+1
+  # file_chooser:
+  #   path: ../plugins/file_chooser
+  file_picker: ^1.10.0
   menubar:
     path: ../plugins/menubar
   window_size:
@@ -38,10 +38,24 @@ dependencies:
   url_launcher: ^5.4.0
   url_launcher_fde:
     path: ../plugins/flutter_plugins/url_launcher_fde
+  
+  json_annotation: ^3.0.0
+  flutter_material_pickers: ^1.5.2
+  # file_picker_cross: ^2.0.0
+  file_utils: ^0.1.4
+  flutter_file_dialog: ^0.0.5
+
+  file_chooser:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/file_chooser
+      ref: bae67ae551328695f76cd9923a7c9ea27075eba1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.0.0
+  json_serializable: ^3.2.0
 
 flutter:
   uses-material-design: true

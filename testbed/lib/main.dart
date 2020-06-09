@@ -27,6 +27,7 @@ import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:window_size/window_size.dart' as window_size;
 
 import 'pages/home.dart';
+import 'pages/home.dart';
 import 'pages/priority.dart';
 import 'pages/result.dart';
 
@@ -38,10 +39,6 @@ import 'pages/testData.dart';
 void main() {
   // Try to resize and reposition the window to be half the width and height
   // of its screen, centered horizontally and shifted up from center.
-  print('-----------------------------');
-  print(dataColumnNames.length);
-  print('-----------------------------');
-  print(testRow.length);
 
   WidgetsFlutterBinding.ensureInitialized();
   window_size.getWindowInfo().then((window) {
