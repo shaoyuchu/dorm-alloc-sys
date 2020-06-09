@@ -9,7 +9,7 @@ def GetAllIdType(StudentList):
     StudentList = pd.DataFrame(StudentList[1:], columns=StudentList[0])
     id_col_name  = ['身分別1','身分別2','身分別3','特殊身份別']
     column       = [str(x) for i in range(len(id_col_name)) for x in StudentList[id_col_name[i]].tolist() if str(x)!='None']
-    return list(set(column))
+    return sorted(list(set(column)))
 
 
 # function 2
@@ -81,9 +81,7 @@ def list2df(beds):
 
 def Match(BoyInQua, GirlInQua, beds):
     beds_df = list2df(beds)
-    print(beds_df)
-    exit()
-    BoyInQua, GirlInQua = main_match(BoyInQua, GirlInQua, beds)
+    BoyInQua, GirlInQua = main_match(BoyInQua, GirlInQua, beds_df)
     return BoyInQua, GirlInQua
 
 # function4

@@ -48,19 +48,19 @@ class _HomeState extends State<Home> {
   Future getIdentityPool() async {
     const url = 'http://127.0.0.1:5000/api/get_all_identities/';
     final body = jsonEncode(studentData);
-    // final response = await http.post(
-    //   url,
-    //   headers: { HttpHeaders.contentTypeHeader: 'application/json' },
-    //   body: body,
-    // );
+    final response = await http.post(
+      url,
+      headers: { HttpHeaders.contentTypeHeader: 'application/json' },
+      body: body,
+    );
 
     // dio
-    Dio dio = new Dio();
-    final response = await dio.post(
-      url,
-      options: Options(sendTimeout: 5000, receiveTimeout: 30000),
-      data: body,
-    );
+    // Dio dio = new Dio();
+    // final response = await dio.post(
+    //   url,
+    //   options: Options(sendTimeout: 5000, receiveTimeout: 30000),
+    //   data: body,
+    // );
 
     return response;
   }
@@ -317,8 +317,8 @@ class _HomeState extends State<Home> {
                       List<String> identityPool;
                       await getIdentityPool().then((response) {
                         if(response.statusCode == 200) {
-                          identityPool = response.data.cast<String>();
-                          // identityPool = jsonDecode(response.data);
+                          // identityPool = response.data.cast<String>();
+                          identityPool = jsonDecode(response.body).cast<String>();
                           print(identityPool);
                         }
                         else {

@@ -75,7 +75,7 @@ def df2object_rooms(room_df):
 def find_studs(studData, objs):
     IDs = []
     for obj in objs:
-        IDs.append(obj._id)
+        IDs.append(str(obj._id))
     return studData[studData["ID"].isin(IDs)]
 
 def objs2df_studs(studs):
@@ -89,7 +89,7 @@ def objs2df_studs(studs):
         bed = stud.getBed()
         dorm = stud.getDorm()
         room = stud.getRoom()
-        ids.append(_id)
+        ids.append(str(_id))
         beds.append(bed)
         dorms.append(dorm)
         rooms.append(int(room))

@@ -41,7 +41,7 @@ def get_id2int(id_dict, StudentList):
                 id_index[index] = id_dict[row[i]]
                 id_name[index] = row[i]
         # no special identity_type, check the habitation
-        idDictNum = max(id_dict.values())
+        idDictNum = max(id_dict.values()) if id_dict else 0
         if(id_index[index] == 0):
             if(row['戶籍地']=='桃園市'):
                 id_index[index] = idDictNum + 2

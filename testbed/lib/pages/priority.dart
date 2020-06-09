@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 import 'components.dart';
 
@@ -33,6 +34,13 @@ class _PriorityState extends State<Priority> {
       headers: { HttpHeaders.contentTypeHeader: 'application/json' },
       body: jsonEncode(body),
     );
+
+    // Dio dio = new Dio();
+    // final response = await dio.post(
+    //   url,
+    //   options: Options(sendTimeout: 5000, receiveTimeout: 300000),
+    //   data: body,
+    // );
 
     return response;
   }
@@ -289,6 +297,7 @@ class _PriorityState extends State<Priority> {
                       await getMatchResult(studentData, bedData).then((response) {
                         if(response.statusCode == 200) {
                           result = jsonDecode(response.body);
+                          // result = response.data.cast<String>();
                           for(var k in result.keys) {
                             print(k);
                             print(result[k].length);
