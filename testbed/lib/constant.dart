@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 
 // Specify the name of every dormitory
-const String boyDorm  = 'BOY_DORM';
-const String girlDorm = 'GIRL_DORM';
-const String bot_CH    = 'BOT_CH'; // 長興
-const String bot_SY    = 'BOT_SY'; // 水源
+const String boyDorm  = 'men_campus_dorm';
+const String girlDorm = 'women_campus_dorm';
+const String bot_boy  = 'men_BOT'; // 長興
+const String bot_girl = 'women_BOT'; // 水源
+
+const List<String> dataName = [boyDorm, girlDorm, bot_boy, bot_girl];
+
+// chinese name
+const String chi_boyDorm  = '男生宿舍';
+const String chi_girlDorm = '女生宿舍';
+const String chi_bot_boy  = 'BOT男生宿舍'; // 長興
+const String chi_bot_girl = 'BOT女生宿舍'; // 水源
+
+const Map chi_dataName= {
+  boyDorm  : chi_boyDorm, 
+  girlDorm : chi_girlDorm, 
+  bot_boy  : chi_bot_boy, 
+  bot_girl : chi_bot_girl
+};
 
 // data columns
 const List<String> dataColumnNames = [

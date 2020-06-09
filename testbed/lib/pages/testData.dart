@@ -45,3 +45,47 @@ List<String> testRow = [
   '17:16',	
   '馮安華'
 ];
+
+String testData = '''{
+    "men_campus_dorm": [
+        ["col1", "col2", "col3"],
+        ["atrA1", "atrA2", "atrA3"],
+        ["atrB1", "atrB2", "atrB3"],
+        ["atrC1", "atrC2", "atrC3"],
+        ["atrD1", "atrD2", "atrD3"],
+        ["atrE1", "atrE2", "atrE3"],
+        ["atrF1", "atrF2", "atrF3"],
+        ["atrG1", "atrG2", "atrG3"],
+        ["atrH1", "atrH2", "atrH3"],
+        ["atrI1", "atrI2", "atrI3"],
+        ["atrJ1", "atrJ2", "atrJ3"],
+        ["atrK1", "atrK2", "atrK3"],
+        ["atrL1", "atrL2", "atrL3"],
+        ["atrM1", "atrM2", "atrM3"],
+        ["atrN1", "atrN2", "atrN3"],
+        ["atrO1", "atrO2", "atrO3"],
+        ["atrP1", "atrP2", "atrP3"],
+        ["atrQ1", "atrQ2", "atrQ3"],
+        ["atrR1", "atrR2", "atrR3"],
+        ["atrS1", "atrS2", "atrS3"],
+        ["atrT1", "atrT2", "atrT3"]
+    ],
+    "women_campus_dorm": [
+        ["col1", "col2", "col3"],
+        ["atr1", "atr2", "atr3"],
+        ["atr1", "atr2", "atr3"]
+    ],
+    "men_BOT": [
+        ["col1", "col2", "col3"],
+        ["atr1", "atr2", "atr3"],
+        ["atr1", "atr2", "atr3"]
+    ], 
+    "women_BOT": [
+        ["col1", "col2", "col3"],
+        ["atr1", "atr2", "atr3"],
+        ["atr1", "atr2", "atr3"]
+    ]
+}''';
+
+String testing = '''{ "city": "Mumbai", 
+"streets": [ "address1", "address2" ] }''';

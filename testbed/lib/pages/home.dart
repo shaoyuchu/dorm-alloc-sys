@@ -278,7 +278,7 @@ class _HomeState extends State<Home> {
 
                       // extract student data
                       var bytes = File(studentDataPath).readAsBytesSync();
-                      var excel = Excel.decodeBytes(bytes, update: true);
+                      var excel = Excel.decodeBytes(bytes);
                       if(excel.tables.keys.length == 1) {
                         for (var table in excel.tables.keys) {
                           studentData = excel.tables[table].rows;
@@ -291,7 +291,7 @@ class _HomeState extends State<Home> {
 
                       // extract bed data
                       bytes = File(bedDataPath).readAsBytesSync();
-                      excel = Excel.decodeBytes(bytes, update: true);
+                      excel = Excel.decodeBytes(bytes);
                       if(excel.tables.keys.length == 1) {
                         for (var table in excel.tables.keys) {
                           bedData = excel.tables[table].rows;
@@ -348,4 +348,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-

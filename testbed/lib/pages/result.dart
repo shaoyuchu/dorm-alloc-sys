@@ -1,6 +1,24 @@
-  import 'package:flutter/material.dart';
-  import 'dormForm.dart';
-  import '../constant.dart';
+import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:file_utils/file_utils.dart';
+import 'package:flutter/services.dart';
+
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import 'dart:io';
+import 'package:excel/excel.dart';
+import 'package:testbed/pages/inputWidget.dart';
+import 'dart:convert';
+import '../constant.dart';
+import '../constant.dart';
+import '../constant.dart';
+import '../constant.dart';
+import '../constant.dart';
+import '../constant.dart';
+import 'dormForm.dart';
+import './resultData/dormData.dart';
+
+import 'testData.dart';
+import './inputWidget.dart';
 
 class Result extends StatefulWidget {
   @override
@@ -9,8 +27,19 @@ class Result extends StatefulWidget {
 
 class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
   
+  // deal with tab
   TabController controller;
+
+  DormData dormData;
+  InputWidget inputFileName;
+
+  _ResultState()
+  {
+    this.dormData = DormData(testData);
+    this.inputFileName = InputWidget();
+  }
   
+
   @override
   void initState() {
     super.initState();
@@ -23,12 +52,36 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("儲存檔案名稱"),
+          content: this.inputFileName,
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // extract result data
+  // extract result data
     final arguments = ModalRoute.of(context).settings.arguments as Map;
     final result = arguments['result'];
 
+    print(result);
     return Scaffold(
       backgroundColor: Colors.white,
 
@@ -50,17 +103,29 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
             padding: EdgeInsets.all(10),
             child: RaisedButton(
             padding: EdgeInsets.all(0),
-            onPressed: (){}, // !!! not yet set action
-            child: Text('Export', style: TextStyle(fontSize: 14)),
+            onPressed: (){
+                this._showDialog();
+              }, 
+            child: Text('變更儲存檔名', style: TextStyle(fontSize: 14)),
+            color: Colors.amber[300]
+          )), 
+          Container(
+            padding: EdgeInsets.all(10),
+            child: RaisedButton(
+            padding: EdgeInsets.all(0),
+            onPressed: (){
+                this.dormData.saveData('D:\\testDormExport', this.inputFileName.fileName+'.xlsx');
+              }, 
+            child: Text('匯出全部資料', style: TextStyle(fontSize: 14)),
             color: Colors.amber[300]
           ))], 
         bottom: new TabBar(
           controller: controller,
           tabs: <Tab>[
-            new Tab(text: "男一舍"),
-            new Tab(text: "大一女"),
-            new Tab(text: "BOT長興宿舍"),
-            new Tab(text: "BOT水源宿舍"),
+            new Tab(text: chi_boyDorm),
+            new Tab(text: chi_girlDorm),
+            new Tab(text: chi_bot_boy),
+            new Tab(text: chi_bot_girl),
           ]
         )
 
@@ -71,70 +136,50 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: controller,
         children: <Widget>[
-          DormForm(boyDorm),
-          DormForm(girlDorm),
-          DormForm(bot_CH), 
-          DormForm(bot_SY)
+          dormData.dormData[boyDorm],
+          dormData.dormData[girlDorm],
+          dormData.dormData[bot_boy], 
+          dormData.dormData[bot_girl]
         ]
-      )
-
+      ),
+      // bottomNavigationBar: Text(jsonDecode(testing)),
     );
   }
+
+// Future<void> _saveFile() async {
+//     String result;
+//     try {
+//       setState(() {
+//         _isBusy = true;
+//       });
+//       final params = SaveFileDialogParams(
+//           sourceFilePath: FileUtils.getcwd(), 
+//           localOnly: _localOnly
+//         );
+
+//       result = await FlutterFileDialog.saveFile(params: params);
+//       print(result);
+//     } on PlatformException catch (e) {
+//       print(e);
+//     } finally {
+//       setState(() {
+//         _savedFilePath = result ?? _savedFilePath;
+//         _isBusy = false;
+//       });
+//     }
+//   }
+
+
+  // !!!!!!!!!!!!
+  // void _selectFile() {
+  //   filePicker.pick().then((value) => setState(() {
+  //         _fileLength = filePicker.toUint8List().lengthInBytes;
+  //         try {
+  //           _fileString = filePicker.toString();
+  //         } catch (e) {
+  //           _fileString =
+  //               'Not a text file. Showing base64.\n\n' + filePicker.toBase64();
+  //         }
+  //       }));
+  // }
 }
-
-
-
-// class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
-
-
-//   TabController controller;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     controller = new TabController(vsync: this, length: 3);
-//   }
-
-//   @override
-//   void dispose() {
-//     controller.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return new Scaffold(
-//       appBar: new AppBar(
-//         title: new Text("Pages"), 
-//         backgroundColor: Colors.deepOrange,
-//         bottom: new TabBar(
-//           controller: controller,
-//           tabs: <Tab>[
-//             new Tab(icon: new Icon(Icons.arrow_forward)),
-//             new Tab(icon: new Icon(Icons.arrow_downward)),
-//             new Tab(icon: new Icon(Icons.arrow_back)),
-//           ]
-//         )
-//       ),
-//       bottomNavigationBar: new Material(
-//         color: Colors.deepOrange,
-//         child: new TabBar(
-//           controller: controller,
-//           tabs: <Tab>[
-//             new Tab(icon: new Icon(Icons.arrow_forward)),
-//             new Tab(icon: new Icon(Icons.arrow_downward)),
-//             new Tab(icon: new Icon(Icons.arrow_back)),
-//           ]
-//         )
-//       ),
-//       body: new TabBarView(
-//         controller: controller,
-//         children: <Widget>[
-//           new first.First(),
-//           new second.Second(),
-//           new third.Third()
-//         ]
-//       )
-//     );
-//   }
-// }
