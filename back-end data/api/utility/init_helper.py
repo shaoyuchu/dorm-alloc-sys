@@ -3,23 +3,26 @@ import random
 from handler.student_handler import Student
 from handler.room_handler import Room
 from .static.config import PREFERENCE_DICT, NATIONALITIES, LOCAL_NATIONALITY, logging
+from .static.Qua_config import countryDict
 import pandas as pd
 
 def preprocess_df(df):
-    df = df.rename({'學號':"ID",'性別':'gender', '校內外意願': 'OnCampus', '區域志願1': 'pref_1','區域志願2':'pref_2','區域志願3':'pref_3','永久地址':'nationality','id_index':'disability'}, axis="columns")
+    df = df.rename({'學號':"ID",'性別':'gender', '校內外意願': 'OnCampus', '區域志願1': 'pref_1','區域志願2':'pref_2','區域志願3':'pref_3','戶籍地':'address', '永久地址':'nationality','id_index':'identity', '資格':'disability'}, axis="columns")
     logging.debug(df.columns)
     #replace preference columns with symbols
     df.replace(PREFERENCE_DICT, inplace=True)
-    df.loc[df["nationality"] != "境外", 'nationality']= LOCAL_NATIONALITY
+    df.loc[df["address"] != "境外", 'nationality']= LOCAL_NATIONALITY
     df.replace({"男性":1, "女性":0}, inplace=True)
     
     #only for debug
     new_nationalities = []
     for stud_index in range(len(df)):
-        if(df.iloc[stud_index]['nationality']!=LOCAL_NATIONALITY):
-            new_nationalities.append(random.choice(NATIONALITIES))
+        nationality = df.iloc[stud_index]['nationality']
+        if (countryDict.get(nationality) or nationality == LOCAL_NATIONALITY):          
+            new_nationalities.append(nationality)
         else:
-            new_nationalities.append(df.iloc[stud_index]['nationality'])
+            #if the nationality is wrong
+            new_nationalities.append("國籍缺漏")
 
     df["nationality"] = new_nationalities
     return df
@@ -29,7 +32,7 @@ def df2object_student(df, gender):
     for i in range(len(df)):
         attris = dict(df.iloc[i])
         #disable
-        if int(attris['disability']) == 1:
+        if int(attris['disability']) == 2:
             s = Student(_id=int(attris['ID']),nationality = attris['nationality'], preferences = [attris['pref_1'], attris['pref_2'], attris['pref_3']], gender=gender, disability = True)
         else:
             s = Student(_id=int(attris['ID']),nationality = attris['nationality'], preferences = [attris['pref_1'], attris['pref_2'], attris['pref_3']], gender=gender)

@@ -31,7 +31,7 @@ def result():
         priority = request.json['priority']
         BoyInQua, GirlInQua, WaitDF = DivideDF(priority, student, beds)
         #still Work-in-progress
-        # BoyInQua, GirlInQua = Match(BoyInQua, GirlInQua, beds)
+        BoyInQua, GirlInQua = Match(BoyInQua, GirlInQua, beds)
         CampusBoy, CampusGirl, BotBoy, BotGirl = GetOutputDF(priority, BoyInQua, GirlInQua, student, WaitDF)
         
         result = {
