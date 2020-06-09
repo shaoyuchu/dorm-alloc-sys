@@ -10,12 +10,9 @@ class DormData{
 
   DormData(json)
   {
-    json = jsonDecode(json);
-
     this.dormData = new Map();
 
-    for(int a = 0; a < dataName.length; a++)
-    {
+    for(int a = 0; a < dataName.length; a++) {
       this.dormData[dataName[a]] = DormTable(dataName[a], json[dataName[a]]);
     }
   }

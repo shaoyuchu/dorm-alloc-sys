@@ -6,7 +6,7 @@ import '../../constant.dart';
 
 class DormTable extends StatefulWidget{
   String tableName;
-  List<List<String>> dataRows = [];
+  List<List> dataRows = [];
   List<dynamic> dormData = [];
   var candidateValues = new Map();
 
@@ -17,7 +17,7 @@ class DormTable extends StatefulWidget{
     // extract rows
     for(int i = 1; i < (this.dormData.length)-1; i++)
     {
-      List<String> dataCells = [];
+      List dataCells = [];
       for(int j = 0; j < (this.dormData[i].length); j++)
       {
         dataCells.add(this.dormData[i][j]);
@@ -40,7 +40,7 @@ class DormTable extends StatefulWidget{
     }
     for(int i  = 0; i < this.dormData[0].length; i++)
     {
-      List<String> temp = new List<String>.from(this.candidateValues[this.dormData[0][i]].toList());
+      List temp = new List.from(this.candidateValues[this.dormData[0][i]].toList());
       this.candidateValues[this.dormData[0][i]] = temp;
     }
   }
@@ -82,7 +82,7 @@ class DormTable extends StatefulWidget{
 class _TableState extends State<DormTable> {
   // from statefulwidget
   String tableName;
-  List<List<String>> dataRows = [];
+  List<List> dataRows = [];
   List<dynamic> dormData = [];
   var candidateValues = new Map();
 
@@ -96,7 +96,7 @@ class _TableState extends State<DormTable> {
     // initialized selectedItem
     for(int i = 0; i < this.dormData[0].length; i++)
     {
-      this.selectedItem[this.dormData[0][i]] = List<String>.from(this.candidateValues[this.dormData[0][i]]);
+      this.selectedItem[this.dormData[0][i]] = List.from(this.candidateValues[this.dormData[0][i]]);
     }
     // initialized displayRows, it must be later than the initialization of selecctedItem
     buildDisplayRows();
@@ -133,15 +133,15 @@ class _TableState extends State<DormTable> {
   void buildDisplayRows()
   {
     // initialized
-    List<List<String>> data = [];
+    List<List> data = [];
     for(int i = 0; i < this.dataRows.length; i++)
     {
-      List<String> temp = new List<String>.from(this.dataRows[i]);
+      List temp = new List.from(this.dataRows[i]);
       data.add(temp);
     }
 
     this.displayRows.clear();
-    List<String> colNames = new List<String>.from(this.dormData[0]);
+    List colNames = new List.from(this.dormData[0]);
     for(int i = data.length-1; i >= 0; i--)
     {
       for(int j = 0; j < colNames.length; j++)
@@ -161,7 +161,7 @@ class _TableState extends State<DormTable> {
       {
         dataCells.add(
             DataCell(
-            Text(data[i][j]),
+            Text(data[i][j].toString()),
             showEditIcon: false,
             placeholder: false
           )
@@ -178,15 +178,18 @@ class _TableState extends State<DormTable> {
   Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal, 
-        child: DataTable(
-          onSelectAll: (b) {},
-          sortColumnIndex: 1,
-          sortAscending: true,
-          columns: this.columnName,
-          rows: this.displayRows
-          )
-        )
+        scrollDirection: Axis.vertical,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal, 
+          child: DataTable(
+            onSelectAll: (b) {},
+            sortColumnIndex: 1,
+            sortAscending: true,
+            columns: this.columnName,
+            rows: this.displayRows
+            )
+          ),
+      )
       );
   }
 }

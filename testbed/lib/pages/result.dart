@@ -9,11 +9,6 @@ import 'package:excel/excel.dart';
 import 'package:testbed/pages/inputWidget.dart';
 import 'dart:convert';
 import '../constant.dart';
-import '../constant.dart';
-import '../constant.dart';
-import '../constant.dart';
-import '../constant.dart';
-import '../constant.dart';
 import 'dormForm.dart';
 import './resultData/dormData.dart';
 
@@ -35,7 +30,7 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
 
   _ResultState()
   {
-    this.dormData = DormData(testData);
+    // this.dormData = DormData(testData);
     this.inputFileName = InputWidget();
   }
   
@@ -77,11 +72,12 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-  // extract result data
+    // extract result data
     final arguments = ModalRoute.of(context).settings.arguments as Map;
     final result = arguments['result'];
+    print(result.keys);
+    this.dormData = DormData(result);
 
-    print(result);
     return Scaffold(
       backgroundColor: Colors.white,
 

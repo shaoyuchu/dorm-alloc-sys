@@ -27,7 +27,6 @@ import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:window_size/window_size.dart' as window_size;
 
 import 'pages/home.dart';
-import 'pages/home.dart';
 import 'pages/priority.dart';
 import 'pages/result.dart';
 
