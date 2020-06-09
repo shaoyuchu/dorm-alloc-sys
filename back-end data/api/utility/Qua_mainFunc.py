@@ -108,8 +108,8 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     
     # get get_id2int
     id_dict = get_id_dict(id_orderList)
-    audit_dict = get_audit_dict(id_dict)
-    StudentList = get_id2int(id_dict, audit_dict, StudentList)
+    # audit_dict = get_audit_dict(id_dict)
+    StudentList = get_id2int(id_dict, StudentList)
 
     # drop and merge
     CampusBoy = CampusBoy.drop(columns=Qua_Drop)

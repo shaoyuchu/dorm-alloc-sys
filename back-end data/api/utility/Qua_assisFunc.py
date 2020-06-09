@@ -1,7 +1,10 @@
 from .static.Qua_config import *
 from random import sample
 from jieba import cut_for_search, cut
-from nltk import bigrams,word_tokenize
+from nltk import bigrams, word_tokenize
+import nltk
+
+# nltk.download('punkt')
 # assistant func 
 
 def countBedNum(DormList):
@@ -22,13 +25,13 @@ def get_id_dict(id_list):
                 id_dict[j]   =  i+1
     return id_dict
 
-def get_audit_dict(id_dict):
-    audit_dict = dict()
-    for i in audit_list:
-        audit_dict[i] = id_dict[i]
-    return audit_dict
+# def get_audit_dict(id_dict):
+#     audit_dict = dict()
+#     for i in audit_list:
+#         audit_dict[i] = id_dict[i]
+#     return audit_dict
 
-def get_id2int(id_dict, audit_dict, StudentList):
+def get_id2int(id_dict, StudentList):
     id_index = [0 for i in range(len(StudentList))]
     id_name = [0 for i in range(len(StudentList))]
     for index, row in StudentList.iterrows():
