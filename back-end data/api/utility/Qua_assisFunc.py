@@ -28,34 +28,39 @@ def get_audit_dict(id_dict):
         audit_dict[i] = id_dict[i]
     return audit_dict
 
-def get_str2int(id_dict, StudentList):
-    
-    id_index                           = [0 for i in range(len(StudentList))]
-    willing_index                      = [0 for i in range(len(StudentList))]
+def get_id2int(id_dict, audit_dict, StudentList):
+    id_index = [0 for i in range(len(StudentList))]
+    id_name = [0 for i in range(len(StudentList))]
     for index, row in StudentList.iterrows():
         # check if have special identity_type & audit status
         for i in id_col_name:
             if(str(row[i])!='nan' and row[i] in id_dict.keys() and id_dict[row[i]]>id_index[index]):
-                # if(i == '特殊身份別' or id_dict[row[i]] in list(audit_dict.values())):
-                #     if(row['審查狀態']=='通過'):
-                #         id_index[index]    = id_dict[row[i]]
-                # else:
-                #     id_index[index]    = id_dict[row[i]]
-                id_index[index]    = id_dict[row[i]]
+                id_index[index] = id_dict[row[i]]
+                id_name[index] = row[i]
         # no special identity_type, check the habitation
         idDictNum = max(id_dict.values())
         if(id_index[index] == 0):
             if(row['戶籍地']=='桃園市'):
                 id_index[index] = idDictNum + 2
+                id_name[index] = '桃園'
             elif(row['戶籍地'] in last_order_habitation):
                 id_index[index] = idDictNum + 3
+                id_name[index] = '北北基'
             else:
                 id_index[index] = idDictNum + 1
+                id_name[index] = '北北基及桃園以外的縣市'
+                
+    StudentList['id_index'] = id_index
+    StudentList['id_name'] = id_name
+    return StudentList
+
+def get_willing2int(StudentList):
+    willing_index = [0 for i in range(len(StudentList))]
+    for index, row in StudentList.iterrows():
         # willing_index assign
         if(str(row['校內外意願'])!='nan'):
             willing_index[index]   = willing_InOutCam[str(row['校內外意願'])]
     StudentList['校內外意願'] = willing_index
-    StudentList['id_index'] = id_index
     return StudentList
 
 def assign_qualificaiton(df,BedNumDict):

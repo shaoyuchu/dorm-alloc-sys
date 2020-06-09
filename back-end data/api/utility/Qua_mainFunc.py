@@ -24,8 +24,9 @@ def DivideDF(ordered_IdList, StudentList, DormList):
     
     # get get_str2int
     id_dict = get_id_dict(ordered_IdList)
-    # audit_dict = get_audit_dict(id_dict)
-    StudentList = get_str2int(id_dict, StudentList)
+    # StudentList = get_str2int(id_dict, StudentList) # string contain id & willingness
+    StudentList = get_id2int(id_dict, StudentList)
+    StudentList = get_willing2int(StudentList)
     
     # divide in-out campus
     StudentList = StudentList.sort_values(by = '校內外意願').reset_index(drop = True)
@@ -105,6 +106,11 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     CampusBoy = pd.concat([BoyQua,CampusBoy])
     CampusGirl = pd.concat([GirlQua,CampusGirl])
     
+    # get get_id2int
+    id_dict = get_id_dict(id_orderList)
+    audit_dict = get_audit_dict(id_dict)
+    StudentList = get_id2int(id_dict, audit_dict, StudentList)
+
     # drop and merge
     CampusBoy = CampusBoy.drop(columns=Qua_Drop)
     CampusGirl = CampusGirl.drop(columns=Qua_Drop)
@@ -113,31 +119,19 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     CampusGirl = pd.merge(CampusGirl,StudentListMergeWithCampus,on=['學號'])
     
     # BOT drop & merge & Divide => BotBoy, BotGirl
-    StudentListMergeWithBot = StudentList.drop(columns = StudentList_Drop_ForMapBot)
-    Bot = Bot.drop(columns=Bot_Drop_ForOutput)
-    Bot = pd.merge(Bot,StudentListMergeWithBot,on=['學號'])
-    
     Bot = Bot.sort_values('性別')
     BotGirlNum = Bot.groupby('性別')['性別'].count().tolist()[0]
     BotBoy = OrderAssign(Bot.iloc[BotGirlNum:])
     BotGirl = OrderAssign(Bot.iloc[:BotGirlNum])
     
-    # id_index => str
-    id_IndexStr = dict()
-    for i in range(1,len(id_orderList)+1):
-        id_IndexStr[i] = '00000000000000'
-        for j in id_orderList[i-1]:
-            if len(j)<len(id_IndexStr[i]):
-                    id_IndexStr[i] = j
-    id_IndexStr[len(id_IndexStr)+1] = '北北基及桃園以外的縣市'
-    id_IndexStr[len(id_IndexStr)+1] = '桃園'
-    id_IndexStr[len(id_IndexStr)+1] = '北北基'
-    print(id_IndexStr)
+    StudentListMergeWithBot = StudentList.drop(columns = StudentList_Drop_ForMapBot)
+    BotBoy = BotBoy.drop(columns=Bot_Drop_ForOutput)
+    BotBoy = pd.merge(BotBoy,StudentListMergeWithBot,on=['學號'])
+    BotGirl = BotGirl.drop(columns=Bot_Drop_ForOutput)
+    BotGirl = pd.merge(BotGirl,StudentListMergeWithBot,on=['學號'])
     
-    CampusBoy['id_index'] = [id_IndexStr[i] for i in CampusBoy['id_index']]
-    CampusGirl['id_index'] = [id_IndexStr[i] for i in CampusGirl['id_index']]
-    BotBoy['id_index'] = [id_IndexStr[i] for i in BotBoy['id_index']]
-    BotGirl['id_index'] = [id_IndexStr[i] for i in BotGirl['id_index']]
+
+
     CampusBoy = CampusBoy.fillna('None')
     CampusGirl = CampusGirl.fillna('None')
 
@@ -166,4 +160,3 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     
     return CampusBoy, CampusGirl, BotBoy, BotGirl
     
-    # 永久地址=>國籍
