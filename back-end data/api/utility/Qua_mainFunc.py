@@ -73,10 +73,19 @@ def DivideDF(ordered_IdList, StudentList, DormList):
     WaitDF = WaitDF.drop(columns=Wait_Drop)
     return BoyInCam, GirlInCam, WaitDF
     
+def list2df(beds):
+    columns = beds[0]
+    data = beds[1:]
+    df = pd.DataFrame(data, columns = beds[0])
+    return df
+
 def Match(BoyInQua, GirlInQua, beds):
+    beds_df = list2df(beds)
+    print(beds_df)
+    exit()
     BoyInQua, GirlInQua = main_match(BoyInQua, GirlInQua, beds)
     return BoyInQua, GirlInQua
-    
+
 # function4
 def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     # BoyQua = pd.DataFrame(BoyQua[1:], columns=BoyQua[0])
