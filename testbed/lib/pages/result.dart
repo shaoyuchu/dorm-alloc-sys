@@ -2,19 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:file_utils/file_utils.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_material_pickers/flutter_material_pickers.dart';
+
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:testbed/pages/inputWidget.dart';
 import 'dart:convert';
-import '../constant.dart';
-import '../constant.dart';
-import '../constant.dart';
-import '../constant.dart';
-import '../constant.dart';
-import '../constant.dart';
-import '../constant.dart';
 import '../constant.dart';
 import 'dormForm.dart';
 import './resultData/dormData.dart';
@@ -27,12 +20,11 @@ class Result extends StatefulWidget {
   _ResultState createState() => _ResultState();
 }
 
-class _ResultState extends State<Result> {
+class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
   
   // deal with tab
-  // TabController controller;
+  TabController controller;
 
-  String selectedDorm = chi_boyDorm; 
   DormData dormData;
   InputWidget inputFileName;
 
@@ -43,17 +35,17 @@ class _ResultState extends State<Result> {
   }
   
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   controller = new TabController(vsync: this, length: 4);
-  // }
+  @override
+  void initState() {
+    super.initState();
+    controller = new TabController(vsync: this, length: 4);
+  }
 
-  // @override
-  // void dispose() {
-  //   controller.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   void _showDialog() {
     // flutter defined function
@@ -81,10 +73,10 @@ class _ResultState extends State<Result> {
   @override
   Widget build(BuildContext context) {
     // extract result data
-    final arguments = ModalRoute.of(context).settings.arguments as Map;
-    final result = arguments['result'];
-
-    this.dormData = DormData(result);
+    // final arguments = ModalRoute.of(context).settings.arguments as Map;
+    // final result = arguments['result'];
+    // print(result.keys);
+    this.dormData = DormData(jsonDecode(testData));
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -103,28 +95,7 @@ class _ResultState extends State<Result> {
         centerTitle: false,
         backgroundColor: Colors.indigo[700],
         elevation: 0.0,
-        actions: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10),
-            child: RaisedButton(
-            padding: EdgeInsets.all(0),
-            onPressed: (){
-              showMaterialScrollPicker(
-                context: context,
-                title: "選擇宿舍",
-                items: chi_dataName,
-                selectedItem: this.selectedDorm, 
-                onChanged: (value){
-                    setState((){this.selectedDorm = value;});
-                  }
-                );
-              },  
-            child: Text('其他宿舍結果', style: TextStyle(fontSize: 14)),
-            color: Colors.amber[300]
-            ),
-          ),
-          // botton
-          Container(
+        actions: <Widget>[Container(
             padding: EdgeInsets.all(10),
             child: RaisedButton(
             padding: EdgeInsets.all(0),
@@ -134,7 +105,6 @@ class _ResultState extends State<Result> {
             child: Text('變更儲存檔名', style: TextStyle(fontSize: 14)),
             color: Colors.amber[300]
           )), 
-          // botton
           Container(
             padding: EdgeInsets.all(10),
             child: RaisedButton(
@@ -145,13 +115,31 @@ class _ResultState extends State<Result> {
             child: Text('匯出全部資料', style: TextStyle(fontSize: 14)),
             color: Colors.amber[300]
           ))], 
+        bottom: new TabBar(
+          controller: controller,
+          tabs: <Tab>[
+            new Tab(text: chi_boyDorm),
+            new Tab(text: chi_girlDorm),
+            new Tab(text: chi_bot_boy),
+            new Tab(text: chi_bot_girl),
+          ]
+        )
+
+
       ),
       
       // body
-      body:Container(
-        child: Text(dorm_chi2eng[this.selectedDorm])
-        // child: this.dormData.dormData[dorm_chi2eng[this.selectedDorm]]
-      )
+      body: TabBarView(
+        controller: controller,
+        children: <Widget>[
+          dormData.dormData[boyDorm],
+          dormData.dormData[girlDorm],
+          dormData.dormData[bot_boy], 
+          dormData.dormData[bot_girl]
+        ]
+      ),
+      // bottomNavigationBar: Text(jsonDecode(testing)),
     );
   }
+
 }

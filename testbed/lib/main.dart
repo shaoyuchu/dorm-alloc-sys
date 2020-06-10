@@ -61,7 +61,7 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     routes: {
-      '/': (context) => Home(),
+      '/': (context) => Result(),
       '/priority': (context) => Priority(),
       '/result': (context) => Result(),
     },

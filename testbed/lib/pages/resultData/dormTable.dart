@@ -98,7 +98,7 @@ class _TableState extends State<DormTable> {
     // initialized selectedItem
     for(int i = 0; i < this.dormData[0].length; i++)
     {
-      this.selectedItem[this.dormData[0][i]] = List.from(this.candidateValues[this.dormData[0][i]]);
+      this.selectedItem[this.dormData[0][i]] = List<String>.from(this.candidateValues[this.dormData[0][i]]);
     }
     // initialized displayRows, it must be later than the initialization of selecctedItem
     buildDisplayRows();
@@ -115,12 +115,12 @@ class _TableState extends State<DormTable> {
                   showMaterialCheckboxPicker(
                     context: context,
                     title: this.dormData[0][i],
-                    items: this.candidateValues[widget.dormData[0][i]],
+                    items: new List<String>.from(this.candidateValues[widget.dormData[0][i]]),
                     selectedItems: this.selectedItem[widget.dormData[0][i]],
                     onChanged: (value) => setState((){
-                      this.selectedItem[widget.dormData[0][i]] = value;
+                      this.selectedItem[widget.dormData[0][i]] = new List<String>.from(value);
                       buildDisplayRows();
-                      }),
+                    }),
                 );
               },
             )
@@ -148,8 +148,9 @@ class _TableState extends State<DormTable> {
     {
       for(int j = 0; j < colNames.length; j++)
       {
-        if(!this.selectedItem[colNames[j]].contains(data[i][j]))
+        if(!this.selectedItem[colNames[j]].contains(data[i][j].toString()))
         {
+          print(data[i][j].toString());
           data.removeAt(i);
           break;
         }
