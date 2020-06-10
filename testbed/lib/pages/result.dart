@@ -42,7 +42,7 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    controller = new TabController(vsync: this, length: 1);
+    controller = new TabController(vsync: this, length: 4);
   }
 
   @override
@@ -155,10 +155,10 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
         bottom: new TabBar(
           controller: controller,
           tabs: <Tab>[
-            // new Tab(text: chi_boyDorm),
-            // new Tab(text: chi_girlDorm),
             new Tab(text: chi_bot_boy),
-            // new Tab(text: chi_bot_girl),
+            new Tab(text: chi_bot_girl),
+            new Tab(text: chi_boyDorm),
+            new Tab(text: chi_girlDorm),
           ]
         )
 
@@ -172,7 +172,10 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
           // dormData.dormData[boyDorm],
           // dormData.dormData[girlDorm],
           dormData.dormData[bot_boy], 
-          // dormData.dormData[bot_girl]
+          dormData.dormData[bot_girl],
+
+          dormData.dormData[bot_boy], 
+          dormData.dormData[bot_girl]
         ]
       ),
       // bottomNavigationBar: Text(jsonDecode(testing)),
