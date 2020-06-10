@@ -127,7 +127,7 @@ def _match(studData, studObjs, roomObjs, gender):
         return arranged_loc_studs_lis+arranged_int_studs_lis
 
 
-stud_df_male = pd.read_excel("../BoyQua.xlsx")
-stud_df_female = pd.read_excel("../GirlQua.xlsx")
-room_df = pd.read_excel("../DormRoom.xlsx")
-main_match(stud_df_male, stud_df_female, room_df)
+# stud_df_male = pd.read_excel("../BoyQua.xlsx")
+# stud_df_female = pd.read_excel("../GirlQua.xlsx")
+# room_df = pd.read_excel("../DormRoom.xlsx")
+# main_match(stud_df_male, stud_df_female, room_df)
