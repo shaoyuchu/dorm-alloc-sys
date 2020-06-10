@@ -9,6 +9,7 @@ import numpy as np
 from pandas.api.types import CategoricalDtype
 from utility.static.Qua_config import *
 from utility.Qua_mainFunc import *
+from utility.save_result import *
 
 
 @app.route('/api/get_all_identities/', methods = ['POST'])
@@ -40,4 +41,25 @@ def result():
             "men_BOT": BotBoy,
             "women_BOT": BotGirl,
         }
+        return jsonify(result)
+    
+@app.route('/api/save/', methods = ['POST'])
+def save():
+    if request.method == 'POST':
+        print('request', request)
+        file_path = request.json['file_path']
+        print(file_path)
+        men_campus_dorm = request.json['men_campus_dorm']
+        women_campus_dorm = request.json['women_campus_dorm']
+        men_BOT = request.json['men_BOT']
+        women_BOT = request.json['women_BOT']
+        result = {
+            'men_campus_dorm': men_campus_dorm,
+            'women_campus_dorm': women_campus_dorm,
+            'men_BOT': men_BOT,
+            'women_BOT': women_BOT,
+        }
+        saveExcel(result, file_path)
+        
+        result = {}
         return jsonify(result)
