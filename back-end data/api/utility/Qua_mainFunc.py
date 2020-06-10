@@ -1,6 +1,7 @@
 from .static.Qua_config import *
 from .Qua_assisFunc import *
 import pandas as pd
+import numpy as np
 from .main_match import main_match
 
 # function 1
@@ -110,8 +111,8 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     BoyQua['順位序號'] = [0 for i in range(len(BoyQua))]
     GirlQua['順位序號'] = [0 for i in range(len(GirlQua))]
     
-    CampusBoy = pd.concat([BoyQua,CampusBoy]).sort_values(by='id_index')
-    CampusGirl = pd.concat([GirlQua,CampusGirl]).sort_values(by='id_index')
+    CampusBoy = pd.concat([BoyQua,CampusBoy]).sort_values(by='順位序號')
+    CampusGirl = pd.concat([GirlQua,CampusGirl]).sort_values(by='順位序號')
     
     # get get_id2int
     id_dict = get_id_dict(id_orderList)
@@ -128,8 +129,8 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     # BOT drop & merge & Divide => BotBoy, BotGirl
     Bot = Bot.sort_values('性別')
     BotGirlNum = Bot.groupby('性別')['性別'].count().tolist()[0]
-    BotBoy = OrderAssign(Bot.iloc[BotGirlNum:]).sort_values(by='id_index')
-    BotGirl = OrderAssign(Bot.iloc[:BotGirlNum]).sort_values(by='id_index')
+    BotBoy = OrderAssign(Bot.iloc[BotGirlNum:]).sort_values(by='順位序號')
+    BotGirl = OrderAssign(Bot.iloc[:BotGirlNum]).sort_values(by='順位序號')
     
     StudentListMergeWithBot = StudentList.drop(columns = StudentList_Drop_ForMapBot)
     BotBoy = BotBoy.drop(columns=Bot_Drop_ForOutput).reset_index(drop=True)
