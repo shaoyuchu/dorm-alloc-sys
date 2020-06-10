@@ -5,7 +5,7 @@ import 'package:excel/excel.dart';
 import '../../constant.dart';
 import 'dormTable.dart';
 
-class DormData{
+class DormData {
   Map dormData;
 
   DormData(json)
@@ -17,17 +17,14 @@ class DormData{
     }
   }
 
-  void saveData(folderPath, fileName)
+  void saveData(store_path)
   {
-    String store_path = p.join(folderPath, fileName);
     var excel = Excel.createExcel();
-
-    this.dormData.forEach((dormName, dormTable){
+    this.dormData.forEach((dormName, dormTable) {
       dormTable.saveTable(excel);
     }); 
 
     // excel.delete("Sheet1");
-
     // excel.getDefaultSheet().then((String defaultSheetName) {
     //   excel.delete(defaultSheetName);
     // });
@@ -36,8 +33,6 @@ class DormData{
       File(store_path)
       ..createSync(recursive: true)
       ..writeAsBytesSync(onValue);
-  });
-
+    });
   }
-
 }

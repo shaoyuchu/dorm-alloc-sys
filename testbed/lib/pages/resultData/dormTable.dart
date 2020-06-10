@@ -53,15 +53,16 @@ class DormTable extends StatefulWidget{
   void saveTable(excel)
   {
     String sheetName = dorm_eng2chi[this.tableName];
-    int lineIndex = 'A'.codeUnitAt(0);
     
     // store columns
     for(int i = 0; i < this.dataRows[0].length; i++)
     {
       int columnIndex = 'A'.codeUnitAt(0) + i;
       
-      excel.updateCell(sheetName, CellIndex.indexByString(String.fromCharCode(columnIndex)+'1'), 
-                      this.dormData[0][i]);
+      excel.updateCell(
+        sheetName,
+        CellIndex.indexByString(String.fromCharCode(columnIndex)+'1'), 
+        this.dormData[0][i]);
     }
     
     // store rows
@@ -150,7 +151,6 @@ class _TableState extends State<DormTable> {
       {
         if(!this.selectedItem[colNames[j]].contains(data[i][j].toString()))
         {
-          print(data[i][j].toString());
           data.removeAt(i);
           break;
         }
@@ -180,7 +180,8 @@ class _TableState extends State<DormTable> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: BidirectionalScrollViewPlugin( 
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical, 
         child: DataTable(
           onSelectAll: (b) {},
           sortColumnIndex: 1,
