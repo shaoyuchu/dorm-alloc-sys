@@ -99,7 +99,11 @@ class _TableState extends State<DormTable> {
     // initialized selectedItem
     for(int i = 0; i < this.dormData[0].length; i++)
     {
-      this.selectedItem[this.dormData[0][i]] = List<String>.from(this.candidateValues[this.dormData[0][i]]);
+      this.selectedItem[this.dormData[0][i]] = List<String>();
+      for(int j = 0; j < this.candidateValues[this.dormData[0][i]].length; j++)
+      {
+        this.selectedItem[this.dormData[0][i]].add(this.candidateValues[this.dormData[0][i]][j].toString());
+      }
     }
     // initialized displayRows, it must be later than the initialization of selecctedItem
     buildDisplayRows();
@@ -149,6 +153,10 @@ class _TableState extends State<DormTable> {
     {
       for(int j = 0; j < colNames.length; j++)
       {
+        // print("hjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+        // print(this.selectedItem[colNames[j]].runtimeType);
+        // print(this.selectedItem[colNames[j]]);
+        // print(data[i][j].toString().runtimeType);
         if(!this.selectedItem[colNames[j]].contains(data[i][j].toString()))
         {
           data.removeAt(i);
