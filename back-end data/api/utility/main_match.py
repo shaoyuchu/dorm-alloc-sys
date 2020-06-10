@@ -53,8 +53,8 @@ def main_match(stud_df_male, stud_df_female, room_df, debug = False):
 
         final_male = pd.merge(left = stud_df_male, right=result_male_df, on="學號", how="outer")
         final_female = pd.merge(left = stud_df_female, right=result_female_df, on="學號", how="outer")
-        final_male.astype({"床號":"int64"})
-        final_female.astype({"床號":"int64"})
+        # final_male.astype({'房號':'int64'})
+        # final_female.astype({'房號':'int64'})
         # final_male.to_excel("finalMale.xlsx")
         # final_female.to_excel("finalFemale.xlsx")
         return final_male, final_female
