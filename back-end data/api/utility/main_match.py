@@ -53,8 +53,8 @@ def main_match(stud_df_male, stud_df_female, room_df, debug = False):
 
         final_male = pd.merge(left = stud_df_male, right=result_male_df, on="學號", how="outer")
         final_female = pd.merge(left = stud_df_female, right=result_female_df, on="學號", how="outer")
-        final_male.astype({"床位":"int64"})
-        final_female.astype({"床位":"int64"})
+        final_male.astype({"床號":"int64"})
+        final_female.astype({"床號":"int64"})
         # final_male.to_excel("finalMale.xlsx")
         # final_female.to_excel("finalFemale.xlsx")
         return final_male, final_female
@@ -127,7 +127,7 @@ def _match(studData, studObjs, roomObjs, gender):
         return arranged_loc_studs_lis+arranged_int_studs_lis
 
 
-# stud_df_male = pd.read_excel("../BoyQua.xlsx")
-# stud_df_female = pd.read_excel("../GirlQua.xlsx")
-# room_df = pd.read_excel("../DormRoom.xlsx")
-# main_match(stud_df_male, stud_df_female, room_df)
+stud_df_male = pd.read_excel("../BoyQua.xlsx")
+stud_df_female = pd.read_excel("../GirlQua.xlsx")
+room_df = pd.read_excel("../DormRoom.xlsx")
+main_match(stud_df_male, stud_df_female, room_df)
