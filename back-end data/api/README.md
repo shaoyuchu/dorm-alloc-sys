@@ -1,3 +1,35 @@
+# API Directory Tree
+
+```
+|____handler
+| |______init__.py
+| |____student_handler.py
+| |____room_handler.py
+|____app
+| |______init__.py
+|____requirements.txt
+|______init__.py
+|____finalFemale.xlsx
+|____finalMale.xlsx
+|____main.py
+|____utility
+| |____int_match.py
+| |____save_result.py
+| |____match_helper.py
+| |____Qua_mainFunc.py
+| |____performanceIndex.py
+| |______init__.py
+| |____Qua_assisFunc.py
+| |____init_helper.py
+| |____static
+| | |____config.py
+| | |____Qua_config.py
+| |____main_match.py
+| |____loc_match.py
+|____router
+| |______init__.py
+| |____router.py
+```
 # DORM MATCHING API DOCUMENT
 
 ### `[POST] /api/get_all_identities`
