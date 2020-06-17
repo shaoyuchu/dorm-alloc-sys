@@ -1,12 +1,3 @@
----
-tags: dorm matching api
----
-
-## Input
-
-## Output
-
-
 # DORM MATCHING API DOCUMENT
 
 ### `[POST] /api/get_all_identities`
