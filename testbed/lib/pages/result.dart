@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:file_utils/file_utils.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:excel/excel.dart';
 import 'package:testbed/pages/inputWidget.dart';
 import 'package:file_chooser/file_chooser.dart';
+import 'package:http/http.dart' as http;
 import '../constant.dart';
 import 'dormForm.dart';
 import 'file_chooser.dart';
@@ -72,6 +74,18 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
     );
   }
 
+  Future saveResult(Map result, String file) async {
+    const url = 'http://127.0.0.1:5000/api/save/';
+    result['file_path'] = file;
+    final body = result;
+    final response = await http.post(
+      url,
+      headers: { HttpHeaders.contentTypeHeader: 'application/json' },
+      body: jsonEncode(body),
+    );
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     // extract result data
@@ -102,11 +116,21 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
             padding: EdgeInsets.all(10),
             child: RaisedButton(
               padding: EdgeInsets.all(0),
-              onPressed: () {
+              onPressed: () async {
                 // this.dormData.saveData('/Users/shaoyu/Desktop/', 'result.xlsx');
-                showSavePanel(suggestedFileName: '宿舍分配結果.xlsx').then((result) {
-                  print(result.paths[0]);
-                  this.dormData.saveData(result.paths[0]);
+                String filePath;
+                await showSavePanel(suggestedFileName: '宿舍分配結果.xlsx').then((fetchedFile) {
+                  filePath = fetchedFile.paths[0];
+                  // this.dormData.saveData(result.paths[0]);
+                });
+                await saveResult(result, filePath).then((response) {
+                  if(response.statusCode == 200) {
+                    print('$filePath saved.');
+                  }
+                  else {
+                    // TODO: deal with invalid response
+                    
+                  }
                 });
               }, 
               child: Padding(
@@ -131,10 +155,10 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
         bottom: new TabBar(
           controller: controller,
           tabs: <Tab>[
-            new Tab(text: chi_boyDorm),
-            new Tab(text: chi_girlDorm),
             new Tab(text: chi_bot_boy),
             new Tab(text: chi_bot_girl),
+            new Tab(text: chi_boyDorm),
+            new Tab(text: chi_girlDorm),
           ]
         )
 
@@ -145,8 +169,11 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: controller,
         children: <Widget>[
-          dormData.dormData[boyDorm],
-          dormData.dormData[girlDorm],
+          // dormData.dormData[boyDorm],
+          // dormData.dormData[girlDorm],
+          dormData.dormData[bot_boy], 
+          dormData.dormData[bot_girl],
+
           dormData.dormData[bot_boy], 
           dormData.dormData[bot_girl]
         ]

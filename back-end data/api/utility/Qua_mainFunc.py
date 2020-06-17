@@ -1,6 +1,7 @@
 from .static.Qua_config import *
 from .Qua_assisFunc import *
 import pandas as pd
+import numpy as np
 from .main_match import main_match
 
 # function 1
@@ -110,8 +111,8 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     BoyQua['順位序號'] = [0 for i in range(len(BoyQua))]
     GirlQua['順位序號'] = [0 for i in range(len(GirlQua))]
     
-    CampusBoy = pd.concat([BoyQua,CampusBoy])
-    CampusGirl = pd.concat([GirlQua,CampusGirl])
+    CampusBoy = pd.concat([BoyQua,CampusBoy]).sort_values(by='順位序號')
+    CampusGirl = pd.concat([GirlQua,CampusGirl]).sort_values(by='順位序號')
     
     # get get_id2int
     id_dict = get_id_dict(id_orderList)
@@ -122,22 +123,29 @@ def GetOutputDF(id_orderList, BoyQua, GirlQua, StudentList, WaitDF):
     CampusBoy = CampusBoy.drop(columns=Qua_Drop)
     CampusGirl = CampusGirl.drop(columns=Qua_Drop)
     StudentListMergeWithCampus = StudentList.drop(columns = Ori_DfDropForICampus)
-    CampusBoy = pd.merge(CampusBoy,StudentListMergeWithCampus,on=['學號'])
-    CampusGirl = pd.merge(CampusGirl,StudentListMergeWithCampus,on=['學號'])
+    CampusBoy = pd.merge(CampusBoy,StudentListMergeWithCampus,on=['學號']).reset_index(drop=True)
+    CampusGirl = pd.merge(CampusGirl,StudentListMergeWithCampus,on=['學號']).reset_index(drop=True)
     
     # BOT drop & merge & Divide => BotBoy, BotGirl
     Bot = Bot.sort_values('性別')
     BotGirlNum = Bot.groupby('性別')['性別'].count().tolist()[0]
-    BotBoy = OrderAssign(Bot.iloc[BotGirlNum:])
-    BotGirl = OrderAssign(Bot.iloc[:BotGirlNum])
+    BotBoy = OrderAssign(Bot.iloc[BotGirlNum:]).sort_values(by='順位序號')
+    BotGirl = OrderAssign(Bot.iloc[:BotGirlNum]).sort_values(by='順位序號')
     
     StudentListMergeWithBot = StudentList.drop(columns = StudentList_Drop_ForMapBot)
-    BotBoy = BotBoy.drop(columns=Bot_Drop_ForOutput)
+    BotBoy = BotBoy.drop(columns=Bot_Drop_ForOutput).reset_index(drop=True)
     BotBoy = pd.merge(BotBoy,StudentListMergeWithBot,on=['學號'])
-    BotGirl = BotGirl.drop(columns=Bot_Drop_ForOutput)
+    BotGirl = BotGirl.drop(columns=Bot_Drop_ForOutput).reset_index(drop=True)
     BotGirl = pd.merge(BotGirl,StudentListMergeWithBot,on=['學號'])
     
-
+    CampusGirl.replace(np.nan, 0, inplace=True)
+    CampusGirl[['順位序號','房號']] = CampusGirl[['順位序號','房號']].astype(int)
+    CampusBoy.replace(np.nan, 0, inplace=True)
+    CampusBoy[['順位序號','房號']] = CampusBoy[['順位序號','房號']].astype(int)
+    BotBoy.replace(np.nan, 0, inplace=True)
+    BotBoy[['順位序號']] = BotBoy[['順位序號']].astype(int)
+    BotGirl.replace(np.nan, 0, inplace=True)
+    BotGirl[['順位序號']] = BotGirl[['順位序號']].astype(int)
 
     CampusBoy = CampusBoy.fillna('None')
     CampusGirl = CampusGirl.fillna('None')
