@@ -1,16 +1,11 @@
-import 'dart:io' show Platform;
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 
 import 'package:file_chooser/file_chooser.dart';
-import 'package:path_provider/path_provider.dart';
-import 'file_chooser.dart';
 
-import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
@@ -19,13 +14,12 @@ import 'components.dart';
 
 /// Given a relative path, extract its file name and truncate it into a displayable length (maxLen) if required.
 String truncateToDisplay(String path) {
-  if(path == '尚未選擇檔案')
-    return path;
-  
+  if (path == '尚未選擇檔案') return path;
+
   var result = path.split('/').last;
   const maxLen = 25;
-  if(result.length > maxLen) {
-    result = result.substring(0, maxLen-4);
+  if (result.length > maxLen) {
+    result = result.substring(0, maxLen - 4);
     result += '...';
   }
   return result;
@@ -37,7 +31,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String studentDataPath = '尚未選擇檔案';
   String bedDataPath = '尚未選擇檔案';
@@ -50,7 +43,7 @@ class _HomeState extends State<Home> {
     final body = jsonEncode(studentData);
     final response = await http.post(
       url,
-      headers: { HttpHeaders.contentTypeHeader: 'application/json' },
+      headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       body: body,
     );
 
@@ -73,7 +66,7 @@ class _HomeState extends State<Home> {
 
       // app bar
       appBar: appBar(),
-      
+
       // body
       body: Container(
         margin: EdgeInsets.symmetric(vertical: 30.0),
@@ -81,7 +74,6 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-
             // title
             Expanded(
               flex: 2,
@@ -111,13 +103,12 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    
                     Divider(
                       height: 5.0,
                       thickness: 3.0,
                       color: Colors.grey[300],
                     ),
-                    
+
                     // up panel
                     Expanded(
                       child: Container(
@@ -151,13 +142,16 @@ class _HomeState extends State<Home> {
                                 FlatButton(
                                   onPressed: () async {
                                     final result = await showOpenPanel(
-                                      allowsMultipleSelection: false,
-                                      allowedFileTypes: <FileTypeFilterGroup>[
-                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls' ])
-                                      ]
-                                    );
+                                        allowsMultipleSelection: false,
+                                        allowedFileTypes: <FileTypeFilterGroup>[
+                                          FileTypeFilterGroup(
+                                              fileExtensions: <String>[
+                                                'xlsx',
+                                                'xls'
+                                              ])
+                                        ]);
                                     setState(() {
-                                      if(result.paths.isNotEmpty) {
+                                      if (result.paths.isNotEmpty) {
                                         studentDataPath = result.paths[0];
                                       }
                                     });
@@ -188,7 +182,7 @@ class _HomeState extends State<Home> {
                       thickness: 1.0,
                       color: Colors.grey[300],
                     ),
-                    
+
                     // down panel
                     Expanded(
                       child: Container(
@@ -222,12 +216,15 @@ class _HomeState extends State<Home> {
                                 FlatButton(
                                   onPressed: () async {
                                     final result = await showOpenPanel(
-                                      allowsMultipleSelection: false,
-                                      allowedFileTypes: <FileTypeFilterGroup>[
-                                        FileTypeFilterGroup(fileExtensions: <String>[ 'xlsx', 'xls'])
-                                      ]
-                                    );
-                                    if(result.paths.isNotEmpty) {
+                                        allowsMultipleSelection: false,
+                                        allowedFileTypes: <FileTypeFilterGroup>[
+                                          FileTypeFilterGroup(
+                                              fileExtensions: <String>[
+                                                'xlsx',
+                                                'xls'
+                                              ])
+                                        ]);
+                                    if (result.paths.isNotEmpty) {
                                       setState(() {
                                         bedDataPath = result.paths[0];
                                       });
@@ -259,7 +256,6 @@ class _HomeState extends State<Home> {
                       thickness: 3.0,
                       color: Colors.grey[300],
                     ),
-
                   ],
                 ),
               ),
@@ -269,15 +265,17 @@ class _HomeState extends State<Home> {
             Expanded(
               flex: 2,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 120.0),
+                padding:
+                    EdgeInsets.symmetric(vertical: 15.0, horizontal: 120.0),
                 child: FlatButton(
-                  color: isProcessing? Colors.indigo[900] : Colors.indigo,
+                  color: isProcessing ? Colors.indigo[900] : Colors.indigo,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50.0),
                   ),
                   onPressed: () async {
                     // file not selected
-                    if(studentDataPath == '尚未選擇檔案' || bedDataPath == '尚未選擇檔案') {
+                    if (studentDataPath == '尚未選擇檔案' ||
+                        bedDataPath == '尚未選擇檔案') {
                       alertSnackBar(_scaffoldKey, '請選擇檔案');
                     }
                     // read data, get identity pool, navigate
@@ -289,60 +287,59 @@ class _HomeState extends State<Home> {
 
                       // extract student data
                       var bytes = File(studentDataPath).readAsBytesSync();
-                      var excel = Excel.decodeBytes(bytes, update: true);
-                      if(excel.tables.keys.length == 1) {
+                      var excel = Excel.decodeBytes(bytes);
+                      if (excel.tables.keys.length == 1) {
                         for (var table in excel.tables.keys) {
                           studentData = excel.tables[table].rows;
-                          print(studentData[0]);
+                          // print(studentData[0]);
                         }
-                      }
-                      else {
+                      } else {
                         alertSnackBar(_scaffoldKey, '學生資料表有多張工作表，請更正後重新匯入');
                       }
 
                       // extract bed data
                       bytes = File(bedDataPath).readAsBytesSync();
-                      excel = Excel.decodeBytes(bytes, update: true);
-                      if(excel.tables.keys.length == 1) {
+                      excel = Excel.decodeBytes(bytes);
+                      if (excel.tables.keys.length == 1) {
                         for (var table in excel.tables.keys) {
                           bedData = excel.tables[table].rows;
-                          print(bedData[0]);
+                          // print(bedData[0]);
                         }
-                      }
-                      else {
+                      } else {
                         alertSnackBar(_scaffoldKey, '床位資料表有多張工作表，請更正後重新匯入');
                       }
 
                       // get identity pool
                       List<String> identityPool;
                       await getIdentityPool().then((response) {
-                        if(response.statusCode == 200) {
+                        if (response.statusCode == 200) {
                           // identityPool = response.data.cast<String>();
-                          identityPool = jsonDecode(response.body).cast<String>();
-                          print(identityPool);
-                        }
-                        else {
+                          identityPool =
+                              jsonDecode(response.body).cast<String>();
+                          // print(identityPool);
+                        } else {
                           // TODO: deal with invalid response
 
                         }
                       });
-                      
+
                       setState(() {
                         isProcessing = false;
                       });
 
                       // Navigator.pushReplacementNamed(context, '/priority');
-                      if(studentData.isNotEmpty && bedData.isNotEmpty) {
-                        await Navigator.pushNamed(context, '/priority', arguments: {
-                          'studentData': studentData,
-                          'bedData': bedData,
-                          'identityPool': identityPool,
-                        });
+                      if (studentData.isNotEmpty && bedData.isNotEmpty) {
+                        await Navigator.pushNamed(context, '/priority',
+                            arguments: {
+                              'studentData': studentData,
+                              'bedData': bedData,
+                              'identityPool': identityPool,
+                            });
                       }
                     }
                   },
-                  child:Text(
-                    isProcessing? '資料處理中' : '完成',
+                  child: Text(
+                    isProcessing ? '資料處理中' : '完成',
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Noto_Sans_TC',
@@ -356,7 +353,6 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-
     );
   }
 }

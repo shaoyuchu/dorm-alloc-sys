@@ -1,23 +1,10 @@
 import 'dart:io';
-import 'dart:convert';
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:file_utils/file_utils.dart';
-import 'package:flutter/services.dart';
-
-import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:excel/excel.dart';
-import 'package:testbed/pages/inputWidget.dart';
-import 'package:file_chooser/file_chooser.dart';
-import 'package:http/http.dart' as http;
-import '../constant.dart';
-import 'dormForm.dart';
-import 'file_chooser.dart';
-import './resultData/dormData.dart';
 
-import 'testData.dart';
-import './inputWidget.dart';
+import 'package:file_chooser/file_chooser.dart';
+import '../conf/dorm_conf.dart';
+import './resultHelper/dataTab.dart';
 
 class Result extends StatefulWidget {
   @override
@@ -25,19 +12,9 @@ class Result extends StatefulWidget {
 }
 
 class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
-  
   // deal with tab
   TabController controller;
-
-  DormData dormData;
-  InputWidget inputFileName;
-
-  _ResultState()
-  {
-    // this.dormData = DormData(testData);
-    this.inputFileName = InputWidget();
-  }
-  
+  Map dormData = new Map();
 
   @override
   void initState() {
@@ -51,135 +28,93 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  void _showDialog() {
-    // flutter defined function
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text('儲存檔案名稱'),
-          content: this.inputFileName,
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future saveResult(Map result, String file) async {
-    const url = 'http://127.0.0.1:5000/api/save/';
-    result['file_path'] = file;
-    final body = result;
-    final response = await http.post(
-      url,
-      headers: { HttpHeaders.contentTypeHeader: 'application/json' },
-      body: jsonEncode(body),
-    );
-    return response;
-  }
-
   @override
   Widget build(BuildContext context) {
-    // extract result data
+    // extract q data
     final arguments = ModalRoute.of(context).settings.arguments as Map;
     final result = arguments['result'];
-    // print(result.keys);
-    this.dormData = DormData(result);
+
+    for (int i = 0; i < dataName.length; i++) {
+      dormData[dataName[i]] = DataTab(dataName[i], result[dataName[i]]);
+    }
+    // this.dormData = DormData(result);
 
     return Scaffold(
       backgroundColor: Colors.white,
 
       // app bar
       appBar: AppBar(
-        title: Text(
-          '臺大宿舍抽籤系統',
-          style: TextStyle(
-            fontSize: 28.0,
-            color: Colors.white,
-            fontFamily: 'Noto_Sans_TC',
-            fontWeight: FontWeight.w500,
+          title: Text(
+            '臺大宿舍抽籤系統',
+            style: TextStyle(
+              fontSize: 28.0,
+              color: Colors.white,
+              fontFamily: 'Noto_Sans_TC',
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.indigo[700],
-        elevation: 0.0,
-        actions: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10),
-            child: RaisedButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () async {
-                // this.dormData.saveData('/Users/shaoyu/Desktop/', 'result.xlsx');
-                String filePath;
-                await showSavePanel(suggestedFileName: '宿舍分配結果.xlsx').then((fetchedFile) {
-                  filePath = fetchedFile.paths[0];
-                  // this.dormData.saveData(result.paths[0]);
-                });
-                await saveResult(result, filePath).then((response) {
-                  if(response.statusCode == 200) {
-                    print('$filePath saved.');
-                  }
-                  else {
-                    // TODO: deal with invalid response
-                    
-                  }
-                });
-              }, 
-              child: Padding(
-                padding: EdgeInsets.all(5.0),
-                child: Text(
-                  '匯出全部資料',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Noto_Sans_TC',
-                    fontWeight: FontWeight.w300,
-                    fontSize: 14.0,
+          centerTitle: false,
+          backgroundColor: Colors.indigo[700],
+          elevation: 0.0,
+          actions: <Widget>[
+            Container(
+                padding: EdgeInsets.all(10),
+                child: RaisedButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    showSavePanel(suggestedFileName: '宿舍分配結果_總.xlsx')
+                        .then((result) {
+                      saveAllData(result.paths[0]);
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      '匯出全部資料',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Noto_Sans_TC',
+                        fontWeight: FontWeight.w300,
+                        fontSize: 14.0,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              color: Colors.amber[300],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-            )
-          )
-        ], 
-        bottom: new TabBar(
-          controller: controller,
-          tabs: <Tab>[
-            new Tab(text: chi_bot_boy),
-            new Tab(text: chi_bot_girl),
+                  color: Colors.amber[300],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                ))
+          ],
+          bottom: new TabBar(controller: controller, tabs: <Tab>[
             new Tab(text: chi_boyDorm),
             new Tab(text: chi_girlDorm),
-          ]
-        )
+            new Tab(text: chi_bot_boy),
+            new Tab(text: chi_bot_girl),
+          ])),
 
-
-      ),
-      
       // body
-      body: TabBarView(
-        controller: controller,
-        children: <Widget>[
-          // dormData.dormData[boyDorm],
-          // dormData.dormData[girlDorm],
-          dormData.dormData[bot_boy], 
-          dormData.dormData[bot_girl],
-
-          dormData.dormData[bot_boy], 
-          dormData.dormData[bot_girl]
-        ]
-      ),
+      body: TabBarView(controller: controller, children: <Widget>[
+        dormData[boyDorm],
+        dormData[girlDorm],
+        dormData[bot_boy],
+        dormData[bot_girl]
+      ]),
       // bottomNavigationBar: Text(jsonDecode(testing)),
     );
   }
 
+  void saveAllData(storePath) {
+    var excel = Excel.createExcel();
+    dormData.forEach((dormName, dormTab) {
+      dormTab.dormData.saveAllHelper(excel);
+    });
+
+    excel.delete("Sheet1");
+
+    excel.encode().then((onValue) {
+      File(storePath)
+        ..createSync(recursive: true)
+        ..writeAsBytesSync(onValue);
+    });
+  }
 }

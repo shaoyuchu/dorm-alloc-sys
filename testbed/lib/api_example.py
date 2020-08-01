@@ -11,8 +11,8 @@ def home():
 @app.route('/api/get_all_identities/', methods = ['GET', 'POST'])
 def identityPool():
     if request.method == 'POST':
-        print('request', request)
-        print('request.json', request.json)
+        # print('request', request)
+        # print('request.json', request.json)
         return jsonify([
             '港澳生',
             '本國生',
@@ -30,14 +30,14 @@ def identityPool():
             '中低收入戶',
         ])
     elif request.method == 'GET':
-        print('request.args', request.args)
+        # print('request.args', request.args)
         return jsonify(['get method'])
 
 @app.route('/api/match/', methods = ['GET', 'POST'])
 def result():
     if request.method == 'POST':
-        print('request', request)
-        print('request.json', request.json)
+        # print('request', request)
+        # print('request.json', request.json)
         return jsonify({
             "men_campus_dorm": [
                 []
@@ -53,7 +53,7 @@ def result():
             ],
         })
     elif request.method == 'GET':
-        print('request.args', request.args)
+        # print('request.args', request.args)
         return jsonify(['get method'])
 
 if __name__ == '__main__':

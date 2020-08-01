@@ -4,7 +4,7 @@ from flask import jsonify
 from app import app
 
 import time
-import resource
+# import resource
 import sys
 import pandas as pd
 import numpy as np
@@ -24,7 +24,7 @@ def identityPool():
         time_elapsed = (time.clock() - time_start)
         print('identity_pool', identity_pool)
         print('time_elapsed', time_elapsed)
-        print('memory usage', resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+        # print('memory usage', resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
         return jsonify(identity_pool)
 
 @app.route('/api/match/', methods = ['POST'])
@@ -48,7 +48,7 @@ def result():
 
         time_elapsed = (time.clock() - time_start)
         print('time_elapsed', time_elapsed)
-        print('memory usage', resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+        # print('memory usage', resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
         return jsonify(result)
     
 @app.route('/api/save/', methods = ['POST'])
