@@ -29,11 +29,18 @@ class _PriorityState extends State<Priority> {
       'student': studentData,
       'beds': bedData,
     };
-    final response = await http.post(
-      url,
-      headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-      body: jsonEncode(body),
-    );
+
+    var response;
+    while (true) {
+      try {
+        response = await http.post(
+          url,
+          headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+          body: jsonEncode(body),
+        );
+        break;
+      } on SocketException {}
+    }
 
     // Dio dio = new Dio();
     // final response = await dio.post(

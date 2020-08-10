@@ -4,7 +4,6 @@ from jieba import cut_for_search, cut
 from nltk import bigrams, word_tokenize
 import nltk
 
-# nltk.download('punkt')
 # assistant func 
 
 def countBedNum(DormList):

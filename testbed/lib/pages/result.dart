@@ -4,6 +4,7 @@ import 'package:excel/excel.dart';
 
 import 'package:file_chooser/file_chooser.dart';
 import '../conf/dorm_conf.dart';
+import '../conf/UI_conf.dart';
 import './resultHelper/dataTab.dart';
 
 class Result extends StatefulWidget {
@@ -54,7 +55,7 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
             ),
           ),
           centerTitle: false,
-          backgroundColor: Colors.indigo[700],
+          backgroundColor: ui_col.main,
           elevation: 0.0,
           actions: <Widget>[
             Container(
@@ -71,15 +72,10 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
                     padding: EdgeInsets.all(5.0),
                     child: Text(
                       '匯出全部資料',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Noto_Sans_TC',
-                        fontWeight: FontWeight.w300,
-                        fontSize: 14.0,
-                      ),
+                      style: ui_text.general_b,
                     ),
                   ),
-                  color: Colors.amber[300],
+                  color: ui_col.exportButton,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                   ),

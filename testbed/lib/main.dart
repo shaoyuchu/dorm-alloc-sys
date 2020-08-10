@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io' show Platform;
+import 'dart:io' show Platform, Process, stdout;
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -57,6 +57,9 @@ void main() {
       }
     }
   });
+
+  // please update according to the python backend implementation
+  Process.run('./main/main.exe', []).then((result) {});
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,

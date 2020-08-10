@@ -3,7 +3,7 @@
 ### Host the Server
 
 ```
-python3 ../back-end\ data/api_router.py
+python3 ../back-end/api/main.py
 ```
 
 

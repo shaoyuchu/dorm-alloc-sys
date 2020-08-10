@@ -163,3 +163,15 @@ def matching_postprocess(qualification_students, waiting_students):
     ...
     return merged_result
 ```
+
+### How to make executable from main.py
+1. Install pyinstaller
+2. Input the command:
+```
+pyinstaller main.spec
+```
+
+### ! The following document may be helpful if pyinstaller behaves oddly
+* [If the executable starts up too slowly](https://stackoverflow.com/questions/9469932/app-created-with-pyinstaller-has-a-slow-startup)
+* [If pyinstaller cannot successly handle "nltk_data"](https://stackoverflow.com/questions/54659466/nltk-hook-unable-to-find-nltk-data)
+* [FileNotFoundError: [Errno 2] No such file or directory: '-': jmakitalo's answer](https://github.com/pyinstaller/pyinstaller/issues/4034)

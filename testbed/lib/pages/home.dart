@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import 'components.dart';
+import '../conf/UI_conf.dart';
 
 /// Given a relative path, extract its file name and truncate it into a displayable length (maxLen) if required.
 String truncateToDisplay(String path) {
@@ -41,12 +42,18 @@ class _HomeState extends State<Home> {
   Future getIdentityPool() async {
     const url = 'http://127.0.0.1:5000/api/get_all_identities/';
     final body = jsonEncode(studentData);
-    final response = await http.post(
-      url,
-      headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-      body: body,
-    );
 
+    var response;
+    while (true) {
+      try {
+        response = await http.post(
+          url,
+          headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+          body: body,
+        );
+        break;
+      } on SocketException {}
+    }
     // dio
     // Dio dio = new Dio();
     // final response = await dio.post(
@@ -158,14 +165,9 @@ class _HomeState extends State<Home> {
                                   },
                                   child: Text(
                                     '選擇檔案',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Noto_Sans_TC',
-                                      fontWeight: FontWeight.w100,
-                                      fontSize: 14.0,
-                                    ),
+                                    style: ui_text.general_w,
                                   ),
-                                  color: Colors.indigo,
+                                  color: ui_col.main,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
                                   ),
@@ -232,14 +234,9 @@ class _HomeState extends State<Home> {
                                   },
                                   child: Text(
                                     '選擇檔案',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Noto_Sans_TC',
-                                      fontWeight: FontWeight.w100,
-                                      fontSize: 14.0,
-                                    ),
+                                    style: ui_text.general_w,
                                   ),
-                                  color: Colors.indigo,
+                                  color: ui_col.main,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
                                   ),
